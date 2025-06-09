@@ -64,6 +64,6 @@
     "typescript": "^5.4.0"
   },
   "resolutions": {
-    "undici": "^7.10.0"
+    "undici": "^4.10.0"
   }
 }
