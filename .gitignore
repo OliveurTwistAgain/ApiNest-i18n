@@ -1,0 +1,73 @@
+# ───────────────────────────────
+# Git & Logs
+# ───────────────────────────────
+.git/
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ───────────────────────────────
+# Runtime / Temp Files
+# ───────────────────────────────
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# ───────────────────────────────
+# Output / Build / Cache
+# ───────────────────────────────
+.cache/
+public/
+build/
+coverage/
+.nyc_output/
+.grunt/
+bower_components/
+.lock-wscript
+lib-cov/
+*.tgz
+
+# ───────────────────────────────
+# Node / JS / Package Management
+# ───────────────────────────────
+node_modules/
+jspm_packages/
+.typings/
+.npm
+.yarn-integrity
+.eslintcache
+
+# ───────────────────────────────
+# Env / Config Files
+# ───────────────────────────────
+.env
+.env.*
+!.env.example
+.ghost.json
+.ghost.example.json
+
+# ───────────────────────────────
+# IDEs / System Files
+# ───────────────────────────────
+.vscode/
+.idea/
+*.iml
+*.sublime-*
+.DS_Store
+.node_repl_history
+
+# ───────────────────────────────
+# Hosting / Deployment
+# ───────────────────────────────
+.netlify/
+
+# ───────────────────────────────
+# Custom / Local Dev Tools
+# ───────────────────────────────
+generate_structure.js
+structure.txt
+roadmap.md
+# ───────────────────────────────
