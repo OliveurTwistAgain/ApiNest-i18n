@@ -1,6 +1,5 @@
 // src/components/common/MapSection.js
 import React, { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -8,7 +7,7 @@ import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
-// Fix icône marker local
+// Fix icônes Leaflet
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x,
   iconUrl: markerIcon,
@@ -17,13 +16,24 @@ L.Icon.Default.mergeOptions({
 
 const MapSection = () => {
   const [isClient, setIsClient] = useState(false);
+  const [LeafletComponents, setLeafletComponents] = useState(null);
 
   useEffect(() => {
-    // Ne s'exécute que dans le navigateur
     setIsClient(true);
+
+    // Import dynamique des composants Leaflet uniquement côté client
+    import("react-leaflet").then((module) => {
+      setLeafletComponents({
+        MapContainer: module.MapContainer,
+        TileLayer: module.TileLayer,
+        Marker: module.Marker,
+      });
+    });
   }, []);
 
-  if (!isClient) return null; // Ou <p>Chargement de la carte...</p>
+  if (!isClient || !LeafletComponents) return null;
+
+  const { MapContainer, TileLayer, Marker } = LeafletComponents;
 
   return (
     <div className="osm-map">
@@ -32,6 +42,7 @@ const MapSection = () => {
         zoom={11}
         scrollWheelZoom={false}
         className="map-container"
+        style={{ height: "400px", width: "100%" }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
