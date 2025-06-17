@@ -1,73 +1,43 @@
-# ───────────────────────────────
-# Git & Logs
-# ───────────────────────────────
-.git/
-logs
-*.log
+# Node modules (toujours à ignorer)
+node_modules/
+
+# Dossier public généré par Gatsby (contient le build, ne pas versionner)
+public/
+
+# Cache Gatsby
+.cache/
+
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# ───────────────────────────────
-# Runtime / Temp Files
-# ───────────────────────────────
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# ───────────────────────────────
-# Output / Build / Cache
-# ───────────────────────────────
-.cache/
-public/
-build/
-coverage/
-.nyc_output/
-.grunt/
-bower_components/
-.lock-wscript
-lib-cov/
-*.tgz
-
-# ───────────────────────────────
-# Node / JS / Package Management
-# ───────────────────────────────
-node_modules/
-jspm_packages/
-.typings/
-.npm
-.yarn-integrity
-.eslintcache
-
-# ───────────────────────────────
-# Env / Config Files
-# ───────────────────────────────
+# Environnement sensibles
 .env
-.env.*
-!.env.example
-.ghost.json
-.ghost.example.json
+.env.local
+.env.*.local
 
-# ───────────────────────────────
-# IDEs / System Files
-# ───────────────────────────────
+# Example de fichier d'environnement à garder pour référence
+!.env.example
+
+# Dossiers ou fichiers générés par IDEs
 .vscode/
 .idea/
-*.iml
-*.sublime-*
 .DS_Store
-.node_repl_history
 
-# ───────────────────────────────
-# Hosting / Deployment
-# ───────────────────────────────
-.netlify/
+# Plugins locaux (si tu ne souhaites pas les versionner, sinon à garder)
+plugins/gatsby-plugin-ghost-manifest/
 
-# ───────────────────────────────
-# Custom / Local Dev Tools
-# ───────────────────────────────
-generate_structure.js
-structure.txt
-roadmap.md
-# ───────────────────────────────
+# Fichiers système Windows / macOS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Debug / coverage
+coverage/
+
+# fichiers générés par Gatsby avec données dynamiques
+.cache/
+public/
+

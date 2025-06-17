@@ -8,35 +8,27 @@ import url from "url";
 import ImageMeta from "./ImageMeta";
 import config from "../../../utils/siteConfig";
 
-const WebsiteMeta = ({
-    data,
-    settings,
-    canonical,
-    title,
-    description,
-    image,
-    type,
-}) => {
-    settings = settings.allGhostSettings.edges[0].node;
+const WebsiteMeta = ({ data, canonical, title, description, image, type }) => {
+    const settings = data?.allGhostSettings?.edges?.[0]?.node || {};
 
     const publisherLogo = url.resolve(
         config.siteUrl,
         settings.logo || config.siteIcon
     );
-    let shareImage =
-        image || data.feature_image || _.get(settings, `cover_image`, null);
+    let shareImage = image || _.get(data, "feature_image") || settings.cover_image;
 
     shareImage = shareImage ? url.resolve(config.siteUrl, shareImage) : null;
 
-    description =
+    const metaDescription =
         description ||
-        data.meta_description ||
-        data.description ||
+        data?.meta_description ||
+        data?.description ||
         config.siteDescriptionMeta ||
         settings.description;
-    title = `${title || data.meta_title || data.name || data.title} - ${
-        settings.title
-    }`;
+
+    const metaTitle = `${
+        title || data?.meta_title || data?.name || data?.title || ""
+    } - ${settings.title || config.siteTitleMeta}`;
 
     const jsonLd = {
         "@context": `https://schema.org/`,
@@ -52,7 +44,7 @@ const WebsiteMeta = ({
             : undefined,
         publisher: {
             "@type": `Organization`,
-            name: settings.title,
+            name: settings.title || config.siteTitleMeta,
             logo: {
                 "@type": `ImageObject`,
                 url: publisherLogo,
@@ -64,29 +56,29 @@ const WebsiteMeta = ({
             "@type": `WebPage`,
             "@id": config.siteUrl,
         },
-        description,
+        description: metaDescription,
     };
 
     return (
         <>
             <Helmet>
-                <title>{title}</title>
-                <meta name="description" content={description} />
+                <title>{metaTitle}</title>
+                <meta name="description" content={metaDescription} />
                 <link rel="canonical" href={canonical} />
                 <meta property="og:site_name" content={settings.title} />
                 <meta property="og:type" content="website" />
-                <meta property="og:title" content={title} />
-                <meta property="og:description" content={description} />
+                <meta property="og:title" content={metaTitle} />
+                <meta property="og:description" content={metaDescription} />
                 <meta property="og:url" content={canonical} />
-                <meta name="twitter:title" content={title} />
-                <meta name="twitter:description" content={description} />
+                <meta name="twitter:title" content={metaTitle} />
+                <meta name="twitter:description" content={metaDescription} />
                 <meta name="twitter:url" content={canonical} />
                 {settings.twitter && (
                     <meta
                         name="twitter:site"
                         content={`https://twitter.com/${settings.twitter.replace(
                             /^@/,
-                            ``
+                            ""
                         )}/`}
                     />
                 )}
@@ -110,15 +102,6 @@ WebsiteMeta.propTypes = {
         name: PropTypes.string,
         feature_image: PropTypes.string,
         description: PropTypes.string,
-        bio: PropTypes.string,
-        profile_image: PropTypes.string,
-    }).isRequired,
-    settings: PropTypes.shape({
-        logo: PropTypes.object,
-        description: PropTypes.string,
-        title: PropTypes.string,
-        twitter: PropTypes.string,
-        allGhostSettings: PropTypes.object.isRequired,
     }).isRequired,
     canonical: PropTypes.string.isRequired,
     title: PropTypes.string,
@@ -134,13 +117,17 @@ const WebsiteMetaQuery = (props) => (
                 allGhostSettings {
                     edges {
                         node {
-                            ...GhostSettingsFields
+                            title
+                            description
+                            logo
+                            twitter
+                            cover_image
                         }
                     }
                 }
             }
         `}
-        render={(data) => <WebsiteMeta settings={data} {...props} />}
+        render={(data) => <WebsiteMeta data={data} {...props} />}
     />
 );
 

@@ -3,170 +3,170 @@ const { postsPerPage } = require(`./src/utils/siteConfig`);
 const { paginate } = require(`gatsby-awesome-pagination`);
 
 /**
- * Here is the place where Gatsby creates the URLs for all the
- * posts, tags, pages and authors that we fetched from the Ghost site.
+ * Crée dynamiquement les pages du site à partir du contenu Ghost :
+ * posts, pages, tags, auteurs — avec support multilingue fr/en basé sur les slugs.
  */
+
 exports.createPages = async ({ graphql, actions }) => {
-    const { createPage } = actions;
+  const { createPage } = actions;
 
-    const result = await graphql(`
-        {
-            allGhostPost(sort: { order: ASC, fields: published_at }) {
-                edges {
-                    node {
-                        slug
-                    }
-                }
-            }
-            allGhostTag(sort: { order: ASC, fields: name }) {
-                edges {
-                    node {
-                        slug
-                        url
-                        postCount
-                    }
-                }
-            }
-            allGhostAuthor(sort: { order: ASC, fields: name }) {
-                edges {
-                    node {
-                        slug
-                        url
-                        postCount
-                    }
-                }
-            }
-            allGhostPage(sort: { order: ASC, fields: published_at }) {
-                edges {
-                    node {
-                        slug
-                        url
-                    }
-                }
-            }
+  const result = await graphql(`
+    {
+      allGhostPost(sort: { order: ASC, fields: published_at }) {
+        edges {
+          node {
+            slug
+          }
         }
-    `);
-
-    // Check for any errors
-    if (result.errors) {
-        throw new Error(result.errors);
+      }
+      allGhostTag(sort: { order: ASC, fields: name }) {
+        edges {
+          node {
+            slug
+            postCount
+          }
+        }
+      }
+      allGhostAuthor(sort: { order: ASC, fields: name }) {
+        edges {
+          node {
+            slug
+            postCount
+          }
+        }
+      }
+      allGhostPage(sort: { order: ASC, fields: published_at }) {
+        edges {
+          node {
+            slug
+          }
+        }
+      }
     }
+  `);
 
-    // Extract query results
-    const tags = result.data.allGhostTag.edges;
-    const authors = result.data.allGhostAuthor.edges;
-    const pages = result.data.allGhostPage.edges;
-    const posts = result.data.allGhostPost.edges;
+  if (result.errors) {
+    throw new Error(result.errors);
+  }
 
-    // Load templates
-    const indexTemplate = path.resolve(`./src/templates/index.js`);
-    const tagsTemplate = path.resolve(`./src/templates/tag.js`);
-    const authorTemplate = path.resolve(`./src/templates/author.js`);
-    const pageTemplate = path.resolve(`./src/templates/page.js`);
-    const postTemplate = path.resolve(`./src/templates/post.js`);
+  const tags = result.data.allGhostTag.edges;
+  const authors = result.data.allGhostAuthor.edges;
+  const pages = result.data.allGhostPage.edges;
+  const posts = result.data.allGhostPost.edges;
 
-    // Create tag pages
-    tags.forEach(({ node }) => {
-        const totalPosts = node.postCount !== null ? node.postCount : 0;
+  const indexTemplate = path.resolve(`./src/templates/index.js`);
+  const tagsTemplate = path.resolve(`./src/templates/tag.js`);
+  const authorTemplate = path.resolve(`./src/templates/author.js`);
+  const pageTemplate = path.resolve(`./src/templates/page.js`);
+  const postTemplate = path.resolve(`./src/templates/post.js`);
 
-        // This part here defines, that our tag pages will use
-        // a `/tag/:slug/` permalink.
-        const url = `/tag/${node.slug}`;
+  // Détermine la langue d'après le slug : "en-" préfixe -> anglais, sinon français
+  const getLangFromSlug = (slug) => slug.startsWith('en-') ? 'en' : 'fr';
 
-        const items = Array.from({ length: totalPosts });
+  // IMPORTANT : on garde le slug tel quel (avec "en-" si anglais) pour construire l'URL,
+  // car Ghost stocke les slugs avec tiret (ex: "en-honey") et non en dossiers "en/honey"
+  const getLocalizedPath = (slug) => `/${slug}/`;
 
-        // Create pagination
-        paginate({
-            createPage,
-            items: items,
-            itemsPerPage: postsPerPage,
-            component: tagsTemplate,
-            pathPrefix: ({ pageNumber }) =>
-                pageNumber === 0 ? url : `${url}/page`,
-            context: {
-                slug: node.slug,
-            },
-        });
+  // --- Création des pages (Ghost Pages) ---
+  pages.forEach(({ node }) => {
+    const lang = getLangFromSlug(node.slug);
+    const url = getLocalizedPath(node.slug);
+
+    createPage({
+      path: url,
+      component: pageTemplate,
+      context: {
+        slug: node.slug,
+        lang,
+      },
     });
+  });
 
-    // Create author pages
-    authors.forEach(({ node }) => {
-        const totalPosts = node.postCount !== null ? node.postCount : 0;
+  // --- Création des posts ---
+  posts.forEach(({ node }) => {
+    const lang = getLangFromSlug(node.slug);
+    const url = getLocalizedPath(node.slug);
 
-        // This part here defines, that our author pages will use
-        // a `/author/:slug/` permalink.
-        const url = `/author/${node.slug}`;
-
-        const items = Array.from({ length: totalPosts });
-
-        // Create pagination
-        paginate({
-            createPage,
-            items: items,
-            itemsPerPage: postsPerPage,
-            component: authorTemplate,
-            pathPrefix: ({ pageNumber }) =>
-                pageNumber === 0 ? url : `${url}/page`,
-            context: {
-                slug: node.slug,
-            },
-        });
+    createPage({
+      path: url,
+      component: postTemplate,
+      context: {
+        slug: node.slug,
+        lang,
+      },
     });
+  });
 
-    // Create pages
-    pages.forEach(({ node }) => {
-        // This part here defines, that our pages will use
-        // a `/:slug/` permalink.
-        node.url = `/${node.slug}/`;
+  // --- Création des pages tag paginées ---
+  tags.forEach(({ node }) => {
+    const lang = getLangFromSlug(node.slug);
+    const url = `/${node.slug}/`; // slug déjà avec "en-" si anglais
 
-        createPage({
-            path: node.url,
-            component: pageTemplate,
-            context: {
-                // Data passed to context is available
-                // in page queries as GraphQL variables.
-                slug: node.slug,
-            },
-        });
-    });
-
-    // Create post pages
-    posts.forEach(({ node }) => {
-        // This part here defines, that our posts will use
-        // a `/:slug/` permalink.
-        node.url = `/${node.slug}/`;
-
-        createPage({
-            path: node.url,
-            component: postTemplate,
-            context: {
-                // Data passed to context is available
-                // in page queries as GraphQL variables.
-                slug: node.slug,
-            },
-        });
-    });
-
-    // Create pagination
     paginate({
-        createPage,
-        items: posts,
-        itemsPerPage: postsPerPage,
-        component: indexTemplate,
-        pathPrefix: ({ pageNumber }) => {
-            if (pageNumber === 0) {
-                return `/`;
-            } else {
-                return `/page`;
-            }
-        },
+      createPage,
+      items: Array.from({ length: node.postCount || 0 }),
+      itemsPerPage: postsPerPage,
+      component: tagsTemplate,
+      pathPrefix: ({ pageNumber }) =>
+        pageNumber === 0 ? url : `${url}page/${pageNumber + 1}/`,
+      context: {
+        slug: node.slug,
+        lang,
+      },
     });
+  });
+
+  // --- Création des pages author paginées ---
+  authors.forEach(({ node }) => {
+    const lang = getLangFromSlug(node.slug);
+    const url = `/${node.slug}/`;
+
+    paginate({
+      createPage,
+      items: Array.from({ length: node.postCount || 0 }),
+      itemsPerPage: postsPerPage,
+      component: authorTemplate,
+      pathPrefix: ({ pageNumber }) =>
+        pageNumber === 0 ? url : `${url}page/${pageNumber + 1}/`,
+      context: {
+        slug: node.slug,
+        lang,
+      },
+    });
+  });
+
+  // --- Création de la page d'accueil FR avec pagination ---
+  paginate({
+    createPage,
+    items: posts.filter(({ node }) => !node.slug.startsWith('en-')),
+    itemsPerPage: postsPerPage,
+    component: indexTemplate,
+    pathPrefix: ({ pageNumber }) =>
+      pageNumber === 0 ? `/` : `/page/${pageNumber + 1}/`,
+    context: {
+      lang: 'fr',
+    },
+  });
+
+  // --- Création de la page d'accueil EN avec pagination ---
+  paginate({
+    createPage,
+    items: posts.filter(({ node }) => node.slug.startsWith('en-')),
+    itemsPerPage: postsPerPage,
+    component: indexTemplate,
+    pathPrefix: ({ pageNumber }) =>
+      pageNumber === 0 ? `/en/` : `/en/page/${pageNumber + 1}/`,
+    context: {
+      lang: 'en',
+    },
+  });
 };
 
-exports.onCreateWebpackConfig = ({ stage, actions }) => {
-    actions.setWebpackConfig({
-        resolve: {
-            fallback: { url: require.resolve("url/") },
-        },
-    });
+// Netlify fallback pour "url" module (parfois requis)
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      fallback: { url: require.resolve("url/") },
+    },
+  });
 };

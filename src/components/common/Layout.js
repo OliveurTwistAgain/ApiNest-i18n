@@ -6,166 +6,143 @@ import { GatsbyImage } from "gatsby-plugin-image";
 
 import { Navigation } from ".";
 import config from "../../utils/siteConfig";
+import WeatherWidget from "../common/WeatherWidget";
+import Footer from "../common/Footer";
 
-// Styles
+import { useLanguage } from "../../utils/LanguageContext";
+import i18n from "../../utils/i18n-config";
+
 import "../../styles/app.css";
 
-/**
- * Main layout component
- *
- * The Layout component wraps around each page and template.
- * It also provides the header, footer as well as the main
- * styles, and meta data for each page.
- *
- */
 const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
-    const site = data.allGhostSettings.edges[0].node;
-    const twitterUrl = site.twitter
-        ? `https://twitter.com/${site.twitter.replace(/^@/, ``)}`
-        : null;
-    const facebookUrl = site.facebook
-        ? `https://www.facebook.com/${site.facebook.replace(/^\//, ``)}`
-        : null;
+    const site = data.allGhostSettings?.edges[0]?.node || {};
+    const { language, setLanguage } = useLanguage();
+    const slogan = i18n.translations[language]?.sloganFixed || "";
+    const coverImage = site.cover_image || "/images/miel.jpg";
 
-    return <>
-        <Helmet>
-            <html lang={site.lang} />
-            <style type="text/css">{`${site.codeinjection_styles}`}</style>
-            <body className={bodyClass} />
-        </Helmet>
+    React.useEffect(() => {
+        const handleScroll = () => {
+            const button = document.getElementById("scrollToTop");
+            if (window.scrollY > 300) {
+                button?.classList.add("visible");
+            } else {
+                button?.classList.remove("visible");
+            }
+        };
 
-        <div className="viewport">
-            <div className="viewport-top">
-                {/* The main header section on top of the screen */}
-                <header
-                    className="site-head"
-                    style={{
-                        ...(site.cover_image && {
-                            backgroundImage: `url(${site.cover_image})`,
-                        }),
-                    }}
-                >
-                    <div className="container">
-                        <div className="site-mast">
-                            <div className="site-mast-left">
-                                <Link to="/">
-                                    {site.logo ? (
-                                        <img
-                                            className="site-logo"
-                                            src={site.logo}
-                                            alt={site.title}
-                                        />
-                                    ) : (
-                                        <GatsbyImage image={data.file.childImageSharp.gatsbyImageData} alt={site.title} />
-                                    )}
-                                </Link>
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    return (
+        <>
+            <Helmet>
+                <html lang={site.lang || "en"} />
+                <style type="text/css">{site.codeinjection_styles || ""}</style>
+                <body className={bodyClass || ""} />
+                <title>{site.title || config.siteTitle}</title>
+            </Helmet>
+
+            <div className="viewport">
+                <div className="viewport-top">
+                    <header
+                        className={`site-head ${coverImage ? "with-cover" : "no-cover"}`}
+                        data-cover-image={coverImage}
+                        style={{ backgroundImage: coverImage ? `url(${coverImage})` : "none" , backgroundSize: "cover", backgroundPosition: "center" }}
+                    >
+                        <div className="container">
+                            <div className="site-mast">
+                                <div className="site-mast-left">
+                                    <Link to={language === "fr" ? "/" : "/en"}>
+                                        {site.logo ? (
+                                            <img
+                                                className="site-logo"
+                                                src={site.logo}
+                                                alt={site.title}
+                                            />
+                                        ) : (
+                                            data.file && (
+                                                <GatsbyImage
+                                                    image={data.file.childImageSharp.gatsbyImageData}
+                                                    alt={site.title}
+                                                />
+                                            )
+                                        )}
+                                    </Link>
+                                    <p className="site-slogan">
+                                        {slogan}
+                                    </p>
+                                </div>
                             </div>
-                            <div className="site-mast-right">
-                                {site.twitter && (
-                                    <a
-                                        href={twitterUrl}
-                                        className="site-nav-item"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <img
-                                            className="site-nav-icon"
-                                            src="/images/icons/twitter.svg"
-                                            alt="Twitter"
-                                        />
-                                    </a>
-                                )}
-                                {site.facebook && (
-                                    <a
-                                        href={facebookUrl}
-                                        className="site-nav-item"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <img
-                                            className="site-nav-icon"
-                                            src="/images/icons/facebook.svg"
-                                            alt="Facebook"
-                                        />
-                                    </a>
-                                )}
-                                <a
-                                    className="site-nav-item"
-                                    href={`https://feedly.com/i/subscription/feed/${config.siteUrl}/rss/`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <img
-                                        className="site-nav-icon"
-                                        src="/images/icons/rss.svg"
-                                        alt="RSS Feed"
+
+                            {isHome && (
+                                <div className="site-banner">
+                                    <h1 className="site-banner-title">
+                                        <Link to={language === "fr" ? "/" : "/en"} className="site-title-link">
+                                            {site.title}
+                                        </Link>
+                                    </h1>
+                                    <p className="site-banner-desc">{site.description}</p>
+                                </div>
+                            )}
+
+
+                            <nav className="site-nav">
+                                <div className="site-nav-left">
+                                    <Navigation
+                                        data={site.navigation || []}
+                                        navClass="site-nav-item"
                                     />
-                                </a>
-                            </div>
-                        </div>
-                        {isHome ? (
-                            <div className="site-banner">
-                                <h1 className="site-banner-title">
-                                    {site.title}
-                                </h1>
-                                <p className="site-banner-desc">
-                                    {site.description}
-                                </p>
-                            </div>
-                        ) : null}
-                        <nav className="site-nav">
-                            <div className="site-nav-left">
-                                {/* The navigation items as setup in Ghost */}
-                                <Navigation
-                                    data={site.navigation}
-                                    navClass="site-nav-item"
-                                />
-                            </div>
-                            <div className="site-nav-right">
-                                <Link
-                                    className="site-nav-button"
-                                    to="/about"
-                                >
-                                    About
-                                </Link>
-                            </div>
-                        </nav>
-                    </div>
-                </header>
+                                </div>
 
-                <main className="site-main">
-                    {/* All the main content gets inserted here, index.js, post.js */}
-                    {children}
-                </main>
-            </div>
+                                <div className="site-nav-right">
+                                    <div className="site-nav-langmeteo">
+                                        <div className="lang-buttons">
+                                            <Link
+                                                className="site-nav-button lang"
+                                                to="/"
+                                                onClick={() => setLanguage("fr")}
+                                            >
+                                                FR
+                                            </Link>
+                                            <Link
+                                                className="site-nav-button lang"
+                                                to="/en"
+                                                onClick={() => setLanguage("en")}
+                                            >
+                                                EN
+                                            </Link>
+                                        </div>
+                                        <div className="weather-widget-wrapper">
+                                            <WeatherWidget />
+                                        </div>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </header>
 
-            <div className="viewport-bottom">
-                {/* The footer at the very bottom of the screen */}
-                <footer className="site-foot">
-                    <div className="site-foot-nav container">
-                        <div className="site-foot-nav-left">
-                            <Link to="/">{site.title}</Link> © 2021 &mdash;
-                            Published with{" "}
-                            <a
-                                className="site-foot-nav-item"
-                                href="https://ghost.org"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                Ghost
-                            </a>
-                        </div>
-                        <div className="site-foot-nav-right">
-                            <Navigation
-                                data={site.navigation}
-                                navClass="site-foot-nav-item"
-                            />
-                        </div>
-                    </div>
-                </footer>
+                    <main className="site-main">{children}</main>
+
+                    <button
+                        id="scrollToTop"
+                        className="scroll-to-top"
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        aria-label="Scroll to top"
+                    >
+                        ↑
+                    </button>
+                </div>
+
+                <div className="viewport-bottom">
+                    <Footer
+                        navigation={site.secondary_navigation || []}
+                        siteTitle={site.title || config.siteTitle}
+                    />
+                </div>
             </div>
-        </div>
-    </>;
+        </>
+    );
 };
 
 DefaultLayout.propTypes = {
@@ -174,27 +151,47 @@ DefaultLayout.propTypes = {
     isHome: PropTypes.bool,
     data: PropTypes.shape({
         file: PropTypes.object,
-        allGhostSettings: PropTypes.object.isRequired,
+        allGhostSettings: PropTypes.shape({
+            edges: PropTypes.arrayOf(
+                PropTypes.shape({
+                    node: PropTypes.object,
+                })
+            ),
+        }).isRequired,
     }).isRequired,
 };
 
 const DefaultLayoutSettingsQuery = (props) => (
     <StaticQuery
-        query={graphql`query GhostSettings {
-  allGhostSettings {
-    edges {
-      node {
-        ...GhostSettingsFields
-      }
-    }
-  }
-  file(relativePath: {eq: "ghost-icon.png"}) {
-    childImageSharp {
-      gatsbyImageData(width: 30, height: 30, layout: FIXED)
-    }
-  }
-}
-`}
+        query={graphql`
+            query GhostSettings {
+                allGhostSettings {
+                    edges {
+                        node {
+                            title
+                            description
+                            lang
+                            logo
+                            cover_image
+                            codeinjection_styles
+                            navigation {
+                                label
+                                url
+                            }
+                            secondary_navigation {
+                                label
+                                url
+                            }
+                        }
+                    }
+                }
+                file(relativePath: { eq: "ghost-icon.png" }) {
+                    childImageSharp {
+                        gatsbyImageData(width: 30, height: 30, layout: FIXED)
+                    }
+                }
+            }
+        `}
         render={(data) => <DefaultLayout data={data} {...props} />}
     />
 );

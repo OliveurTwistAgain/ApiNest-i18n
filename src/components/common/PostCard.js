@@ -19,7 +19,7 @@ const PostCard = ({ post }) => {
                         }}
                     ></div>
                 )}
-                {post.tags && (
+                {/* {post.tags && (
                     <div className="post-card-tags">
                         {" "}
                         <Tags
@@ -28,12 +28,12 @@ const PostCard = ({ post }) => {
                             autolink={false}
                         />
                     </div>
-                )}
+                )} */}
                 {post.featured && <span>Featured</span>}
                 <h2 className="post-card-title">{post.title}</h2>
             </header>
             <section className="post-card-excerpt">{post.excerpt}</section>
-            <footer className="post-card-footer">
+            {/* <footer className="post-card-footer">
                 <div className="post-card-footer-left">
                     <div className="post-card-avatar">
                         {post.primary_author.profile_image ? (
@@ -55,7 +55,7 @@ const PostCard = ({ post }) => {
                 <div className="post-card-footer-right">
                     <div>{readingTime}</div>
                 </div>
-            </footer>
+            </footer> */}
         </Link>
     );
 };

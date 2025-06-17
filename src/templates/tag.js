@@ -13,7 +13,12 @@ import { MetaData } from "../components/common/meta";
  */
 const Tag = ({ data, location, pageContext }) => {
     const tag = data.ghostTag;
-    const posts = data.allGhostPost.edges;
+    const lang = pageContext.lang || 'fr';
+
+    // Transform edges to posts, filter by lang prefix on slug
+    const posts = data.allGhostPost.edges
+        .map(edge => edge.node)
+        .filter(post => lang === 'en' ? post.slug.startsWith('en-') : !post.slug.startsWith('en-'));
 
     return (
         <>
@@ -25,9 +30,9 @@ const Tag = ({ data, location, pageContext }) => {
                         {tag.description ? <p>{tag.description}</p> : null}
                     </header>
                     <section className="post-feed">
-                        {posts.map(({ node }) => (
+                        {posts.map(post => (
                             // The tag below includes the markup for each post - components/common/PostCard.js
-                            <PostCard key={node.id} post={node} />
+                            <PostCard key={post.id} post={post} />
                         ))}
                     </section>
                     <Pagination pageContext={pageContext} />

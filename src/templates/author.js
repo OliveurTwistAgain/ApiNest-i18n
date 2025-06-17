@@ -13,7 +13,13 @@ import { MetaData } from "../components/common/meta";
  */
 const Author = ({ data, location, pageContext }) => {
     const author = data.ghostAuthor;
-    const posts = data.allGhostPost.edges;
+    const lang = pageContext.lang || 'fr';
+
+    // Transform edges to posts and filter by language prefix on slug
+    const posts = data.allGhostPost.edges
+        .map(edge => edge.node)
+        .filter(post => lang === 'en' ? post.slug.startsWith('en-') : !post.slug.startsWith('en-'));
+
     const twitterUrl = author.twitter
         ? `https://twitter.com/${author.twitter.replace(/^@/, ``)}`
         : null;
@@ -73,9 +79,9 @@ const Author = ({ data, location, pageContext }) => {
                         </div>
                     </header>
                     <section className="post-feed">
-                        {posts.map(({ node }) => (
+                        {posts.map(post => (
                             // The tag below includes the markup for each post - components/common/PostCard.js
-                            <PostCard key={node.id} post={node} />
+                            <PostCard key={post.id} post={post} />
                         ))}
                     </section>
                     <Pagination pageContext={pageContext} />

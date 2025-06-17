@@ -3,6 +3,7 @@ require("dotenv").config({ path: `.env` }); // Charge les variables d'environnem
 const path = require(`path`);
 const config = require(`./src/utils/siteConfig`);
 const generateRSSFeed = require(`./src/utils/rss/generate-feed`);
+const i18n = require(`./src/utils/i18n-config`);
 
 const {
     GHOST_API_URL,
@@ -29,10 +30,13 @@ if (
 
 module.exports = {
     siteMetadata: {
+        title: config.siteTitleMeta,
+        description: config.siteDescriptionMeta,
         siteUrl:
             process.env.NODE_ENV === 'development'
                 ? SITE_URL_LOCAL
                 : SITE_URL || config.siteUrl,
+                language: i18n.defaultLang,
     },
     trailingSlash: 'always',
     plugins: [

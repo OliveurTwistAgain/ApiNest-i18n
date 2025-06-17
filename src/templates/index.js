@@ -5,6 +5,9 @@ import { graphql } from "gatsby";
 import { Layout, PostCard, Pagination } from "../components/common";
 import { MetaData } from "../components/common/meta";
 
+// map section
+import { MapSection } from "../components/common";
+
 /**
  * Main index page (home page)
  *
@@ -14,7 +17,14 @@ import { MetaData } from "../components/common/meta";
  *
  */
 const Index = ({ data, location, pageContext }) => {
-    const posts = data.allGhostPost.edges;
+    const lang = pageContext.lang || 'fr'; // Défaut : FR
+    const posts = data.allGhostPost.edges
+        .map(edge => edge.node)
+        .filter(post => {
+            return lang === 'en'
+                ? post.slug.startsWith('en-')
+                : !post.slug.startsWith('en-');
+        });
 
     return (
         <>
@@ -22,17 +32,19 @@ const Index = ({ data, location, pageContext }) => {
             <Layout isHome={true}>
                 <div className="container">
                     <section className="post-feed">
-                        {posts.map(({ node }) => (
-                            // The tag below includes the markup for each post - components/common/PostCard.js
-                            <PostCard key={node.id} post={node} />
+                        {posts.map((post) => (
+                            <PostCard key={post.id} post={post} />
                         ))}
                     </section>
                     <Pagination pageContext={pageContext} />
                 </div>
+                {/* Map section et carte OSM en bas de page */
+                <MapSection />}
             </Layout>
         </>
     );
 };
+
 
 Index.propTypes = {
     data: PropTypes.shape({

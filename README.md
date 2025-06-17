@@ -1,66 +1,36 @@
-# ApiNest
+# ApiNest-i18n
 
-ApiNest est un site statique généré avec Gatsby, propulsé par un CMS headless Ghost pour le contenu hébergé sur Pikapods.
+ApiNest-i18n est un site vitrine statique propulsé par [Gatsby](https://www.gatsbyjs.com/) et connecté à un CMS headless [Ghost](https://ghost.org/).  
+Ce projet inclut une gestion multilingue (FR/EN), une carte interactive, la météo en direct, un formulaire de contact, et un design responsive.
 
 ## 🚀 Démo
 
-https://dev-apinest-72.netlify.app
+[dev-apinest-72.netlify.app](https://dev-apinest-72.netlify.app)
 
-## 🔧 Stack
+## ⚙️ Stack
 
--   [Ghost CMS](https://pikapods.com) – CMS headless pour le contenu
--   [Gatsby.js](https://www.gatsbyjs.com/) – générateur statique React
--   [Netlify](https://www.netlify.com/) – déploiement automatique
+-   Gatsby + React
+-   Ghost CMS (via Content API)
+-   Netlify (déploiement)
+-   Leaflet (carte OpenStreetMap)
+-   OpenWeather, 
+-   Netlify Forms...
 
-## 📦 Installation rapide
+## 📦 Installation locale
 
 ```bash
-git clone https://github.com/OliveurTwistAgain/ApiNest.git
-cd ApiNest
+git clone https://github.com/OliveurTwistAgain/ApiNest-i18n.git
+cd ApiNest-i18n
 yarn install
-gatsby develop
+yarn develop
 ```
 
-## 🚀 Commandes utiles
+🔐 Variables d’environnement
+Créer un fichier .env.development :
 
-```bash
-gatsby develop       # Développement local
-gatsby build         # Construire le site statique
-gatsby clean         # Nettoyage du cache
-gatsby serve         # Serveur local
-```
+GHOST_API_URL=https://votre-pod.pikapod.net
+GHOST_CONTENT_API_KEY=xxxxxxxxxxxxxxxxxxxx
 
-## ⚠️ Prérequis
+## 📄 Licence MIT
 
--   Node.js >= 18
--   Yarn
-
-## 🧩 Intégration avec Ghost Content API
-
-Ce site utilise la **Ghost Content API** pour récupérer dynamiquement les articles, images et métadonnées depuis un CMS Ghost hébergé sur Pikapods. L’API Ghost est accessible sur votre instance Ghost hébergée (ex. : https://votre-pod.pikapod.net).
-
-Avantages :
-
--   Accès direct aux données de contenu
--   Accès direct aux images
--   Accès direct aux métadonnées des articles
--   Accès direct aux tags et auteurs
-
-```bash
-https://pikapods.com
-```
-
-## 🗂️ Structure
-
-```bash
-
-- `/src` — Composants React, pages, styles
-- `/content` — Contenu statique ou mock
-- `/gatsby-config.js` — Configuration Gatsby (plugins, Ghost API, etc.)
-- `netlify.toml` — Configuration du build/deploy Netlify
-
-```
-
-## 📄 Licence
-
-MIT
+Copyright (c) 2025 - OliveurTwistAgain

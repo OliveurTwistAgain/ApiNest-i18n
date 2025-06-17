@@ -15,6 +15,12 @@ what's here to work the way you'd like it to.
 - Author Archives
 - Pagination
 - Footer
+- Meteo Weather Widget
+- Slogan
+- Lisibilité du texte dans le Header
+- Carte OSM
+
+*/
 
 /* Variables
 /* ---------------------------------------------------------- */
@@ -26,7 +32,7 @@ what's here to work the way you'd like it to.
     --color-base: #15171A;
     --color-secondary: #5B7A81;
     --color-border: #c7d5d8;
-    --color-bg: #f5f5f5;
+    --color-bg: white;
 
     /* Fonts */
     --font-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -132,17 +138,21 @@ video {
     font-size: 100%;
     vertical-align: baseline;
 }
+
 body {
     line-height: 1;
 }
+
 ol,
 ul {
     list-style: none;
 }
+
 blockquote,
 q {
     quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
@@ -150,13 +160,16 @@ q:after {
     content: "";
     content: none;
 }
+
 table {
     border-spacing: 0;
     border-collapse: collapse;
 }
+
 img {
     max-width: 100%;
 }
+
 html {
     box-sizing: border-box;
     font-family: sans-serif;
@@ -164,34 +177,42 @@ html {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
 }
+
 *,
 *:before,
 *:after {
     box-sizing: inherit;
 }
+
 a {
     background-color: transparent;
 }
+
 a:active,
 a:hover {
     outline: 0;
 }
+
 b,
 strong {
     font-weight: bold;
 }
+
 i,
 em,
 dfn {
     font-style: italic;
 }
+
 h1 {
     margin: 0.67em 0;
     font-size: 2em;
 }
+
 small {
     font-size: 80%;
 }
+
 sub,
 sup {
     position: relative;
@@ -199,21 +220,27 @@ sup {
     line-height: 0;
     vertical-align: baseline;
 }
+
 sup {
     top: -0.5em;
 }
+
 sub {
     bottom: -0.25em;
 }
+
 img {
     border: 0;
 }
+
 svg:not(:root) {
     overflow: hidden;
 }
+
 mark {
     background-color: #fdffb6;
 }
+
 code,
 kbd,
 pre,
@@ -221,6 +248,7 @@ samp {
     font-family: monospace, monospace;
     font-size: 1em;
 }
+
 button,
 input,
 optgroup,
@@ -230,14 +258,17 @@ textarea {
     color: inherit;
     font: inherit;
 }
+
 button {
     overflow: visible;
     border: none;
 }
+
 button,
 select {
     text-transform: none;
 }
+
 button,
 html input[type="button"],
 input[type="reset"],
@@ -246,50 +277,62 @@ input[type="submit"] {
 
     -webkit-appearance: button;
 }
+
 button[disabled],
 html input[disabled] {
     cursor: default;
 }
+
 button::-moz-focus-inner,
 input::-moz-focus-inner {
     padding: 0;
     border: 0;
 }
+
 input {
     line-height: normal;
 }
+
 input:focus {
     outline: none;
 }
+
 input[type="checkbox"],
 input[type="radio"] {
     box-sizing: border-box;
     padding: 0;
 }
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     height: auto;
 }
+
 input[type="search"] {
     box-sizing: content-box;
 
     -webkit-appearance: textfield;
 }
+
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-decoration {
     -webkit-appearance: none;
 }
+
 legend {
     padding: 0;
     border: 0;
 }
+
 textarea {
     overflow: auto;
 }
+
 table {
     border-spacing: 0;
     border-collapse: collapse;
 }
+
 td,
 th {
     padding: 0;
@@ -430,6 +473,7 @@ blockquote small {
     font-size: 0.9em;
     opacity: 0.8;
 }
+
 /* Quotation marks */
 blockquote small:before {
     content: "\2014 \00A0";
@@ -438,6 +482,7 @@ blockquote small:before {
 blockquote cite {
     font-weight: bold;
 }
+
 blockquote cite a {
     font-weight: normal;
 }
@@ -469,6 +514,7 @@ h1 {
     font-size: 4rem;
     font-weight: 700;
 }
+
 @media (max-width: 500px) {
     h1 {
         font-size: 2rem;
@@ -479,6 +525,7 @@ h2 {
     margin: 1.5em 0 0.5em 0;
     font-size: 2rem;
 }
+
 @media (max-width: 500px) {
     h2 {
         font-size: 1.8rem;
@@ -490,6 +537,7 @@ h3 {
     font-size: 1.8rem;
     font-weight: 500;
 }
+
 @media (max-width: 500px) {
     h3 {
         font-size: 1.7rem;
@@ -525,9 +573,10 @@ h6 {
 }
 
 .container {
-    max-width: 1120px;
+    max-width: 1140px;
     margin: 0 auto;
     padding: 0 4vw;
+    width: 100%;
 }
 
 .content {
@@ -553,6 +602,19 @@ h6 {
     width: 100%;
     height: 500px;
     object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.page-feature-image {
+    width: 100%;
+    max-width: 800px;
+    object-fit: cover;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: block;
+
 }
 
 .content-body h1,
@@ -569,6 +631,7 @@ h6 {
     font-size: 3.4rem;
     font-weight: 700;
 }
+
 @media (max-width: 500px) {
     .content-body h1 {
         font-size: 2.8rem;
@@ -579,11 +642,13 @@ h6 {
     margin: 0 0 0.8em;
     font-size: 5rem;
 }
+
 @media (max-width: 500px) {
     .content-title {
         margin: 0.8em 0;
         font-size: 3.4rem;
     }
+
     .content {
         font-size: 1.8rem;
     }
@@ -594,6 +659,7 @@ h6 {
     font-size: 3.2rem;
     font-weight: 700;
 }
+
 @media (max-width: 500px) {
     .content-body h2 {
         font-size: 2.6rem;
@@ -605,6 +671,7 @@ h6 {
     font-size: 2.8rem;
     font-weight: 700;
 }
+
 @media (max-width: 500px) {
     .content-body h3 {
         font-size: 2.2rem;
@@ -616,6 +683,7 @@ h6 {
     font-size: 2.4rem;
     font-weight: 700;
 }
+
 @media (max-width: 500px) {
     .content-body h4 {
         font-size: 2.2rem;
@@ -627,7 +695,7 @@ h6 {
     margin: 0.5em 0;
     padding: 1em 0 1.5em;
     border: 0;
-    font-family: Georgia,serif;
+    font-family: Georgia, serif;
     color: var(--color-primary);
     font-style: italic;
     font-size: 3.2rem;
@@ -670,90 +738,183 @@ h6 {
     background-size: cover;
 }
 
-.site-nav-item {
-    display: inline-block;
-    padding: 5px 10px;
-    color: #fff;
-    opacity: 0.7;
-}
-
-.site-nav-item:hover {
-    text-decoration: none;
-    opacity: 1;
-}
-
-.site-nav-icon {
-    height: 15px;
-    margin: -5px 0 0;
-}
-
-.site-logo {
-    height: 25px;
-}
-
+/* Conteneur principal du haut du site */
 .site-mast {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
+/* Conteneurs gauche et droite dans le masthead */
+.site-mast-left,
 .site-mast-right {
     display: flex;
     align-items: center;
+    gap: 1rem;
 }
 
-.site-mast-right .site-nav-item:last-child {
-    padding-right: 0;
+/* Logo */
+.site-logo {
+    max-height: 50px;
+    width: auto;
+    display: block;
 }
+
+/* Slogan sous le logo */
+.site-slogan {
+    margin: 2rem 0 0 2rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-bg);
+    text-align: center;
+    letter-spacing: "0.05em";
+}
+
+/* Titre du site */
+
+.site-title-link {
+    color: var(--color-bg);
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 5rem;
+}
+
+.site-title-link:hover {
+    color: var(--color-base);
+    text-decoration: none;
+    transition: all 0.1s ease;
+}
+
+/* Bannière sous le mast titre et desc */
 
 .site-banner {
-    max-width: 80%;
-    margin: 0 auto;
-    padding: 10vw 0;
+    margin-top: 3rem;
+    color: var(--color-bg);
     text-align: center;
+    gap: 1rem;
 }
 
 .site-banner-title {
-    margin: 0;
-    padding: 0;
-    color: #fff;
     font-size: 4rem;
-    line-height: 1.3em;
+    font-weight: 900;
+    color: var(--color-base);
 }
 
 .site-banner-desc {
-    margin: 5px 0 0 0;
-    padding: 0;
-    font-size: 2.4rem;
-    line-height: 1.3em;
-    opacity: 0.7;
+    margin-top: auto;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--color-bg);
 }
 
+/* Navigation principale du header (inspirée du footer) */
 .site-nav {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin: 15px 0 0 0;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin: 8rem 0 0 0;
 }
+
+/* Nav gauche : les liens */
 
 .site-nav-left {
-    margin: 0 20px 0 -10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 600;
+    font-size: 1.4rem;
 }
 
-.site-nav-button {
-    display: inline-block;
-    padding: 5px 10px;
-    border: #fff 1px solid;
-    color: #fff;
-    font-size: 1.3rem;
-    line-height: 1em;
-    border-radius: var(--radius);
-    opacity: 0.7;
-}
-
-.site-nav-button:hover {
+/* Liens de navigation */
+.site-nav a {
+    color: var(--color-base);
     text-decoration: none;
+    font-size: 1.6rem;
+    font-weight: 700;
+    transition: color 0.1s ease-in-out;
 }
+
+/* Chaque lien de navigation */
+.site-nav-item a {
+    color: var(--color-secondary);
+    text-decoration: none;
+    transition: color 0.1s ease;
+}
+
+.site-nav-item a:hover,
+.site-nav-item a:focus {
+    color: var(--color-bg);
+    text-decoration: none;
+    transition: all 0.1s ease;
+}
+
+/* Hover : couleur primaire */
+.site-nav a:hover {
+    color: var(--color-bg) !important;
+    text-decoration: none;
+    transition: background-color 0.1s ease, color 0.3s ease;
+}
+
+/* Nav droite : langue + météo */
+
+.site-nav-right {
+    color: var(--color-base) !important;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.site-nav-langmeteo {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.site-nav-button.lang {
+    background-color: transparent;
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--color-bg) !important;
+    border-radius: 3px;
+    color: var(--color-base) !important;
+    transition: background-color 0.1s ease, color 0.3s ease;
+}
+
+.site-nav-button.lang:hover,
+.site-nav-button.lang:focus {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: var(--color-bg) !important;
+    border: 1px solid var(--color-bg) !important;
+}
+
+/* lang switcher */
+
+.lang-switch a {
+    color: rgb(255, 255, 255) !important;
+    border: 1px solid black !important;
+    background: transparent !important;
+    padding: 0.4em 0.8em;
+    text-decoration: none;
+    transition: all 0.1s ease;
+}
+
+.lang-switch a:hover {
+    color: white !important;
+    background: black !important;
+    border: 1px solid white !important;
+}
+
+
 
 /* Main
 /* ---------------------------------------------------------- */
@@ -777,6 +938,7 @@ h6 {
         grid-template-columns: 1fr 1fr;
     }
 }
+
 @media (max-width: 680px) {
     .post-feed {
         grid-template-columns: 1fr;
@@ -883,6 +1045,7 @@ h6 {
         border-bottom: var(--color-bg) 1px solid;
         padding-bottom: 4vw;
     }
+
     .tag-header p {
         font-size: 1.7rem;
     }
@@ -937,9 +1100,11 @@ h6 {
         border-bottom: var(--color-bg) 1px solid;
         padding-bottom: 4vw;
     }
+
     .author-header p {
         font-size: 1.7rem;
     }
+
     .author-header-image {
         height: 80px;
         width: 80px;
@@ -985,35 +1150,171 @@ h6 {
 
 .site-foot {
     padding: 20px 0 40px 0;
-    color: rgba(255,255,255,0.7);
-    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.4rem;
+    font-weight: 500;
     background: var(--color-base);
 }
 
 .site-foot-nav {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
+/* Liens généraux */
 .site-foot-nav a {
-    color: rgba(255,255,255,0.7);
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
 }
 
 .site-foot-nav a:hover {
-    text-decoration: none;
-    color: rgba(255,255,255,1);
+    color: var(--color-primary);
 }
 
-.site-foot-nav-right a {
+/* Zones gauche, centre et droite */
+.site-foot-nav-left,
+.site-foot-nav-center,
+.site-foot-nav-right {
+    display: flex;
+    align-items: center;
+    flex: 1 1 0;
+    justify-content: center;
+}
+
+.site-foot-nav-left {
+    justify-content: flex-start;
+}
+
+.site-foot-nav-right {
+    justify-content: flex-end;
+}
+
+/* Élément réutilisable */
+.site-foot-nav-item {
     display: inline-block;
-    padding: 2px 5px;
+    margin: 0 0.75rem;
+    white-space: nowrap;
 }
 
-.site-foot-nav-right a:last-child {
-    padding-right: 0;
+/* Centre avec 2 liens côte à côte */
+.site-foot-nav-center .site-foot-nav-item {
+    margin: 0 1rem;
+    display: flex;
+    gap: 1.5rem;
 }
 
+/* Meteo Weather Widget
+/* ---------------------------------------------------------- */
+
+.site-nav-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.site-nav-langmeteo {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.lang-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.site-nav-button.lang {
+    font-weight: bold;
+    color: var(--color-base) !important;
+    padding: 4px 10px;
+    text-transform: uppercase;
+    background-color: transparent;
+    transition: background 0.1s ease;
+}
+
+.weather-widget-wrapper {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.weather-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.weather-widget {
+    color: var(--color-bg) !important;
+    margin-right: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.weather-widget .weather-icon svg {
+    color: var(--color-bg) !important;
+    font-size: 2.8rem;
+    vertical-align: middle;
+    margin: 0 0.3rem;
+}
+
+
+
+/* Carte OSM
+/* ---------------------------------------------------------- */
+
+.osm-map {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.map-container {
+    height: 300px;
+    width: 80%;
+    max-width: 900px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.lang-switcher {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 1rem;
+    z-index: 10;
+}
+
+/* Scroll to Top Button
+/* ---------------------------------------------------------- */
+
+.scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--color-primary);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    z-index: 99;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-to-top.visible {
+    display: flex;
+}
 
 /* Koenig Styles
 /* ---------------------------------------------------------- */
@@ -1053,7 +1354,7 @@ h6 {
     font-size: 1.6rem;
     line-height: 1.5em;
     font-weight: 600;
-    transition: color 0.2s ease-in-out;
+    transition: color 0.1s ease-in-out;
 }
 
 .kg-bookmark-container:hover .kg-bookmark-title {
@@ -1131,32 +1432,32 @@ h6 {
     flex-direction: column;
     max-width: 1040px;
     width: 100%;
-  }
-  
-  .kg-gallery-row {
+}
+
+.kg-gallery-row {
     display: flex;
     flex-direction: row;
     justify-content: center;
-  }
-  
-  .kg-gallery-image img {
+}
+
+.kg-gallery-image img {
     display: block;
     margin: 0;
     width: 100%;
     height: 100%;
-  }
-  
-  .kg-gallery-row:not(:first-of-type) {
+}
+
+.kg-gallery-row:not(:first-of-type) {
     margin: 0.75em 0 0 0;
-  }
-  
-  .kg-gallery-image:not(:first-of-type) {
+}
+
+.kg-gallery-image:not(:first-of-type) {
     margin: 0 0 0 0.75em;
-  }
-  
-  .kg-gallery-card + .kg-image-card.kg-width-wide,
-  .kg-gallery-card + .kg-gallery-card,
-  .kg-image-card.kg-width-wide + .kg-gallery-card,
-  .kg-image-card.kg-width-wide + .kg-image-card.kg-width-wide {
+}
+
+.kg-gallery-card+.kg-image-card.kg-width-wide,
+.kg-gallery-card+.kg-gallery-card,
+.kg-image-card.kg-width-wide+.kg-gallery-card,
+.kg-image-card.kg-width-wide+.kg-image-card.kg-width-wide {
     margin: -2.25em 0 3em;
-  }
+}
