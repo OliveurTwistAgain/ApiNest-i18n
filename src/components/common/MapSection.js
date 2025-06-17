@@ -1,5 +1,5 @@
 // src/components/common/MapSection.js
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -16,11 +16,20 @@ L.Icon.Default.mergeOptions({
 });
 
 const MapSection = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    // Ne s'exécute que dans le navigateur
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) return null; // Ou <p>Chargement de la carte...</p>
+
   return (
     <div className="osm-map">
       <MapContainer
         center={[48.0061, 0.1996]}
-        zoom={13}
+        zoom={11}
         scrollWheelZoom={false}
         className="map-container"
       >

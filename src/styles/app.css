@@ -732,8 +732,10 @@ h6 {
 .site-head {
     padding-top: 20px;
     padding-bottom: 20px;
-    color: #fff;
+    color: var(--color-bg);
+    /* blanc */
     background: var(--color-base);
+    /* noir / fond principal */
     background-position: center;
     background-size: cover;
 }
@@ -769,31 +771,28 @@ h6 {
     font-weight: 700;
     color: var(--color-bg);
     text-align: center;
-    letter-spacing: "0.05em";
+    letter-spacing: 0.05em;
 }
 
 /* Titre du site */
-
 .site-title-link {
     color: var(--color-bg);
     text-decoration: none;
     font-weight: 900;
     font-size: 5rem;
+    transition: all 0.2s ease;
 }
 
 .site-title-link:hover {
     color: var(--color-base);
     text-decoration: none;
-    transition: all 0.1s ease;
 }
 
 /* Bannière sous le mast titre et desc */
-
 .site-banner {
-    margin-top: 3rem;
+    margin-top: 3.5rem;
     color: var(--color-bg);
     text-align: center;
-    gap: 1rem;
 }
 
 .site-banner-title {
@@ -803,14 +802,13 @@ h6 {
 }
 
 .site-banner-desc {
-    margin-top: auto;
     font-size: 1.8rem;
     font-weight: 700;
-    margin: 0;
+    margin-top: 3rem;
     color: var(--color-bg);
 }
 
-/* Navigation principale du header (inspirée du footer) */
+/* Navigation principale du header */
 .site-nav {
     display: flex;
     justify-content: space-between;
@@ -822,50 +820,63 @@ h6 {
 }
 
 /* Nav gauche : les liens */
-
 .site-nav-left {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     gap: 1rem;
-    font-weight: 600;
-    font-size: 1.4rem;
 }
 
-/* Liens de navigation */
-.site-nav a {
-    color: var(--color-base);
-    text-decoration: none;
+/* Liens de navigation communs (y compris boutons langue) */
+.site-nav a,
+.site-nav-button.lang {
+    color: var(--color-bg);
+    background-color: transparent;
+    border: 1px solid var(--color-bg);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
     font-size: 1.6rem;
     font-weight: 700;
-    transition: color 0.1s ease-in-out;
-}
-
-/* Chaque lien de navigation */
-.site-nav-item a {
-    color: var(--color-secondary);
     text-decoration: none;
-    transition: color 0.1s ease;
+    transition:
+        color 0.2s ease-in-out,
+        border 0.2s ease-in-out,
+        background-color 0.2s ease-in-out,
+        transform 0.2s ease;
+    cursor: pointer;
 }
 
-.site-nav-item a:hover,
-.site-nav-item a:focus {
+/* Bouton de langue */
+
+.site-nav-button.lang {
+    font-weight: bold;
     color: var(--color-bg);
-    text-decoration: none;
-    transition: all 0.1s ease;
+    text-transform: uppercase;
+    /* background-color: transparent;
+    transition: background 0.1s ease; */
 }
 
-/* Hover : couleur primaire */
-.site-nav a:hover {
-    color: var(--color-bg) !important;
-    text-decoration: none;
-    transition: background-color 0.1s ease, color 0.3s ease;
+.site-nav-button.lang:hover,
+.site-nav-button.lang:focus {
+    color: var(--color-base);
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--color-bg);
+    transform: translateY(-2px);
+}
+
+/* Hover et focus sur liens et boutons langue */
+.site-nav a:hover,
+.site-nav a:focus,
+.site-nav-button.lang:hover,
+.site-nav-button.lang:focus {
+    color: var(--color-base);
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--color-base);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
 }
 
 /* Nav droite : langue + météo */
-
 .site-nav-right {
-    color: var(--color-base) !important;
+    color: var(--color-bg);
     display: flex;
     align-items: center;
     gap: 2rem;
@@ -875,46 +886,48 @@ h6 {
 .site-nav-langmeteo {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 1rem;
 }
 
-.site-nav-button.lang {
-    background-color: transparent;
-    text-decoration: none;
-    font-weight: 700;
-    cursor: pointer;
-    padding: 0.2rem 0.5rem;
-    border: 1px solid var(--color-bg) !important;
-    border-radius: 3px;
-    color: var(--color-base) !important;
-    transition: background-color 0.1s ease, color 0.3s ease;
-}
+/* --- Séparation claire : lang-switch ---
 
-.site-nav-button.lang:hover,
-.site-nav-button.lang:focus {
-    background-color: rgba(255, 255, 255, 0.2) !important;
+Si tu souhaites garder .lang-switch comme élément distinct (autre style),
+voici un style différencié, sinon supprime cette partie si inutilisée.
+*/
+
+/* .lang-switch a {
     color: var(--color-bg) !important;
-    border: 1px solid var(--color-bg) !important;
-}
-
-/* lang switcher */
-
-.lang-switch a {
-    color: rgb(255, 255, 255) !important;
-    border: 1px solid black !important;
+    border: 1px solid var(--color-base) !important;
     background: transparent !important;
     padding: 0.4em 0.8em;
     text-decoration: none;
     transition: all 0.1s ease;
+    cursor: pointer;
+} */
+
+/* .lang-switch a:hover {
+    color: var(--color-bg) !important;
+    background: var(--color-base) !important;
+    border: 1px solid var(--color-bg) !important;
+} */
+
+/* Effet hover commun pour tous */
+.site-nav a,
+.site-nav-button.lang,
+.lang-switch a {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        color 0.2s ease,
+        border 0.2s ease;
 }
 
+.site-nav a:hover,
+.site-nav-button.lang:hover,
 .lang-switch a:hover {
-    color: white !important;
-    background: black !important;
-    border: 1px solid white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
 }
-
-
 
 /* Main
 /* ---------------------------------------------------------- */
@@ -1224,15 +1237,6 @@ h6 {
 .lang-buttons {
     display: flex;
     gap: 0.5rem;
-}
-
-.site-nav-button.lang {
-    font-weight: bold;
-    color: var(--color-base) !important;
-    padding: 4px 10px;
-    text-transform: uppercase;
-    background-color: transparent;
-    transition: background 0.1s ease;
 }
 
 .weather-widget-wrapper {

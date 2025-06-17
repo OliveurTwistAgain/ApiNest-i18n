@@ -78,9 +78,9 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                             {isHome && (
                                 <div className="site-banner">
                                     <h1 className="site-banner-title">
-                                        <Link to={language === "fr" ? "/" : "/en"} className="site-title-link">
+                                        <span className="site-title-link">
                                             {site.title}
-                                        </Link>
+                                        </span>
                                     </h1>
                                     <p className="site-banner-desc">{site.description}</p>
                                 </div>
