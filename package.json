@@ -67,6 +67,7 @@
     "typescript": "^5.4.0"
   },
   "resolutions": {
-    "undici": "^4.10.0"
+    "undici": "^4.10.0",
+    "eslint-plugin-filenames": "https://github.com/allouis/eslint-plugin-filenames.git"
   }
 }
