@@ -1,3 +1,5 @@
+//src/components/common/meta/ArticleMeta.js
+
 import * as React from "react";
 import { Helmet } from "react-helmet";
 import { StaticQuery, graphql } from "gatsby";

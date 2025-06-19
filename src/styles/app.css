@@ -1,3 +1,6 @@
+/* src/styles/app.css */
+/* ---------------------------------------------------------- */
+
 /* App.css
 /* ---------------------------------------------------------- /*
 
@@ -883,33 +886,60 @@ h6 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Nav droite : langue, météo */
+.site-nav-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 .site-nav-langmeteo {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem;
 }
 
-/* --- Séparation claire : lang-switch ---
+.lang-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
 
-Si tu souhaites garder .lang-switch comme élément distinct (autre style),
-voici un style différencié, sinon supprime cette partie si inutilisée.
-*/
+.weather-widget-wrapper {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
 
-/* .lang-switch a {
+.weather-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.weather-widget {
     color: var(--color-bg) !important;
-    border: 1px solid var(--color-base) !important;
-    background: transparent !important;
-    padding: 0.4em 0.8em;
-    text-decoration: none;
-    transition: all 0.1s ease;
-    cursor: pointer;
-} */
+    margin-right: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
 
-/* .lang-switch a:hover {
+.weather-widget .weather-icon svg {
     color: var(--color-bg) !important;
-    background: var(--color-base) !important;
-    border: 1px solid var(--color-bg) !important;
-} */
+    font-size: 2.8rem;
+    vertical-align: middle;
+    margin: 0 0.3rem;
+}
+
+/* Lang Switcher */
+
+.lang-switcher {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 1rem;
+    z-index: 10;
+}
 
 /* Effet hover commun pour tous */
 .site-nav a,
@@ -936,7 +966,7 @@ voici un style différencié, sinon supprime cette partie si inutilisée.
     padding: 4vw 0;
 }
 
-/* Index
+/* Post Feed, Articles, Cards, etc.
 /* ---------------------------------------------------------- */
 
 .post-feed {
@@ -1157,6 +1187,25 @@ voici un style différencié, sinon supprime cette partie si inutilisée.
     font-size: 1.3rem;
 }
 
+/* Carte OSM
+/* ---------------------------------------------------------- */
+
+.osm-map {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.map-container {
+    height: 300px;
+    width: 80%;
+    max-width: 900px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 
 /* Footer
 /* ---------------------------------------------------------- */
@@ -1217,82 +1266,6 @@ voici un style différencié, sinon supprime cette partie si inutilisée.
     margin: 0 1rem;
     display: flex;
     gap: 1.5rem;
-}
-
-/* Meteo Weather Widget
-/* ---------------------------------------------------------- */
-
-.site-nav-right {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.site-nav-langmeteo {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-}
-
-.lang-buttons {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.weather-widget-wrapper {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-}
-
-.weather-info {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.weather-widget {
-    color: var(--color-bg) !important;
-    margin-right: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.weather-widget .weather-icon svg {
-    color: var(--color-bg) !important;
-    font-size: 2.8rem;
-    vertical-align: middle;
-    margin: 0 0.3rem;
-}
-
-
-
-/* Carte OSM
-/* ---------------------------------------------------------- */
-
-.osm-map {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-
-.map-container {
-    height: 300px;
-    width: 80%;
-    max-width: 900px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.lang-switcher {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 1rem;
-    z-index: 10;
 }
 
 /* Scroll to Top Button

@@ -1,3 +1,5 @@
+// src/components/common/meta/MetaData.js
+
 import * as React from "react";
 import PropTypes from "prop-types";
 import { StaticQuery, graphql } from "gatsby";

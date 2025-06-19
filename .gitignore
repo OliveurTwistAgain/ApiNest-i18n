@@ -1,11 +1,10 @@
+# .gitignore Gatsby + Ghost
+
 # Node modules (toujours à ignorer)
 node_modules/
 
 # Dossier public généré par Gatsby (contient le build, ne pas versionner)
 public/
-
-# Cache Gatsby
-.cache/
 
 # Logs
 npm-debug.log*
@@ -25,7 +24,7 @@ yarn-error.log*
 .idea/
 .DS_Store
 
-# Plugins locaux (si tu ne souhaites pas les versionner, sinon à garder)
+# Plugins locaux
 plugins/gatsby-plugin-ghost-manifest/
 
 # Fichiers système Windows / macOS
@@ -40,4 +39,3 @@ coverage/
 # fichiers générés par Gatsby avec données dynamiques
 .cache/
 public/
-

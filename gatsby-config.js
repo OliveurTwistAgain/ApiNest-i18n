@@ -1,3 +1,5 @@
+// gatsby-config.js
+
 require("dotenv").config({ path: `.env` }); // Charge les variables d'environnement
 
 const path = require(`path`);

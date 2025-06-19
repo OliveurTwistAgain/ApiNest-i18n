@@ -1,3 +1,5 @@
+//src/components/common/meta/AuthorMeta.js
+
 import * as React from "react";
 import { Helmet } from "react-helmet";
 import PropTypes from "prop-types";

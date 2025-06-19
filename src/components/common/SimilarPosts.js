@@ -1,3 +1,5 @@
+// src/components/common/SimilarPosts.js
+
 import React from "react";
 import PostCard from "./PostCard";
 

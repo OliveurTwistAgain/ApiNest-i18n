@@ -1,3 +1,5 @@
+// .eslintrc.js : Configuration ESLint
+
 module.exports = {
     'parser': 'babel-eslint',
     'parserOptions': {

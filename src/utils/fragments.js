@@ -1,3 +1,5 @@
+// src/utils/fragments.js : Création des fragments
+
 import { graphql } from 'gatsby'
 
 /**

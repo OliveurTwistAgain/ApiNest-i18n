@@ -1,49 +1,52 @@
-import React, { useState, useEffect } from "react";
+// src/components/common/MapSection.js <Marker position={[48.01408, 0.244029]}>
+
+import React, { useEffect, useRef } from 'react';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+// Définir les icônes Leaflet
+const blueIcon = new L.Icon({
+  iconUrl: '/images/marker-icon.png',        // Chemin public dans /static/images/
+  iconRetinaUrl: '/images/marker-icon-2x.png', // Si tu as une version retina (optionnel)
+  iconSize: [25, 41],    // taille classique Leaflet
+  iconAnchor: [12, 41],  // point d'ancrage (pointe du marker)
+  popupAnchor: [1, -34], // position du popup relatif au marker
+  shadowUrl: '/images/marker-shadow.png',  // si tu veux garder l'ombre classique Leaflet
+  shadowSize: [41, 41],
+});
 
 const MapSection = () => {
-  const [isClient, setIsClient] = useState(false);
-  const [Map, setMap] = useState(null);
-  const [TileLayer, setTileLayer] = useState(null);
-  const [Marker, setMarker] = useState(null);
-  const [L, setL] = useState(null);
+  const mapRef = useRef(null);
 
   useEffect(() => {
-    setIsClient(true);
+    // Si on est côté serveur (build), ne rien faire
+    if (typeof window === 'undefined') return;
+
+    // Si Leaflet est déjà chargé (re-render), ne rien faire
+    if (mapRef.current && mapRef.current._leaflet_id) return;
+
+    // Import dynamique de Leaflet (pas au build)
+    const L = require('leaflet');
+
+    // Initialisation de la carte
+    const map = L.map('osm-map').setView([48.01408, 0.244029], 11); // Le Mans
+    mapRef.current = map;
+
+    // Ajout des tuiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+
+    // Marqueur (Le Mans)
+    L.marker([48.01408, 0.244029], { icon: blueIcon }).addTo(map);
   }, []);
 
-  useEffect(() => {
-    if (isClient) {
-      // Import dynamique uniquement côté client
-      import("leaflet").then((Lmod) => {
-        import("leaflet/dist/leaflet.css");
-        // Fix icône marker local
-        Lmod.Icon.Default.mergeOptions({
-          iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-          iconUrl: require("leaflet/dist/images/marker-icon.png"),
-          shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
-        });
-        setL(Lmod);
-      });
-      import("react-leaflet").then(({ MapContainer, TileLayer, Marker }) => {
-        setMap(() => MapContainer);
-        setTileLayer(() => TileLayer);
-        setMarker(() => Marker);
-      });
-    }
-  }, [isClient]);
-
-  if (!isClient || !Map || !TileLayer || !Marker) return null;
-
   return (
-    <div className="osm-map" style={{ height: "400px" }}>
-      <Map center={[48.0061, 0.1996]} zoom={11} scrollWheelZoom={false} style={{ height: "100%" }}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-        />
-        <Marker position={[48.01408, 0.244029]} />
-      </Map>
-    </div>
+    <section className="osm-map">
+      {/* classe map-container ici */}
+      <div id="osm-map" className="map-container" />
+    </section>
   );
 };
 

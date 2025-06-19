@@ -1,4 +1,4 @@
-// Configuration de navigation en FR et EN et menus adaptés à chaque langue
+// src/utils/navigation-config.js : Configuration de navigation en FR et EN et menus adaptés à chaque langue
 
 const navigation = {
     fr: [

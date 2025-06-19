@@ -1,3 +1,5 @@
+// src/utils/rss/generate-feed.js : Création du flux RSS
+
 const cheerio = require(`cheerio`);
 const tagsHelper = require(`@tryghost/helpers`).tags;
 const _ = require(`lodash`);

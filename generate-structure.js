@@ -1,5 +1,8 @@
-// generate-structure.js
-// Ce script génère une structure de répertoires et fichiers d'un projet Node.js
+// generate-structure.js : script qui génère une structure de répertoires et fichiers d'un projet Node.js
+
+/* Ce script parcourt le projet, lit le fichier .gitignore, et génère un fichier texte
+avec la structure des répertoires et fichiers, en ajoutant des commentaires explicatifs
+et des indentations verticales pour une meilleure lisibilité. */
 
 const fs = require('fs');
 const path = require('path');

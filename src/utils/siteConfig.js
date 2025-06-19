@@ -1,3 +1,5 @@
+// src/utils/siteConfig.js : Configuration du site
+
 module.exports = {
     siteUrl:
         process.env.NODE_ENV === `production`
@@ -6,7 +8,7 @@ module.exports = {
 
     postsPerPage: 12, // Number of posts shown on paginated pages (changes this requires sometimes to delete the cache)
 
-    siteTitleMeta: `Ghost Gatsby Yeah`, // This allows an alternative site title for meta data for pages.
+    siteTitleMeta: `Ghost Gatsby Lab`, // This allows an alternative site title for meta data for pages.
     siteDescriptionMeta: `Un site fr/en genéré avec Ghost and Gatsby`, // This allows an alternative site description for meta data for pages.
 
     shareImageWidth: 1000, // Change to the width of your default share image

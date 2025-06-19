@@ -1,3 +1,5 @@
+// src/components/404.js
+
 import * as React from "react";
 import { Link } from "gatsby";
 import { Layout } from "../components/common";

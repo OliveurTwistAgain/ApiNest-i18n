@@ -1,3 +1,5 @@
+// src/components/common/SEO.js
+
 import React from "react";
 import { Helmet } from "react-helmet";
 

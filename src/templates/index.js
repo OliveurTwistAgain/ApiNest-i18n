@@ -1,12 +1,13 @@
+// src/templates/index.js
+
 import * as React from "react";
 import PropTypes from "prop-types";
 import { graphql } from "gatsby";
-
-import { Layout, PostCard, Pagination } from "../components/common";
-import { MetaData } from "../components/common/meta";
-
-// map section
-import { MapSection } from "../components/common";
+import Layout from "../components/common/Layout";
+import PostCard from "../components/common/PostCard";
+import Pagination from "../components/common/Pagination";
+import MetaData from "../components/common/meta/MetaData";
+import MapSection from "../components/common/MapSection";
 
 /**
  * Main index page (home page)
@@ -38,13 +39,13 @@ const Index = ({ data, location, pageContext }) => {
                     </section>
                     <Pagination pageContext={pageContext} />
                 </div>
-                {/* Map section et carte OSM en bas de page */
-                <MapSection />}
+                
+                {/* Map section : carte OSM en bas de page */}
+                <MapSection />
             </Layout>
         </>
     );
 };
-
 
 Index.propTypes = {
     data: PropTypes.shape({
@@ -58,8 +59,6 @@ Index.propTypes = {
 
 export default Index;
 
-// This page query loads all posts sorted descending by published date
-// The `limit` and `skip` values are used for pagination
 export const pageQuery = graphql`
     query GhostPostQuery($limit: Int!, $skip: Int!) {
         allGhostPost(

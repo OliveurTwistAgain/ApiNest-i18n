@@ -1,4 +1,4 @@
-// traductions fixes pour le site web ApiNest
+// src/utils/i18n-config.js : Configuration des traductions fixes pour le site web ApiNest
 
 const i18n = {
   defaultLanguage: "fr",

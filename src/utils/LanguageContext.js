@@ -1,4 +1,5 @@
-// src/utils/LanguageContext.js
+// src/utils/LanguageContext.js : Fournisseur de langue et gestionnaire de langue
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import i18n from './i18n-config';
 
