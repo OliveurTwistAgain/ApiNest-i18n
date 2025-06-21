@@ -8,61 +8,85 @@ import { useLanguage } from "../../utils/LanguageContext";
 const Footer = ({ navigation }) => {
     const { language } = useLanguage();
     const year = new Date().getFullYear();
-    // Si lang non défini, on force FR par défaut
+
+    // Langue courante avec fallback en français
     const currentLang = language || "fr";
-    
-        // Requête GraphQL pour récupérer le titre du site Ghost
-        const data = useStaticQuery(graphql`
-            query SiteTitleQuery {
-                allGhostSettings {
-                    edges {
-                        node {
-                            title
-                        }
+
+    // Requête pour récupérer dynamiquement le nom du site depuis Ghost
+    const data = useStaticQuery(graphql`
+        query SiteTitleQuery {
+            allGhostSettings {
+                edges {
+                    node {
+                        title
                     }
                 }
             }
-        `);
-        const siteTitle = data.allGhostSettings.edges[0].node.title;
+        }
+    `);
+    const siteTitle = data.allGhostSettings.edges[0].node.title;
+
+    // Filtrage dynamique des liens en fonction de la langue
+    const filteredNavigation = navigation.filter(item => {
+        try {
+            const path = new URL(item.url, "https://dummy.base").pathname;
+
+            // Lien FR : on exclut les "/en-"
+            // Lien EN : on ne garde que les "/en-"
+            if (currentLang === "en") {
+                return path.startsWith("/en-") || item.url.startsWith("http");
+            } else {
+                return !path.startsWith("/en-") || item.url.startsWith("http");
+            }
+        } catch (e) {
+            // Lien externe sans path valide : on le garde
+            return true;
+        }
+    });
 
     return (
         <footer className="site-foot">
             <div className="site-foot-nav container">
-                {/* Zone gauche */}
+                
+                {/* 📍 Zone gauche : titre du site + année */}
                 <div className="site-foot-nav-left">
                     <Link to="/" className="site-foot-nav-item">
-                        {siteTitle} 
+                        {siteTitle}
                     </Link>
                     &copy; {year}
                 </div>
 
-                {/* Zone centre */}
+                {/* Zone centrale : liens filtrés, 1 par ligne */}
                 <div className="site-foot-nav-center">
-                    <div className="site-foot-nav-item">
-                        <a
-                            href="https://github.com/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="site-foot-nav-item"
-                        >
-                            GitHub
-                        </a>
-                        <Link
-                            to={
-                                currentLang === "fr"
-                                    ? "/mentions-legales/"
-                                    : "/en-legal-notice/"
-                            }
-                            className="site-foot-nav-item"
-                        >
-                            {currentLang === "fr"
-                                ? "Mentions légales"
-                                : "Legal notice"}
-                        </Link>
-                    </div>
+                    {filteredNavigation.map((item, index) => {
+                        const isExternal = item.url.startsWith("http");
+                        const path = new URL(item.url, "https://dummy.base").pathname;
+
+                        return (
+                            <div key={index} className="site-foot-nav-line">
+                                {isExternal ? (
+                                    <a
+                                        href={item.url}
+                                        className="site-foot-nav-item"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        {item.label}
+                                    </a>
+                                ) : (
+                                    <Link
+                                        to={path}
+                                        className="site-foot-nav-item"
+                                    >
+                                        {item.label}
+                                    </Link>
+                                )}
+                            </div>
+                        );
+                    })}
                 </div>
 
-                {/* Zone droite */}
+                {/* Zone droite : crédit custom */}
                 <div className="site-foot-nav-right">
                     <span className="site-foot-nav-item">
                         Bee ApiNest {year} – LM.72

@@ -6,21 +6,16 @@ import { Helmet } from "react-helmet";
 import { Link, StaticQuery, graphql } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 
-import { Navigation } from ".";
 import config from "../../utils/siteConfig";
-import WeatherWidget from "../common/WeatherWidget";
+import Header from "../common/Header";
 import Footer from "../common/Footer";
 
 import { useLanguage } from "../../utils/LanguageContext";
-import i18n from "../../utils/i18n-config";
-
 import "../../styles/app.css";
 
 const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
     const site = data.allGhostSettings?.edges[0]?.node || {};
     const { language, setLanguage } = useLanguage();
-    const slogan = i18n.translations[language]?.sloganFixed || "";
-    const coverImage = site.cover_image || "/images/miel.jpg";
 
     React.useEffect(() => {
         const handleScroll = () => {
@@ -31,7 +26,6 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
                 button?.classList.remove("visible");
             }
         };
-
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
@@ -47,89 +41,20 @@ const DefaultLayout = ({ data, children, bodyClass, isHome }) => {
 
             <div className="viewport">
                 <div className="viewport-top">
-                    <header
-                        className={`site-head ${coverImage ? "with-cover" : "no-cover"}`}
-                        data-cover-image={coverImage}
-                        style={{ backgroundImage: coverImage ? `url(${coverImage})` : "none" , backgroundSize: "cover", backgroundPosition: "center" }}
-                    >
-                        <div className="container">
-                            <div className="site-mast">
-                                <div className="site-mast-left">
-                                    <Link to={language === "fr" ? "/" : "/en"}>
-                                        {site.logo ? (
-                                            <img
-                                                className="site-logo"
-                                                src={site.logo}
-                                                alt={site.title}
-                                            />
-                                        ) : (
-                                            data.file && (
-                                                <GatsbyImage
-                                                    image={data.file.childImageSharp.gatsbyImageData}
-                                                    alt={site.title}
-                                                />
-                                            )
-                                        )}
-                                    </Link>
-                                    <p className="site-slogan">
-                                        {slogan}
-                                    </p>
-                                </div>
-                            </div>
-
-                            {isHome && (
-                                <div className="site-banner">
-                                    <h1 className="site-banner-title">
-                                        <span className="site-title-link">
-                                            {site.title}
-                                        </span>
-                                    </h1>
-                                    <p className="site-banner-desc">{site.description}</p>
-                                </div>
-                            )}
-
-
-                            <nav className="site-nav">
-                                <div className="site-nav-left">
-                                    <Navigation
-                                        data={site.navigation || []}
-                                        navClass="site-nav-item"
-                                    />
-                                </div>
-
-                                <div className="site-nav-right">
-                                    <div className="site-nav-langmeteo">
-                                        <div className="lang-buttons">
-                                            <Link
-                                                className="site-nav-button lang"
-                                                to="/"
-                                                onClick={() => setLanguage("fr")}
-                                            >
-                                                FR
-                                            </Link>
-                                            <Link
-                                                className="site-nav-button lang"
-                                                to="/en"
-                                                onClick={() => setLanguage("en")}
-                                            >
-                                                EN
-                                            </Link>
-                                        </div>
-                                        <div className="weather-widget-wrapper">
-                                            <WeatherWidget />
-                                        </div>
-                                    </div>
-                                </div>
-                            </nav>
-                        </div>
-                    </header>
+                    <Header
+                        site={site}
+                        currentLanguage={language}
+                        setLanguage={setLanguage}
+                        isHome={isHome}
+                        defaultLogo={data.file?.childImageSharp?.gatsbyImageData}
+                    />
 
                     <main className="site-main">{children}</main>
 
                     <button
                         id="scrollToTop"
                         className="scroll-to-top"
-                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                         aria-label="Scroll to top"
                     >
                         ↑

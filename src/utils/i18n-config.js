@@ -6,8 +6,8 @@ const i18n = {
   defaultPath: "/", // Racine pour langue par défaut
   translations: {
     fr: {
-      siteTitle: "ApiNest — Miel Artisanal",
-      siteDescription: "Miel local et artisanal récolté avec passion dans la Sarthe.",
+      siteTitle: "Hooper Ghost Lab",
+      siteDescription: "Le labo du testeur de miel. 🍯",
       navigation: {
         home: "Accueil",
         about: "À propos",
@@ -19,8 +19,8 @@ const i18n = {
       sloganFixed: "Du nectar à l'authenticité — votre miel local.",
     },
     en: {
-      siteTitle: "ApiNest — Artisan Honey",
-      siteDescription: "Local, handcrafted honey made with passion in Sarthe, France.",
+      siteTitle: "Hooper Ghost Lab (en)",
+      siteDescription: "The Honey Tester Lab. 🍯",
       navigation: {
         home: "Home",
         about: "About",

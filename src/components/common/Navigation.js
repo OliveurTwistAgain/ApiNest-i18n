@@ -5,13 +5,6 @@ import PropTypes from "prop-types";
 import { Link } from "gatsby";
 import { useLanguage } from "../../utils/LanguageContext";
 
-/**
- * Composant Navigation (depuis Ghost)
- * - Affiche les liens de la langue active (fr/en)
- * - Garde toujours visibles les liens externes
- * - Affiche toujours les liens "fr" et "en" pour changer de langue
- */
-
 const Navigation = ({ data, navClass }) => {
     const { language } = useLanguage();
 
@@ -26,16 +19,12 @@ const Navigation = ({ data, navClass }) => {
         const isExternal = /^https?:\/\//i.test(navItem.url);
         if (isExternal) return true;
 
-        // Langue FR : inclut /, /about, /contact mais pas /en/*
         if (language === "fr") {
             return !navItem.url.startsWith("/en");
         }
-
-        // Langue EN : inclut uniquement /en/*
         if (language === "en") {
             return navItem.url.startsWith("/en");
         }
-
         return false;
     });
 
