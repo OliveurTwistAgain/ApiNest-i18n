@@ -48,7 +48,7 @@ Un fichier `.env.example` est fourni pour guider.
 
 Créez un fichier `.env` à la racine du projet en vous basant sur cet exemple. À compléter avec vos propres clés API.
 
-##🌍 Routes multilingues
+## 🌍 Routes multilingues
 
 Le site est disponible en deux langues :
 
