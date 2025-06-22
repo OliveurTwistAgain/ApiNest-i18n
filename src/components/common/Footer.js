@@ -89,7 +89,7 @@ const Footer = ({ navigation }) => {
                 {/* Zone droite : crédit custom */}
                 <div className="site-foot-nav-right">
                     <span className="site-foot-nav-item">
-                        Bee ApiNest {year} – LM.72
+                        Bee ApiNest – LM.72
                     </span>
                 </div>
             </div>
