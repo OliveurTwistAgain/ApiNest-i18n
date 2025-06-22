@@ -26,7 +26,7 @@ npm install
 npm develop
 ```
 
-📦 Commandes Gatsby utiles
+## 📦 Commandes Gatsby utiles
 
 ```bash
 # Démarre le site en mode développement (localhost:8000)
@@ -42,13 +42,13 @@ gatsby serve
 gatsby clean
 ```
 
-🔐 Variables d’environnement
+## 🔐 Variables d’environnement
 
 Un fichier `.env.example` est fourni pour guider.
 
 Créez un fichier `.env` à la racine du projet en vous basant sur cet exemple. À compléter avec vos propres clés API.
 
-🌍 Routes multilingues
+##🌍 Routes multilingues
 
 Le site est disponible en deux langues :
 
