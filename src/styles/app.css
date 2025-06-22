@@ -1439,6 +1439,21 @@ h6 {
     white-space: nowrap;
 }
 
+.kg-image-card {
+    margin: 3rem auto;
+    text-align: center;
+    width: 100%;
+}
+
+.kg-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: 4px;
+    /* optionnel */
+}
+
 /* Gallery Styles
 /* ---------------------------------------------------------- */
 
