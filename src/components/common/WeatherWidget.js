@@ -17,6 +17,7 @@ const WeatherWidget = () => {
     const { language } = useLanguage();
 
     const city = "Le Mans";
+    const apiKey = process.env.GATSBY_OPENWEATHER_API_KEY;
 
     const translateCondition = (text) => {
         const normalized = text.toLowerCase();
@@ -35,10 +36,16 @@ const WeatherWidget = () => {
     };
 
     useEffect(() => {
+        if (!apiKey) {
+            console.warn("⚠️ La clé API météo GATSBY_OPENWEATHER_API_KEY est absente.");
+            setError(true);
+            return;
+        }
+    
         const fetchWeather = async () => {
             try {
                 const response = await fetch(
-                    `https://api.weatherapi.com/v1/current.json?key=b5944a753efe44b4853201845252205&q=${city}&lang=${language}`
+                    `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&lang=${language}`
                 );
                 const data = await response.json();
                 setWeatherData(data);
@@ -47,9 +54,10 @@ const WeatherWidget = () => {
                 setError(true);
             }
         };
-
+    
         fetchWeather();
-    }, [language]);
+    }, [language, apiKey]);
+    
 
     const getWeatherIcon = (code) => {
         if (!code) return <WiNa />;
