@@ -4,11 +4,6 @@ const path = require(`path`);
 const { postsPerPage } = require(`./src/utils/siteConfig`);
 const { paginate } = require(`gatsby-awesome-pagination`);
 
-/**
- * Crée dynamiquement les pages du site à partir du contenu Ghost :
- * posts, pages, tags, auteurs — avec support multilingue fr/en basé sur les slugs.
- */
-
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
@@ -62,14 +57,14 @@ exports.createPages = async ({ graphql, actions }) => {
   const pageTemplate = path.resolve(`./src/templates/page.js`);
   const postTemplate = path.resolve(`./src/templates/post.js`);
 
-  // Détermine la langue d'après le slug : "en-" préfixe -> anglais, sinon français
-  const getLangFromSlug = (slug) => slug.startsWith('en-') ? 'en' : 'fr';
+  // ⚠️ Templates d'archives séparés par langue
+  const archiveFrTemplate = path.resolve(`./src/templates/archive-fr.js`);
+  const archiveEnTemplate = path.resolve(`./src/templates/archive-en.js`);
 
-  // IMPORTANT : on garde le slug tel quel (avec "en-" si anglais) pour construire l'URL,
-  // car Ghost stocke les slugs avec tiret (ex: "en-honey") et non en dossiers "en/honey"
+  const getLangFromSlug = (slug) => (slug.startsWith('en-') ? 'en' : 'fr');
   const getLocalizedPath = (slug) => `/${slug}/`;
 
-  // --- Création des pages (Ghost Pages) ---
+  // Pages CMS
   pages.forEach(({ node }) => {
     const lang = getLangFromSlug(node.slug);
     const url = getLocalizedPath(node.slug);
@@ -84,7 +79,7 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  // --- Création des posts ---
+  // Posts
   posts.forEach(({ node }) => {
     const lang = getLangFromSlug(node.slug);
     const url = getLocalizedPath(node.slug);
@@ -99,10 +94,10 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  // --- Création des pages tag paginées ---
+  // Tags (pagination)
   tags.forEach(({ node }) => {
     const lang = getLangFromSlug(node.slug);
-    const url = `/${node.slug}/`; // slug déjà avec "en-" si anglais
+    const url = `/${node.slug}/`;
 
     paginate({
       createPage,
@@ -118,26 +113,22 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  // --- Création des pages author paginées ---
+  // Authors (sans pagination, et sans filtrage de langue)
   authors.forEach(({ node }) => {
-    const lang = getLangFromSlug(node.slug);
     const url = `/${node.slug}/`;
 
-    paginate({
-      createPage,
-      items: Array.from({ length: node.postCount || 0 }),
-      itemsPerPage: postsPerPage,
+    createPage({
+      path: url,
       component: authorTemplate,
-      pathPrefix: ({ pageNumber }) =>
-        pageNumber === 0 ? url : `${url}page/${pageNumber + 1}/`,
       context: {
         slug: node.slug,
-        lang,
+        authorSlug: node.slug,
       },
     });
   });
 
-  // --- Création de la page d'accueil FR avec pagination ---
+
+  // Home FR (pagination)
   paginate({
     createPage,
     items: posts.filter(({ node }) => !node.slug.startsWith('en-')),
@@ -150,7 +141,7 @@ exports.createPages = async ({ graphql, actions }) => {
     },
   });
 
-  // --- Création de la page d'accueil EN avec pagination ---
+  // Home EN (pagination)
   paginate({
     createPage,
     items: posts.filter(({ node }) => node.slug.startsWith('en-')),
@@ -162,9 +153,35 @@ exports.createPages = async ({ graphql, actions }) => {
       lang: 'en',
     },
   });
+
+  // Archives FR (avec template dédié)
+  paginate({
+    createPage,
+    items: posts.filter(({ node }) => !node.slug.startsWith('en-')),
+    itemsPerPage: postsPerPage,
+    component: archiveFrTemplate,
+    pathPrefix: ({ pageNumber }) =>
+      pageNumber === 0 ? `/archives/` : `/archives/page/${pageNumber + 1}/`,
+    context: {
+      language: 'fr',
+    },
+  });
+
+  // Archives EN (avec template dédié)
+  paginate({
+    createPage,
+    items: posts.filter(({ node }) => node.slug.startsWith('en-')),
+    itemsPerPage: postsPerPage,
+    component: archiveEnTemplate,
+    pathPrefix: ({ pageNumber }) =>
+      pageNumber === 0 ? `/en-archives/` : `/en-archives/page/${pageNumber + 1}/`,
+    context: {
+      language: 'en',
+    },
+  });
 };
 
-// Netlify fallback pour "url" module (parfois requis)
+// Webpack fallback pour 'url' (nécessaire pour certains packages)
 exports.onCreateWebpackConfig = ({ actions }) => {
   actions.setWebpackConfig({
     resolve: {

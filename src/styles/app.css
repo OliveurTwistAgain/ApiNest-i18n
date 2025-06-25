@@ -14,8 +14,7 @@
 - Header
 - Main
 - Post Feed, Articles, Cards, etc.
-- Tag Archives
-- Author Archives
+- Archives : tag, author, date
 - Pagination
 - Map OSM
 - Footer
@@ -961,34 +960,120 @@ h6 {
 /* Post Feed, Articles, Cards, etc.
 /* ---------------------------------------------------------- */
 
-.post-feed {
-    display: grid;
-    justify-content: space-between;
-    grid-gap: 30px;
-    grid-template-columns: 1fr 1fr 1fr;
+/* === Archive : simple conteneur === */
+.post-feed.archive {
+    max-width: 1070px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
 }
 
+/* Grille archive responsive sur la div .post-grid */
+.post-feed.archive .post-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    /* Centrer dans la limite max */
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Adaptation responsive archives : 
+   sous 980px : 2 colonnes
+   sous 680px : 1 colonne */
 @media (max-width: 980px) {
-    .post-feed {
-        grid-template-columns: 1fr 1fr;
+    .post-feed.archive .post-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 680px) {
-    .post-feed {
+    .post-feed.archive .post-grid {
         grid-template-columns: 1fr;
     }
 }
 
+/* === Homepage : logique hero, medium, small === */
+
+/* Niveau 1 : Post vedette (hero) - pleine largeur */
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-bottom: 2rem;
+    gap: 2rem;
+    max-width: 1070px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1.5rem;
+}
+
+/* Niveau 2 : Deux posts moyens */
+.medium-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+    max-width: 1070px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1.5rem;
+}
+
+/* Niveau 3 : Plusieurs posts petits (jusqu'à 9 max en 3 colonnes) */
+.small-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    max-width: 1070px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1.5rem;
+}
+
+/* Responsive homepage */
+/* Medium : 1 colonne sous 981px */
+@media (max-width: 980px) {
+    .medium-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .small-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Small : 1 colonne sous 681px */
+@media (max-width: 680px) {
+    .small-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* === Styles communs aux cartes (homepage + archives) === */
 .post-card {
     color: inherit;
     text-decoration: none;
+    width: 100%;
+    display: block;
 }
 
 .post-card:hover {
     text-decoration: none;
 }
 
+/* Titre */
+.post-card-title {
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+
+/* Extrait */
+.post-card-excerpt {
+    font-size: 1.6rem;
+    line-height: 1.55em;
+}
+
+/* Tags */
 .post-card-tags {
     margin: 0 0 5px 0;
     font-size: 1.4rem;
@@ -996,116 +1081,95 @@ h6 {
     color: var(--color-secondary);
 }
 
-
-.post-card-title {
-    margin: 0 0 10px 0;
-    padding: 0;
-}
-
-.post-card-excerpt {
-    font-size: 1.6rem;
-    line-height: 1.55em;
-}
-
+/* Image générique */
 .post-card-image {
     margin: 0 0 10px 0;
-    width: auto;
+    width: 100%;
     height: 200px;
     background: var(--color-secondary) no-repeat center center;
     background-size: cover;
-}
-
-.post-card-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 10px 0 0 0;
-    color: var(--color-secondary);
-}
-
-.post-card-footer-left {
-    display: flex;
-    align-items: center;
-}
-
-.post-card-footer-right {
-    display: flex;
-    flex-direction: column;
-}
-
-.post-card-avatar {
-    width: 30px;
-    height: 30px;
-    margin: 0 7px 0 0;
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.post-card-avatar .author-profile-image {
-    display: block;
-    width: 100%;
-    background: var(--color-secondary);
-    border-radius: 100%;
+    border-radius: 8px;
     object-fit: cover;
 }
 
-.post-card-avatar .default-avatar {
-    width: 26px;
+/* Images selon type (homepage uniquement) */
+.post-card-hero .post-card-image {
+    height: 280px;
 }
 
-/* Post Card Featured */
-.post-card.featured {
-    grid-column: 1 / -1;
-    height: auto;
-    background: var(--color-highlight);
+.post-card-medium .post-card-image {
+    height: 220px;
 }
 
-/* Tag Archives
+.post-card-small .post-card-image {
+    height: 180px;
+}
+
+/* Styles spécifiques par type (homepage uniquement) */
+.post-card-hero {
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    padding: 15px;
+    box-shadow: var(--shadow-medium);
+}
+
+.post-card-medium {
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    padding: 15px;
+    box-shadow: var(--shadow-small);
+}
+
+.post-card-small {
+    border-radius: 12px;
+    background: var(--color-background-light);
+    border: 1px solid var(--color-border);
+    padding: 15px;
+    box-shadow: none;
+}
+
+/* Espacement entre les blocs (homepage) */
+.post-hero,
+.post-medium,
+.post-small {
+    margin-bottom: 2rem;
+}
+
+/* Archives : Tag, Author, Date
 /* ---------------------------------------------------------- */
 
-.tag-header {
-    max-width: 690px;
-    margin: 0 0 4vw;
+/* Titre de la page */
+.post-feed.archive>.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--color-primary);
 }
 
-.tag-header h1 {
-    margin: 0 0 1rem 0;
+/* Messages "Aucun article trouvé" */
+.post-feed.archive>p {
+    font-size: 1.5rem;
+    text-align: center;
+    color: var(--color-secondary-text);
+    margin-top: 3rem;
 }
 
-.tag-header p {
-    margin: 0;
-    color: var(--color-secondary);
-    font-size: 2.2rem;
-    line-height: 1.3em;
-}
-
-@media (max-width: 500px) {
-    .tag-header {
-        border-bottom: var(--color-bg) 1px solid;
-        padding-bottom: 4vw;
-    }
-
-    .tag-header p {
-        font-size: 1.7rem;
-    }
-}
-
-
-/* Author Archives
-/* ---------------------------------------------------------- */
-
+/* Garder les styles existants pour tag-header et author-header */
+/* (à fusionner si besoin avec cette nouvelle structure) */
+.tag-header,
 .author-header {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 0 4vw;
+    max-width: 690px;
+    margin: 0 auto 4vw auto;
+    padding: 0 1.5rem;
 }
 
+.tag-header h1,
 .author-header h1 {
     margin: 0 0 1rem 0;
 }
 
+.tag-header p,
 .author-header p {
     margin: 0;
     color: var(--color-secondary);
@@ -1113,9 +1177,29 @@ h6 {
     line-height: 1.3em;
 }
 
+@media (max-width: 500px) {
+
+    .tag-header,
+    .author-header {
+        border-bottom: 1px solid var(--color-bg);
+        padding-bottom: 4vw;
+    }
+
+    .tag-header p,
+    .author-header p {
+        font-size: 1.7rem;
+    }
+}
+
+.author-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .author-header-image {
     flex: 0 0 auto;
-    margin: 0 0 0 4vw;
+    margin-left: 4vw;
     height: 120px;
     width: 120px;
     border-radius: 100%;
@@ -1137,21 +1221,61 @@ h6 {
 }
 
 @media (max-width: 500px) {
-    .author-header {
-        border-bottom: var(--color-bg) 1px solid;
-        padding-bottom: 4vw;
-    }
-
-    .author-header p {
-        font-size: 1.7rem;
-    }
-
     .author-header-image {
         height: 80px;
         width: 80px;
     }
 }
 
+/* Mise en forme des titres de section archives */
+.archive-template,
+.tag-template,
+.author-template {
+    padding-top: 4vw;
+}
+
+.archive-header,
+.tag-title,
+.author-name {
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--color-primary);
+}
+
+.archive-description,
+.author-bio,
+.tag-description {
+    font-size: 1.6rem;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 4rem auto;
+    color: var(--color-secondary-text);
+}
+
+.archive-header img,
+.author-profile img {
+    max-width: 120px;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 680px) {
+
+    .archive-header,
+    .tag-title,
+    .author-name {
+        font-size: 3rem;
+    }
+
+    .archive-description,
+    .author-bio,
+    .tag-description {
+        font-size: 1.4rem;
+    }
+}
 
 /* Pagination
 /* ---------------------------------------------------------- */

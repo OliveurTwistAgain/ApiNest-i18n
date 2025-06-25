@@ -10,39 +10,16 @@ import { MetaData } from "../components/common/meta";
 
 /**
  * Single post view (/:slug or /en/:slug)
- *
- * This file renders a single post and loads all the content.
- *
  */
-const Post = ({ data, location, pageContext }) => {
-    // On récupère le post (le premier node de la query)
-    let post = data.allGhostPost.nodes[0];
+const Post = ({ data, location }) => {
+    const post = data.allGhostPost.nodes[0];
 
-    // Si pas de post (slug/lang incorrects)
     if (!post) {
         return (
             <Layout>
                 <div className="container">
                     <h1>Erreur : article introuvable</h1>
-                    <p>Vérifie que le slug et le tag de langue sont corrects.</p>
-                </div>
-            </Layout>
-        );
-    }
-
-    // Optionnel : filtre côté front si nécessaire (en général côté query ça suffit)
-    const lang = pageContext?.lang || 'fr';
-    if (lang === 'en' && !post.slug.startsWith('en-')) {
-        post = null;
-    } else if (lang !== 'en' && post.slug.startsWith('en-')) {
-        post = null;
-    }
-    if (!post) {
-        return (
-            <Layout>
-                <div className="container">
-                    <h1>Erreur : article introuvable (langue non correspondante)</h1>
-                    <p>Vérifie que le slug et la langue dans l'URL sont corrects.</p>
+                    <p>Vérifie que le slug est correct.</p>
                 </div>
             </Layout>
         );
@@ -107,7 +84,6 @@ Post.propTypes = {
         }).isRequired,
     }).isRequired,
     location: PropTypes.object.isRequired,
-    pageContext: PropTypes.object,
 };
 
 export default Post;

@@ -5,14 +5,12 @@ import PropTypes from "prop-types";
 import { Link, useStaticQuery, graphql } from "gatsby";
 import { useLanguage } from "../../utils/LanguageContext";
 
+// Composant Footer
 const Footer = ({ navigation }) => {
     const { language } = useLanguage();
     const year = new Date().getFullYear();
-
-    // Langue courante avec fallback en français
     const currentLang = language || "fr";
 
-    // Requête pour récupérer dynamiquement le nom du site depuis Ghost
     const data = useStaticQuery(graphql`
         query SiteTitleQuery {
             allGhostSettings {
@@ -24,39 +22,39 @@ const Footer = ({ navigation }) => {
             }
         }
     `);
+    // Récupération du titre du site depuis Ghost
     const siteTitle = data.allGhostSettings.edges[0].node.title;
-
-    // Filtrage dynamique des liens en fonction de la langue
+    // Filtrage des liens de navigation selon la langue    
     const filteredNavigation = navigation.filter(item => {
         try {
             const path = new URL(item.url, "https://dummy.base").pathname;
-
-            // Lien FR : on exclut les "/en-"
-            // Lien EN : on ne garde que les "/en-"
             if (currentLang === "en") {
                 return path.startsWith("/en-") || item.url.startsWith("http");
             } else {
                 return !path.startsWith("/en-") || item.url.startsWith("http");
             }
         } catch (e) {
-            // Lien externe sans path valide : on le garde
             return true;
         }
     });
+
+    // URL des archives selon la langue
+    const archivePath = currentLang === "en" ? "/en-archives/" : "/archives/";
+    const archiveLabel = currentLang === "en" ? "Archives" : "Archives";
 
     return (
         <footer className="site-foot">
             <div className="site-foot-nav container">
                 
-                {/* 📍 Zone gauche : titre du site + année */}
+                {/* Zone gauche : titre du site + année */}
                 <div className="site-foot-nav-left">
-                    <Link to="/" className="site-foot-nav-item">
+                <Link to={currentLang === "en" ? "/en/" : "/"} className="site-foot-nav-item">
                         {siteTitle}
                     </Link>
                     &copy; {year}
                 </div>
 
-                {/* Zone centrale : liens filtrés, 1 par ligne */}
+                {/* Zone centrale : liens + archives */}
                 <div className="site-foot-nav-center">
                     {filteredNavigation.map((item, index) => {
                         const isExternal = item.url.startsWith("http");
@@ -84,9 +82,16 @@ const Footer = ({ navigation }) => {
                             </div>
                         );
                     })}
+
+                    {/* Lien Archives */}
+                    <div className="site-foot-nav-line">
+                        <Link to={archivePath} className="site-foot-nav-item">
+                            {archiveLabel}
+                        </Link>
+                    </div>
                 </div>
 
-                {/* Zone droite : crédit custom */}
+                {/* Zone droite : Crédit */}
                 <div className="site-foot-nav-right">
                     <span className="site-foot-nav-item">
                         Bee ApiNest – LM.72

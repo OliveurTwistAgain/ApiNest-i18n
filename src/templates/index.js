@@ -1,76 +1,89 @@
-// src/templates/index.js
+//src/templates/index.js
 
-import * as React from "react";
-import PropTypes from "prop-types";
-import { graphql } from "gatsby";
-import Layout from "../components/common/Layout";
-import PostCard from "../components/common/PostCard";
-import Pagination from "../components/common/Pagination";
-import MetaData from "../components/common/meta/MetaData";
-import MapSection from "../components/common/MapSection";
+import React from "react"
+import { graphql } from "gatsby"
+import Layout from "../components/common/Layout"
+import PostCard from "../components/common/PostCard"
+import SEO from "../components/common/SEO"
 
-/**
- * Main index page (home page)
- *
- * Loads all posts from Ghost and uses pagination to navigate through them.
- * The number of posts that should appear per page can be setup
- * in /utils/siteConfig.js under `postsPerPage`.
- *
- */
-const Index = ({ data, location, pageContext }) => {
-    const lang = pageContext.lang || 'fr'; // Défaut : FR
-    const posts = data.allGhostPost.edges
-        .map(edge => edge.node)
-        .filter(post => {
-            return lang === 'en'
-                ? post.slug.startsWith('en-')
-                : !post.slug.startsWith('en-');
-        });
+const IndexTemplate = ({ data, location, pageContext }) => {
+  const posts = data.allGhostPost.edges
+    .map(edge => edge.node)
+    .filter(post => {
+      // Langue FR ou EN selon le contexte (FR : pas de prefixe, EN : prefixe en-)
+      if (pageContext.lang === "en") return post.slug.startsWith("en-")
+      return !post.slug.startsWith("en-")
+    })
 
-    return (
-        <>
-            <MetaData location={location} />
-            <Layout isHome={true}>
-                <div className="container">
-                    <section className="post-feed">
-                        {posts.map((post) => (
-                            <PostCard key={post.id} post={post} />
-                        ))}
-                    </section>
-                    <Pagination pageContext={pageContext} />
-                </div>
-                
-                {/* Map section : carte OSM en bas de page */}
-                <MapSection />
-            </Layout>
-        </>
-    );
-};
+  // Sélection du post vedette (featured) s'il existe
+  const featuredPost = posts.find(post => post.featured) || posts[0]
 
-Index.propTypes = {
-    data: PropTypes.shape({
-        allGhostPost: PropTypes.object.isRequired,
-    }).isRequired,
-    location: PropTypes.shape({
-        pathname: PropTypes.string.isRequired,
-    }).isRequired,
-    pageContext: PropTypes.object,
-};
+  // Retirer le post vedette de la liste pour éviter les doublons
+  const remainingPosts = posts.filter(p => p.id !== featuredPost.id)
 
-export default Index;
+  // Posts moyens (2 suivants) et petits (le reste jusqu'à 9)
+  const mediumPosts = remainingPosts.slice(0, 2)
+  const smallPosts = remainingPosts.slice(2, 11)
+
+  return (
+    <Layout location={location} showFooter={true} language={pageContext.lang}>
+      <SEO title="" />
+      <main className="post-feed">
+        {/* Bloc vedette */}
+        <section className="post-hero hero-grid">
+          <PostCard post={featuredPost} type="hero" />
+        </section>
+
+        {/* Bloc moyens */}
+        {mediumPosts.length > 0 && (
+          <section className="post-medium medium-grid">
+            {mediumPosts.map(post => (
+              <PostCard key={post.id} post={post} type="medium" />
+            ))}
+          </section>
+        )}
+
+        {/* Bloc petits */}
+        {smallPosts.length > 0 && (
+          <section className="post-small small-grid">
+            {smallPosts.map(post => (
+              <PostCard key={post.id} post={post} type="small" />
+            ))}
+          </section>
+        )}
+      </main>
+    </Layout>
+  )
+}
+
+export default IndexTemplate
 
 export const pageQuery = graphql`
-    query GhostPostQuery($limit: Int!, $skip: Int!) {
-        allGhostPost(
-            sort: { order: DESC, fields: [published_at] }
-            limit: $limit
-            skip: $skip
-        ) {
-            edges {
-                node {
-                    ...GhostPostFields
-                }
-            }
+  query GhostHomeQuery {
+    allGhostPost(
+      sort: { fields: [published_at], order: DESC }
+      limit: 18
+    ) {
+      edges {
+        node {
+          id
+          title
+          slug
+          featured
+          feature_image
+          excerpt
+          published_at
+          reading_time
+          primary_tag {
+            name
+            slug
+          }
+          authors {
+            name
+            profile_image
+          }
         }
+      }
     }
-`;
+  }
+`

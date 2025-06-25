@@ -4,12 +4,12 @@ import React from "react";
 import "leaflet/dist/leaflet.css"; // CSS Leaflet requis côté client
 import { LanguageProvider } from "./src/utils/LanguageContext";
 
-// Lang provider autour de tout le site
-export const wrapRootElement = ({ element }) => {
-  return <LanguageProvider>{element}</LanguageProvider>;
-};
+// Encapsulation racine dans le fournisseur de langue
+export const wrapRootElement = ({ element }) => (
+  <LanguageProvider>{element}</LanguageProvider>
+);
 
-// Trust Ghost external scripts
+// Recharge les scripts Ghost externes
 export const onRouteUpdate = () => {
   const scriptNodes = document.querySelectorAll('.load-external-scripts script');
 

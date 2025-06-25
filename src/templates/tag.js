@@ -7,20 +7,9 @@ import { graphql } from "gatsby";
 import { Layout, PostCard, Pagination } from "../components/common";
 import { MetaData } from "../components/common/meta";
 
-/**
- * Tag page (/tag/:slug)
- *
- * Loads all posts for the requested tag incl. pagination.
- *
- */
 const Tag = ({ data, location, pageContext }) => {
     const tag = data.ghostTag;
-    const lang = pageContext.lang || 'fr';
-
-    // Transform edges to posts, filter by lang prefix on slug
-    const posts = data.allGhostPost.edges
-        .map(edge => edge.node)
-        .filter(post => lang === 'en' ? post.slug.startsWith('en-') : !post.slug.startsWith('en-'));
+    const posts = data.allGhostPost.edges.map(edge => edge.node); // ✅ Supprime le filtrage inutile
 
     return (
         <>
@@ -29,11 +18,10 @@ const Tag = ({ data, location, pageContext }) => {
                 <div className="container">
                     <header className="tag-header">
                         <h1>{tag.name}</h1>
-                        {tag.description ? <p>{tag.description}</p> : null}
+                        {tag.description && <p>{tag.description}</p>}
                     </header>
                     <section className="post-feed">
                         {posts.map(post => (
-                            // The tag below includes the markup for each post - components/common/PostCard.js
                             <PostCard key={post.id} post={post} />
                         ))}
                     </section>

@@ -3,82 +3,62 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import { Link } from "gatsby";
-import { Tags } from "@tryghost/helpers-gatsby";
-import { readingTime as readingTimeHelper } from "@tryghost/helpers";
 
-const PostCard = ({ post }) => {
+/**
+ * Composant PostCard
+ * S’adapte au type de carte : hero, medium, small
+ */
+const PostCard = ({ post, hero, medium, small }) => {
     const url = `/${post.slug}/`;
-    const readingTime = readingTimeHelper(post);
+
+    // Classes dynamiques selon le type
+    const cardClass = [
+        "post-card",
+        hero && "post-card-hero",
+        medium && "post-card-medium",
+        small && "post-card-small",
+    ].filter(Boolean).join(" ");
 
     return (
-        <Link to={url} className="post-card">
+        <Link to={url} className={cardClass}>
+            {post.feature_image && (
+                <div
+                    className="post-card-image"
+                    style={{ backgroundImage: `url(${post.feature_image})` }}
+                    role="img"
+                    aria-label={post.title}
+                />
+            )}
+
             <header className="post-card-header">
-                {post.feature_image && (
-                    <div
-                        className="post-card-image"
-                        style={{
-                            backgroundImage: `url(${post.feature_image})`,
-                        }}
-                    ></div>
-                )}
-                {/* {post.tags && (
-                    <div className="post-card-tags">
-                        {" "}
-                        <Tags
-                            post={post}
-                            visibility="public"
-                            autolink={false}
-                        />
-                    </div>
-                )} */}
-                {post.featured && <span>Featured</span>}
                 <h2 className="post-card-title">{post.title}</h2>
             </header>
-            <section className="post-card-excerpt">{post.excerpt}</section>
-            {/* <footer className="post-card-footer">
-                <div className="post-card-footer-left">
-                    <div className="post-card-avatar">
-                        {post.primary_author.profile_image ? (
-                            <img
-                                className="author-profile-image"
-                                src={post.primary_author.profile_image}
-                                alt={post.primary_author.name}
-                            />
-                        ) : (
-                            <img
-                                className="default-avatar"
-                                src="/images/icons/avatar.svg"
-                                alt={post.primary_author.name}
-                            />
-                        )}
-                    </div>
-                    <span>{post.primary_author.name}</span>
-                </div>
-                <div className="post-card-footer-right">
-                    <div>{readingTime}</div>
-                </div>
-            </footer> */}
+
+            <section className="post-card-excerpt">
+                {post.excerpt}
+            </section>
         </Link>
     );
 };
 
 PostCard.propTypes = {
     post: PropTypes.shape({
+        id: PropTypes.string,
         slug: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         feature_image: PropTypes.string,
         featured: PropTypes.bool,
-        tags: PropTypes.arrayOf(
-            PropTypes.shape({
-                name: PropTypes.string,
-            })
-        ),
         excerpt: PropTypes.string.isRequired,
         primary_author: PropTypes.shape({
             name: PropTypes.string.isRequired,
             profile_image: PropTypes.string,
-        }).isRequired,
+        }),
     }).isRequired,
+
+    // Props logiques (hero, medium, small)
+    hero: PropTypes.bool,
+    medium: PropTypes.bool,
+    small: PropTypes.bool,
 };
 
 export default PostCard;
