@@ -21,6 +21,7 @@
 - Scroll to Top Button
 - Koenig Styles
 - Gallery Styles
+- Cover Selector (temporaire)
 
 
 /* Variables
@@ -729,30 +730,41 @@ h6 {
 /* Header
 /* ---------------------------------------------------------- */
 
+/* Header
+/* ---------------------------------------------------------- */
+
+/* fond, structure et superposition */
 .site-head {
-    color: var(--color-darkgrey);
-    padding: 2rem 3vw;
-    text-align: center;
-    background-color: var(--color-white);
     position: relative;
     z-index: 10;
     min-height: 250px;
+    padding: 2rem 3vw;
+    background-color: var(--color-white);
     background-attachment: fixed;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+    text-align: center;
+    color: var(--color-darkgrey);
+    transition: background-image 0.8s ease-in-out;
 }
 
 .site-head::after {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.25));
 }
 
-.site-title-link,
-.site-slogan,
-.site-nav-item {
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+.site-head>* {
+    position: relative;
+    z-index: 1;
 }
 
+/* Masthead : logo, titre, slogan */
+
+/* Container masthead : ligne logo + titre, puis slogan dessous */
 .site-mast {
     display: flex;
     flex-direction: column;
@@ -760,14 +772,39 @@ h6 {
     gap: 1rem;
 }
 
-.site-mast-horizontal {
-    flex-direction: row;
-    align-items: center;
-    gap: 1.5rem;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+@media (min-width: 981px) {
+    .site-mast {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .site-branding {
+        justify-content: flex-start;
+    }
+
+    .site-weather {
+        justify-content: flex-end;
+        padding-right: 3vw;
+    }
 }
 
+/* Groupe logo + titre (même ligne) */
+.site-branding {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+@media (max-width: 680px) {
+    .site-branding {
+        justify-content: center;
+        flex-wrap: wrap;
+        text-align: center;
+    }
+}
+
+/* Logo */
 .site-logo-link {
     display: inline-block;
 }
@@ -778,23 +815,27 @@ h6 {
     vertical-align: middle;
 }
 
+/* Titre */
 .site-title-link {
     font-size: 2.4rem;
     font-weight: 700;
+    line-height: 1.1;
     color: var(--color-bg);
     text-decoration: none;
-    line-height: 1;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
 }
 
+/* Slogan */
 .site-slogan {
     margin-top: 0.5rem;
     font-size: 1.6rem;
     font-weight: 500;
     color: var(--color-primary);
-    flex-basis: 100%;
+    text-align: center;
+    white-space: nowrap;
 }
 
-/* Nav bar (centrée) */
+/* Navigation principale (desktop) */
 .site-nav {
     display: flex;
     flex-wrap: wrap;
@@ -803,72 +844,110 @@ h6 {
     gap: 1rem;
     margin-top: 2rem;
     font-size: 1.4rem;
-    font-weight: 600;
+    font-weight: 500;
 }
 
-/* Liens de nav et boutons langue (desktop) */
+/* Liens de navigation + bouton langue homogènes */
 .site-nav-item,
 .site-nav-button.lang {
-    color: var(--color-bg);
-    background: transparent;
-    text-decoration: none;
-    padding: 0.4rem 1rem;
-    border: 1px solid transparent;
-    /* pour éviter le saut */
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 5px;
+    padding: 0.4rem 1rem;
+    color: var(--color-bg);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    transition: all 0.25s ease-in-out;
+    text-decoration: none;
+    border: none;
     cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
-    line-height: 1.4;
 }
 
-/* Hover effet unifié desktop */
+/* Hover homogène */
 .site-nav-item:hover,
 .site-nav-button.lang:hover {
     color: var(--color-primary);
-    background: rgba(0, 0, 0, 0.04);
-    /* léger fond, évite le flash blanc */
+    background: rgba(255, 255, 255, 0.15);
     border-color: transparent;
-    /* PAS de border-color au hover */
     text-decoration: none;
 }
 
-/* Langues + météo */
+/* Lien actif (page en cours) */
+.site-nav-item.active {
+    border: 1px solid var(--color-primary);
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.site-nav-item.active::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 123, 255, 0.2);
+    pointer-events: none;
+}
+
+/* Bloc langues : marge après le dernier lien */
 .site-nav-right {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem;
     margin-left: 3rem;
 }
 
-/* Mobile nav : layout en colonne */
-.mobile-lang-buttons {
+/* Météo */
+.site-weather {
     display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    padding: 0 1rem;
+    justify-content: flex-end;
+    width: 100%;
+    padding-right: 2rem;
+    margin-top: 0.5rem;
+    color: var(--color-bg)
 }
 
-/* Weather */
 .weather-widget {
+    background-color: rgba(0, 0, 0, 0.25);
+    color: var(--color-bg);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    padding: 0.35rem 1rem;
+    border-radius: 5px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    white-space: nowrap;
+    max-width: fit-content;
+    opacity: 0;
+    animation: fadeInWeather 0.6s ease-in-out forwards;
+    animation-delay: 0.2s;
     display: flex;
     align-items: center;
-    color: var(--color-primary);
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
-.weather-mobile {
-    margin: 1rem 1.5rem 0;
-    color: var(--color-primary);
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    text-align: center;
-    font-size: 1.5rem;
-    margin-left: auto;
-    margin-right: auto;
+@keyframes fadeInWeather {
+    to {
+        opacity: 1;
+    }
 }
 
-/* Hamburger button */
+@media (max-width: 980px) {
+    .site-weather {
+        justify-content: center !important;
+        padding: 0 1rem;
+        margin-top: 1rem;
+    }
+
+    .weather-widget {
+        background-color: rgba(0, 0, 0, 0.25);
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        max-width: 90%;
+        color: var(--color-bg);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    }
+}
+
+/* Menu hamburger */
 .menu-toggle {
     display: none;
     position: fixed;
@@ -882,7 +961,7 @@ h6 {
     cursor: pointer;
 }
 
-/* Mobile nav */
+/* Menu mobile masqué par défaut */
 .mobile-nav {
     display: none;
     flex-direction: column;
@@ -898,28 +977,30 @@ h6 {
     align-items: stretch;
 }
 
+/* Visible uniquement quand toggle activé */
 .mobile-nav.open {
     display: flex;
 }
 
-/* Liens dans le mobile nav (nav + lang) */
+/* Liens navigation + langues (mobile) */
 .mobile-nav a,
 .mobile-nav button.lang {
-    color: var(--color-bg);
+    display: block;
+    width: 100%;
+    text-align: center;
     padding: 1rem 1.5rem;
     font-size: 1.6rem;
     text-decoration: none;
-    text-align: center;
     background: transparent;
     border: none;
-    border-radius: 0;
-    box-shadow: none !important;
+    color: var(--color-bg);
     transition: background 0.2s ease, color 0.2s ease;
+    border-radius: 0;
 }
 
 /* Hover mobile élégant */
 .mobile-nav a:hover,
-.mobile-nav .site-nav-button.lang:hover {
+.mobile-nav button.lang:hover {
     background: rgba(255, 255, 255, 0.08);
     color: var(--color-primary);
 }
@@ -1614,4 +1695,31 @@ h6 {
 .kg-image-card.kg-width-wide+.kg-gallery-card,
 .kg-image-card.kg-width-wide+.kg-image-card.kg-width-wide {
     margin: -2.25em 0 3em;
+}
+
+/* Cover Selector (temporaire)
+/* ---------------------------------------------------------- */
+
+select.cover-selector {
+    color: black;
+    background-color: white;
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.cover-selector {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.85rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: #ffffffdd;
+    color: #333;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    max-width: 300px;
 }

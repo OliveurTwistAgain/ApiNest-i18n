@@ -48,9 +48,12 @@
 │   │   │   └── 99e3bd04d12f1421923dd558998a350955f644
 │   │   ├── 09/
 │   │   │   └── 1e30bb11c1413227e58e1d0b0874fe4947ff40
+│   │   ├── 0a/
+│   │   │   └── 52a011c6bc14de985536f7ce217f1113d755f4
 │   │   ├── 0b/
 │   │   │   └── a2bc92cfffa2d640510ba55968da1af591a3f2
 │   │   ├── 0d/
+│   │   │   ├── 3b893bb0dfbfee31a5895dc0e87606d62b9e9e
 │   │   │   ├── 896d399dfd68b1b85dd3dba259d3a003ffd72b
 │   │   │   └── cac576968cb2265e8198a94e6c5237bbabf8d5
 │   │   ├── 0e/
@@ -83,6 +86,7 @@
 │   │   │   ├── 4633a1d148a80ca87f5d494edf5b99b0388d86
 │   │   │   └── dbb54489a6c51340df2bc5329133f4143d0b59
 │   │   ├── 1b/
+│   │   │   ├── 933a22f3ac71b75c32d4319911d92b92158ec7
 │   │   │   └── b7e68f54fd575427aeb485ba5c058f80b4d7b8
 │   │   ├── 1c/
 │   │   │   ├── 2920699557fb4d4f2563fa1d4402cdab6a3b5a
@@ -95,6 +99,8 @@
 │   │   │   └── a886791b867c6ce0b40d1f1da3ff306bd007b0
 │   │   ├── 20/
 │   │   │   └── cefe145a5242fdce12499c766d2271f2dcd7ad
+│   │   ├── 24/
+│   │   │   └── d58414484bea3f5d87af524ccb06b21e6d8be1
 │   │   ├── 25/
 │   │   │   ├── 0627821ac5f8cd235fce779fb076dee99289b5
 │   │   │   ├── a1103eb05d7239b0207b4ed2854521dfb7283a
@@ -122,8 +128,10 @@
 │   │   ├── 2f/
 │   │   │   ├── 2e76a49575773c369dff7905d0cb799962681a
 │   │   │   ├── 5db1942b7ce0fc500cfd0da00816ebe7edca4c
+│   │   │   ├── 8252bfee5968b1b83f1f4e4943bfc30df688bd
 │   │   │   ├── 8cf42351b5ad3cac3ddf357a144c13d1ec9846
-│   │   │   └── a0a8ae7477c4235a6e01d3a5c57ba487dc405f
+│   │   │   ├── a0a8ae7477c4235a6e01d3a5c57ba487dc405f
+│   │   │   └── d278d8e317e5c0c8cca57ac954e97425a0c904
 │   │   ├── 30/
 │   │   │   ├── 1af3a94c3054c89bc4f311c90a94e57f548bed
 │   │   │   └── 5d1bef20c0b4ffce34a0688fda7194851f6c88
@@ -149,6 +157,8 @@
 │   │   │   └── f16c52fb6957a6fd9bc474c1aa268ce1eab238
 │   │   ├── 3e/
 │   │   │   └── 3f7f641ece73e3641308e82a91b54ad4a7efc6
+│   │   ├── 40/
+│   │   │   └── e4b9b417c9944625693ec5c57604127305860c
 │   │   ├── 41/
 │   │   │   └── c50b45c26dfa19b13a89faada93abd5d2e0d84
 │   │   ├── 44/
@@ -174,6 +184,7 @@
 │   │   │   ├── 13bd8a8bf2a2c69b6ad8c1ff932e16864324b4
 │   │   │   ├── 40a013edde418b02cfc0eaba4de48f0fdaaf63
 │   │   │   ├── 7303e818c11502559fe10f4cc47ad6f8e2d39a
+│   │   │   ├── 862fb5a1938a942ba341c808cd0dae72ba7ed0
 │   │   │   └── ab9f8d0b7d115accefc1ac69b1e38c4ec971d5
 │   │   ├── 4f/
 │   │   │   └── fb1d9e6015464f8ce379fa7a4713a22a36a123
@@ -188,6 +199,7 @@
 │   │   ├── 55/
 │   │   │   └── 979b42ad6277ca8b17f1998a38dfa84eb8325b
 │   │   ├── 56/
+│   │   │   ├── 005edd062ad5ec125104ef326ca49149a4e0a8
 │   │   │   └── 1eb0bb667b8a29a6295901dc0bf4708210acd2
 │   │   ├── 57/
 │   │   │   └── d889c8b814818d73ccc3ad7ed29b2b77108e4a
@@ -266,6 +278,8 @@
 │   │   │   └── cd7a8ccc1be24b2846d16ea61cc22bbef0f893
 │   │   ├── 79/
 │   │   │   └── 86b8a6140c3bcf3302ed927328988356b644b1
+│   │   ├── 7a/
+│   │   │   └── a01931bd9c06c1bfbeb19e31cc516289977008
 │   │   ├── 7b/
 │   │   │   └── 0ef50ff999f257fc78ee23b6dd23375ba65e37
 │   │   ├── 7d/
@@ -332,6 +346,8 @@
 │   │   ├── a2/
 │   │   │   ├── 464c8d180901d861c466c0641657f35162d2fd
 │   │   │   └── a28b4a01d95182eb0c8b656754a13e9166f717
+│   │   ├── a3/
+│   │   │   └── 237be4f7c35ecce309be2c113c9b8eb740911d
 │   │   ├── a4/
 │   │   │   └── 70145fc45062f9cd3dc32170039f50775a1022
 │   │   ├── a6/
@@ -347,6 +363,7 @@
 │   │   │   └── 5599effa79264bfc55dd4f7c9fde13f85c16eb
 │   │   ├── aa/
 │   │   │   ├── 09ed68a27a2834c151d5b96d893c2c844eeef7
+│   │   │   ├── 20f0a7a9658efc747d28ca9d06dcc3965a2e6c
 │   │   │   └── eaa88654763a00a31f9e73403ec3b3c635bfdc
 │   │   ├── ab/
 │   │   │   ├── 4d32d322eafed799c4918299b7ae591425ee47
@@ -369,8 +386,11 @@
 │   │   │   └── 26b2dcf9ec0bc9a346eb4d1dfaa2512caddced
 │   │   ├── b2/
 │   │   │   └── b806399063c83542543121b8b0c9585c53add5
+│   │   ├── b3/
+│   │   │   └── 5d9a0b8afa08ae2c4ebb5149ad0a6ea7c46665
 │   │   ├── b4/
-│   │   │   └── 2871355a206be48899941a8720ac5d044c7634
+│   │   │   ├── 2871355a206be48899941a8720ac5d044c7634
+│   │   │   └── b32f8023663351f07dc5eb03df6cfa4b35f858
 │   │   ├── b6/
 │   │   │   └── 7273131ae2770f06f6142989a7f10a6895a2d1
 │   │   ├── b7/
@@ -385,6 +405,7 @@
 │   │   ├── bb/
 │   │   │   ├── 626b869a7537f6ec4c800d83f30ffc52db8252
 │   │   │   ├── 6911f36e060f4cdfbb2afcf15e9500570fa635
+│   │   │   ├── 72e0492f6e857f3a123ff7ec1b6c50a4003747
 │   │   │   └── 7f94c6d11e91c3958ecbdcb532e57ed8cdec0e
 │   │   ├── bd/
 │   │   │   ├── 23a3d8093e47608623672b3dd36065dd5f5310
@@ -393,7 +414,8 @@
 │   │   ├── be/
 │   │   │   └── f04386ac8850cd9f6d97b7130445e698c89834
 │   │   ├── bf/
-│   │   │   └── 18933cfacdb5bbbfec88f76065ecc2c6498f0c
+│   │   │   ├── 18933cfacdb5bbbfec88f76065ecc2c6498f0c
+│   │   │   └── af5d261884078a888b8e8fa5aba2394c2bc8d2
 │   │   ├── c0/
 │   │   │   ├── 97b6f2ef56222f27eb6aec73fbfaa6a408618b
 │   │   │   └── e053d5415cc63484452818d906fe6a4d7a2ce2
@@ -405,10 +427,18 @@
 │   │   │   ├── 6fbcfb5611e673bcf487ec28965e3e67b0f899
 │   │   │   └── a49f4fb82f19ffa9089fcf8630e5a2870d3feb
 │   │   ├── c3/
-│   │   │   └── e18ce41c85b13861d6230db7ab10d7b25af212
+│   │   │   ├── e18ce41c85b13861d6230db7ab10d7b25af212
+│   │   │   └── fa330e350529c6439f194160c0d5a5b888c7e6
 │   │   ├── c4/
+│   │   │   ├── 0c4ccb8ab473c3b9ac50a3b5d9f44f4eb5f259
 │   │   │   ├── 4270b5e77f2ea51308c117d8a35a48cb882126
 │   │   │   └── 98281bae956434fedf862d75213aa88dc0abc7
+│   │   ├── c5/
+│   │   │   ├── df270fa160950fb2ed35ed28d3d0a7194f0acd
+│   │   │   └── efaffa2e29731b45e6bcd6f49cfbf4f3f450a8
+│   │   ├── c6/
+│   │   │   ├── 190075f747870426d8908f487b75a1392242e5
+│   │   │   └── 4d1ed96bcddeacd6f64affed603b0dfd74a442
 │   │   ├── c7/
 │   │   │   └── 28cfbbf6554aa0d1c44e0af17f88ad16963b93
 │   │   ├── c9/
@@ -451,6 +481,8 @@
 │   │   │   ├── 8fc8ade29f87619e4c1126e469de667c3853b2
 │   │   │   ├── b1f33cd14ac3b625255a5a0b0b0bc557d3c926
 │   │   │   └── ef0399ef120d696741eb30c069a500d4a6601a
+│   │   ├── da/
+│   │   │   └── 7428455db91cb5430e144ccebf657a9344212b
 │   │   ├── db/
 │   │   │   ├── 6fd3e49c8c96c6eac9b0a91661e3b9f644c8bf
 │   │   │   └── e2f84e8cbcf15e33a89fb0b8b13a54272714a3
@@ -470,6 +502,8 @@
 │   │   │   └── ec1a5bd3fd8c6fcf506b25bd1c9f103337ce23
 │   │   ├── e7/
 │   │   │   └── c040a06021fc032eed0a20b7758b377aca891c
+│   │   ├── e8/
+│   │   │   └── 78c5b7dafed914cd81b31f4d16d2a2d59bee5b
 │   │   ├── e9/
 │   │   │   └── ae7743a862568b45820491e1781cb24e34c8c4
 │   │   ├── ea/
@@ -493,6 +527,8 @@
 │   │   │   └── a35b036ce99446bd04f7d642742c46a4ca5981
 │   │   ├── f2/
 │   │   │   └── 1e5b96fc4062ec9157c7699f7c3dbe3d803c10
+│   │   ├── f4/
+│   │   │   └── f1e278d6c3f65b9766d0e4dde65484c4aa5c59
 │   │   ├── f5/
 │   │   │   ├── 111981aa81010d3a6f64bf0ddff82778c1a4e2
 │   │   │   └── f8bea863d6d76ae6908882b1cd1f335a943ee7
@@ -546,6 +582,7 @@
 │   │       │   ├── index.js
 │   │       │   ├── MetaData.js
 │   │       │   └── WebsiteMeta.js
+│   │       ├── coverList.js
 │   │       ├── Footer.js
 │   │       ├── Header.js
 │   │       ├── index.js
@@ -564,7 +601,8 @@
 │   ├── styles/
 │   │   └── app.css
 │   ├── templates/
-│   │   ├── archive.js
+│   │   ├── archive-en.js
+│   │   ├── archive-fr.js
 │   │   ├── author.js
 │   │   ├── index.js
 │   │   ├── page.js
@@ -579,6 +617,27 @@
 │       ├── siteConfig.js
 │       └── useTranslation.js
 ├── static/  # Fichiers statiques copiés tels quels dans le dossier final (images, favicon, robots.txt)
+│   ├── covers/
+│   │   ├── cover001.jpg
+│   │   ├── cover002.jpg
+│   │   ├── cover003.jpg
+│   │   ├── cover004.jpg
+│   │   ├── cover005.jpg
+│   │   ├── cover006.jpg
+│   │   ├── cover007.jpg
+│   │   ├── cover008.jpg
+│   │   ├── cover009.jpg
+│   │   ├── cover010.jpg
+│   │   ├── cover011.jpg
+│   │   ├── cover012.jpg
+│   │   ├── cover013.jpg
+│   │   ├── cover014.jpg
+│   │   ├── cover015.jpg
+│   │   ├── cover016.jpg
+│   │   ├── cover017.jpg
+│   │   ├── cover018.jpg
+│   │   ├── cover019.jpg
+│   │   └── cover020.jpg
 │   ├── images/
 │   │   ├── icons/
 │   │   │   ├── avatar.svg
@@ -604,6 +663,7 @@
 ├── gatsby-config.js  # Configuration principale de Gatsby : métadonnées du site et plugins
 ├── gatsby-node.js  # Fichier utilisé pour générer dynamiquement les pages via GraphQL
 ├── gatsby-ssr.js
+├── generate-cover-list.js
 ├── generate-structure.js
 ├── LICENSE
 ├── netlify.toml  # Configuration du déploiement sur Netlify (build, redirect, headers)

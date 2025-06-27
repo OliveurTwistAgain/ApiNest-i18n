@@ -1,7 +1,7 @@
 # ApiNest-i18n
 
 ApiNest-i18n est un site vitrine connecté à un CMS headless [Ghost](https://ghost.org/) hébergé sur [Pikapods](https://www.pikapods.com/) et propulsé par [Gatsby](https://www.gatsbyjs.com/) et [Netlify](https://www.netlify.com/).  
-Ce projet inclut une gestion multilingue (FR/EN), une carte interactive, la météo en direct, un formulaire de contact (en cours), la navigation similaire sur les posts (en cours) et un design responsive avec menu hamburger.
+Ce projet inclut une gestion multilingue (FR/EN), une carte interactive, la météo en direct, un formulaire de contact (en cours), la navigation similaire sur les posts (en cours), un système de couvertures aléatoires à chaque chargement de page et un design responsive avec menu hamburger.
 
 ## 🚀 Démo
 
@@ -60,6 +60,11 @@ Exemples :
 
 -   `/brillant/` → article en français
 -   `/en-purple/` → article en anglais
+
+## 🖼️ Couvertures aléatoires
+
+À chaque chargement de page, une image de couverture est sélectionnée aléatoirement parmi un ensemble d’images locales (`/static/covers/`).  
+Le système utilise `sessionStorage` pour mémoriser l'image de couverture pendant la navigation.
 
 ## 📄 Licence MIT
 
