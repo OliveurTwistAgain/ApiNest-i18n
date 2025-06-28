@@ -730,16 +730,13 @@ h6 {
 /* Header
 /* ---------------------------------------------------------- */
 
-/* Header
-/* ---------------------------------------------------------- */
-
 /* fond, structure et superposition */
 .site-head {
     position: relative;
     z-index: 10;
     min-height: 250px;
     padding: 2rem 3vw;
-    background-color: var(--color-white);
+    background-color: var(--color-base);
     background-attachment: fixed;
     background-position: center center;
     background-repeat: no-repeat;
@@ -1020,6 +1017,25 @@ h6 {
     .mobile-nav {
         display: none !important;
     }
+}
+
+/* Lien actif dans le menu hamburger (mobile) */
+.mobile-nav a.active,
+.mobile-nav button.lang.active {
+    border: 1px solid var(--color-primary);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.mobile-nav a.active::after,
+.mobile-nav button.lang.active::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 123, 255, 0.2);
+    pointer-events: none;
 }
 
 /* Main
