@@ -21,7 +21,7 @@
 - Scroll to Top Button
 - Koenig Styles
 - Gallery Styles
-- Cover Selector (temporaire)
+- Cover Selector (localhost)
 
 
 /* Variables
@@ -1732,7 +1732,7 @@ select.cover-selector {
 
 .cover-selector {
     position: absolute;
-    top: 1rem;
+    bottom: 1rem;
     right: 1rem;
     font-size: 0.85rem;
     padding: 4px 8px;

@@ -1,4 +1,4 @@
-// src/components/common/Header.js
+// src/components/common/Header.js 
 
 import React, { useState, useEffect } from "react";
 import { Link, navigate } from "gatsby";
@@ -6,8 +6,22 @@ import { StaticImage } from "gatsby-plugin-image";
 import WeatherWidget from "./WeatherWidget";
 import i18n from "../../utils/i18n-config";
 import { coverList } from "./coverList";
+import { localCoverList } from "./localCoverList";
 
-const STORAGE_KEY = "localCoverSession";
+// ↓↓↓ Détection de l’environnement local (localhost) ↓↓↓
+const isLocalhost = typeof window !== "undefined" && window.location.hostname === "localhost";
+
+// ↓↓↓ Variable pivot pour savoir si on utilise les covers locales (tests) ↓↓↓
+const isUsingLocalCovers = isLocalhost && localCoverList.length > 0;
+
+// ↓↓↓ Choix de la liste de covers selon l’environnement ↓↓↓
+const coverListToUse = isUsingLocalCovers ? localCoverList : coverList;
+
+// ↓↓↓ Clé de sessionStorage différenciée pour local/test et prod ↓↓↓
+const STORAGE_KEY = isUsingLocalCovers ? "selectedCover_local" : "selectedCover";
+
+// ↓↓↓ Chemin d'accès selon la liste réellement utilisée ↓↓↓
+const coverPathPrefix = isUsingLocalCovers ? "/local-covers/" : "/covers/";
 
 const Header = ({ currentLanguage, setLanguage, site, isHome }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,55 +32,55 @@ const Header = ({ currentLanguage, setLanguage, site, isHome }) => {
     sloganFixed: site.description || "",
   };
 
-  // Filtre navigation selon langue
+  // ↓↓↓ Liste dynamique des items de navigation selon la langue ↓↓↓
   const filteredNavItems = (site.navigation || []).filter((item) => {
     const url = item.url || "";
     const isEnglish = url.includes("/en") || url.includes("/en-");
     return currentLanguage === "en" ? isEnglish : !isEnglish;
   });
 
-  // Changement de langue + navigation + fermeture menu mobile
   const handleLanguageChange = (lang) => {
     setLanguage(lang);
     setMenuOpen(false);
     navigate(lang === "en" ? "/en" : "/");
   };
 
-  // Ferme menu mobile au resize écran
+  // ↓↓↓ Ferme le menu mobile lors du redimensionnement ↓↓↓
   useEffect(() => {
     const closeMenu = () => setMenuOpen(false);
     window.addEventListener("resize", closeMenu);
     return () => window.removeEventListener("resize", closeMenu);
   }, []);
 
-  // Gestion cover aléatoire persistée en sessionStorage
+  // ↓↓↓ Chargement d'une cover (aléatoire ou persistée) ↓↓↓
   useEffect(() => {
+    const availableCovers = coverListToUse.length > 0 ? coverListToUse : coverList;
     const savedCover = sessionStorage.getItem(STORAGE_KEY);
-    if (savedCover && coverList.includes(savedCover)) {
+
+    if (savedCover && availableCovers.includes(savedCover)) {
       setLocalCover(savedCover);
     } else {
-      const randomCover = coverList[Math.floor(Math.random() * coverList.length)];
+      const randomCover = availableCovers[Math.floor(Math.random() * availableCovers.length)];
       setLocalCover(randomCover);
       sessionStorage.setItem(STORAGE_KEY, randomCover);
     }
   }, []);
 
-  // Le fond d'écran
-  const backgroundImage =
-    localCover && localCover !== ""
-      ? `url(/covers/${localCover})`
-      : site.cover_image
-      ? `url(${site.cover_image})`
-      : "none";
+  // ↓↓↓ Construction dynamique de l’image de fond ↓↓↓
+  const coverPath = `${coverPathPrefix}${localCover}`;
+  const backgroundImage = localCover
+    ? `url(${coverPath})`
+    : site.cover_image
+    ? `url(${site.cover_image})`
+    : "none";
 
   return (
     <header className="site-head" style={{ backgroundImage }}>
-      {/* Couche haute : logo + titre regroupés dans .site-branding */}
       <div className="site-mast site-mast-horizontal">
         <div className="site-branding">
           <Link to={currentLanguage === "en" ? "/en" : "/"} className="site-logo-link">
             {site.logo ? (
-              <img className="site-logo" src={site.logo} alt={siteTitle} />
+              <img className="site-logo" src={site.logo} alt="Logo" />
             ) : (
               <StaticImage src="../images/logo-placeholder.png" alt="Logo" height={60} />
             )}
@@ -77,10 +91,8 @@ const Header = ({ currentLanguage, setLanguage, site, isHome }) => {
         </div>
       </div>
 
-      {/* Slogan */}
       <p className="site-slogan">{sloganFixed}</p>
 
-      {/* Navigation principale */}
       <nav className="site-nav">
         {filteredNavItems.map((item, index) => (
           <Link
@@ -116,12 +128,11 @@ const Header = ({ currentLanguage, setLanguage, site, isHome }) => {
         </div>
       </nav>
 
-      {/* Météo visible en permanence (desktop + mobile) */}
       <div className="site-weather">
         <WeatherWidget />
       </div>
 
-      {/* Burger menu mobile */}
+      {/* ↓↓↓ Bouton menu mobile (hamburger) ↓↓↓ */}
       <button
         className="menu-toggle"
         onClick={() => setMenuOpen(!menuOpen)}
@@ -130,7 +141,7 @@ const Header = ({ currentLanguage, setLanguage, site, isHome }) => {
         ☰
       </button>
 
-      {/* Menu mobile */}
+      {/* ↓↓↓ Menu mobile ↓↓↓ */}
       <div className={`mobile-nav ${menuOpen ? "open" : ""}`}>
         {filteredNavItems.map((item, index) => (
           <Link
@@ -165,6 +176,28 @@ const Header = ({ currentLanguage, setLanguage, site, isHome }) => {
           )}
         </div>
       </div>
+
+      {/* ↓↓↓ Sélecteur de couverture (uniquement si covers locales de test) ↓↓↓ */}
+      {isUsingLocalCovers && (
+        <div className="cover-selector">
+          <label htmlFor="cover-select">Cover :</label>
+          <select
+            id="cover-select"
+            value={localCover}
+            onChange={(e) => {
+              const newCover = e.target.value;
+              setLocalCover(newCover);
+              sessionStorage.setItem(STORAGE_KEY, newCover);
+            }}
+          >
+            {localCoverList.map((cover) => (
+              <option key={cover} value={cover}>
+                {cover}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
     </header>
   );
 };

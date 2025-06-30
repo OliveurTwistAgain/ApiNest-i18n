@@ -36,6 +36,10 @@ Desktop.ini
 # Debug / coverage
 coverage/
 
-# fichiers générés par Gatsby avec données dynamiques
+# Fichiers générés par Gatsby avec données dynamiques
 .cache/
 public/
+
+# Test local covers
+/static/local-covers/
+/src/components/common/localCoverList.js
