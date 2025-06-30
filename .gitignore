@@ -42,4 +42,3 @@ public/
 
 # Test local covers
 /static/local-covers/
-/src/components/common/localCoverList.js
