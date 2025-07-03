@@ -1,6 +1,6 @@
 // src/utils/useTranslation.js
 
-import { useLanguage } from './LanguageContext';
+import { useLanguage } from './languageContext';
 import messages from './messages';
 
 const useTranslation = () => {

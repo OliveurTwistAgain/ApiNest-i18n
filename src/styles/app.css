@@ -13,8 +13,9 @@
 - Layout
 - Header
 - Main
-- Post Feed, Articles, Cards, etc.
-- Archives : tag, author, date
+- Post Feed, Articles, Cards etc.
+- Similar Posts  
+- Archives, Tag, author, date
 - Pagination
 - Map OSM
 - Footer
@@ -22,7 +23,6 @@
 - Koenig Styles
 - Gallery Styles
 - Cover Selector (localhost)
-
 
 /* Variables
 /* ---------------------------------------------------------- */
@@ -1059,40 +1059,8 @@ h6 {
     }
 }
 
-/* Post Feed, Articles, Cards, etc.
+/* Post Feed, Articles, Cards etc.
 /* ---------------------------------------------------------- */
-
-/* === Archive : simple conteneur === */
-.post-feed.archive {
-    max-width: 1070px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
-}
-
-/* Grille archive responsive sur la div .post-grid */
-.post-feed.archive .post-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
-    /* Centrer dans la limite max */
-    max-width: 100%;
-    margin: 0 auto;
-}
-
-/* Adaptation responsive archives : 
-   sous 980px : 2 colonnes
-   sous 680px : 1 colonne */
-@media (max-width: 980px) {
-    .post-feed.archive .post-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 680px) {
-    .post-feed.archive .post-grid {
-        grid-template-columns: 1fr;
-    }
-}
 
 /* === Homepage : logique hero, medium, small === */
 
@@ -1237,8 +1205,90 @@ h6 {
     margin-bottom: 2rem;
 }
 
-/* Archives : Tag, Author, Date
+/* Similar Posts */
 /* ---------------------------------------------------------- */
+
+/* === Similar Posts (Voir aussi / See also) === */
+.similar-posts {
+    max-width: 1070px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+.similar-posts h3 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--color-primary);
+    /* Même bleu que titres archives */
+}
+
+.similar-posts h3::before {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 3px;
+    background-color: var(--color-primary);
+    margin: 1rem auto;
+    border-radius: 2px;
+}
+
+/* Grille responsive identique aux Archives */
+.similar-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+}
+
+@media (max-width: 980px) {
+    .similar-posts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 680px) {
+    .similar-posts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+/* Archives, Tag, Author, Date
+/* ---------------------------------------------------------- */
+
+/* === Archive : simple conteneur === */
+.post-feed.archive {
+    max-width: 1070px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+/* Grille archive responsive sur la div .post-grid */
+.post-feed.archive .post-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    /* Centrer dans la limite max */
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Adaptation responsive archives : 
+   sous 980px : 2 colonnes
+   sous 680px : 1 colonne */
+@media (max-width: 980px) {
+    .post-feed.archive .post-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 680px) {
+    .post-feed.archive .post-grid {
+        grid-template-columns: 1fr;
+    }
+}
 
 /* Titre de la page */
 .post-feed.archive>.page-title {
@@ -1680,6 +1730,42 @@ h6 {
     /* optionnel */
 }
 
+/* Koenig Button Card
+/* ---------------------------------------------------------- */
+
+.kg-button-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem 0;
+    text-align: center;
+}
+
+.kg-btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--color-primary);
+    border-radius: 6px;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.kg-btn:hover,
+.kg-btn:focus {
+    background-color: color-mix(in srgb, var(--color-primary) 85%, #000);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.kg-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
 /* Gallery Styles
 /* ---------------------------------------------------------- */
 
@@ -1718,9 +1804,10 @@ h6 {
     margin: -2.25em 0 3em;
 }
 
-/* Cover Selector (temporaire)
+/* Cover Selector (localhost)
 /* ---------------------------------------------------------- */
 
+/* Cover selector for local testing covers in static/local-covers */
 select.cover-selector {
     color: black;
     background-color: white;

@@ -1,10 +1,10 @@
-// src/utils/LanguageContext.js : Fournisseur de langue et gestionnaire de langue
+// src/utils/languageContext.js : Fournisseur de langue et gestionnaire de langue
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import i18n from "./i18n-config";
 
 // Création et export du contexte de langue
-export const LanguageContext = createContext(undefined);
+export const languageContext = createContext(undefined);
 
 // Fournisseur du contexte
 export const LanguageProvider = ({ children }) => {
@@ -30,15 +30,15 @@ export const LanguageProvider = ({ children }) => {
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, switchLanguage }}>
+    <languageContext.Provider value={{ language, setLanguage, switchLanguage }}>
       {children}
-    </LanguageContext.Provider>
+    </languageContext.Provider>
   );
 };
 
 // Hook personnalisé sécurisé pour utiliser le contexte de langue
 export const useLanguage = () => {
-  const context = useContext(LanguageContext);
+  const context = useContext(languageContext);
   if (!context) {
     console.warn("useLanguage() doit être utilisé dans un <LanguageProvider />");
     // Retour par défaut si contexte non trouvé (prévenir crash)

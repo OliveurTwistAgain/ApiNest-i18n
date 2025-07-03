@@ -13,6 +13,9 @@ const i18n = {
         about: "À propos",
         contact: "Contact",
       },
+      post: {
+        similar: "Voir aussi",
+      },
       footer: {
         legal: "Mentions légales",
       },
@@ -25,6 +28,9 @@ const i18n = {
         home: "Home",
         about: "About",
         contact: "Contact",
+      },
+      post: {
+        similar: "See also",
       },
       footer: {
         legal: "Legal Notice",

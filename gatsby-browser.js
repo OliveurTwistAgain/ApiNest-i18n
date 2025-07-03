@@ -2,7 +2,7 @@
 
 import React from "react";
 import "leaflet/dist/leaflet.css"; // CSS Leaflet requis côté client
-import { LanguageProvider } from "./src/utils/LanguageContext";
+import { LanguageProvider } from "./src/utils/languageContext";
 
 // Encapsulation racine dans le fournisseur de langue
 export const wrapRootElement = ({ element }) => (

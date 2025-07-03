@@ -5,8 +5,8 @@ import { Link, navigate } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import WeatherWidget from "./WeatherWidget";
 import i18n from "../../utils/i18n-config";
-import { coverList } from "./coverList";
-import { localCoverList } from "./localCoverList";
+import { coverList } from "../../utils/coverList"; // Import de la liste de covers
+import { localCoverList } from "../../utils/localCoverList"; // Import de la liste de covers locales (tests)
 
 // ↓↓↓ Détection de l’environnement local (localhost) ↓↓↓
 const isLocalhost = typeof window !== "undefined" && window.location.hostname === "localhost";

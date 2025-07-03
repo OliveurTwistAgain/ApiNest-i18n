@@ -9,7 +9,7 @@ import {
     WiFog,
     WiNa,
 } from "react-icons/wi";
-import { useLanguage } from "../../utils/LanguageContext";
+import { useLanguage } from "../../utils/languageContext";
 
 const WeatherWidget = () => {
     const [weatherData, setWeatherData] = useState(null);

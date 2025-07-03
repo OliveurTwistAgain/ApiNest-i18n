@@ -23,12 +23,12 @@ ${images.map((img) => `    "${img}"`).join(",\n")}
 
 // Dossier et fichier pour les covers "prod"
 const prodDir = path.join(__dirname, "static", "covers");
-const prodOut = path.join(__dirname, "src", "components", "common", "coverList.js");
+const prodOut = path.join(__dirname, "src", "utils", "coverList.js");
 generateList(prodDir, prodOut, "coverList");
 
 // Dossier et fichier pour les covers "local" (tests)
 const localDir = path.join(__dirname, "static", "local-covers");
-const localOut = path.join(__dirname, "src", "components", "common", "localCoverList.js");
+const localOut = path.join(__dirname, "src", "utils", "localCoverList.js");
 
 // Ne crée le fichier que si le dossier local-covers existe
 if (fs.existsSync(localDir)) {

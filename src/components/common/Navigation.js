@@ -3,7 +3,7 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import { Link } from "gatsby";
-import { useLanguage } from "../../utils/LanguageContext";
+import { useLanguage } from "../../utils/languageContext";
 
 const Navigation = ({ data, navClass }) => {
     const { language } = useLanguage();

@@ -3,7 +3,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link, useStaticQuery, graphql } from "gatsby";
-import { useLanguage } from "../../utils/LanguageContext";
+import { useLanguage } from "../../utils/languageContext";
 
 // Composant Footer
 const Footer = ({ navigation }) => {

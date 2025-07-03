@@ -8,7 +8,7 @@ import { StaticQuery, graphql } from "gatsby";
 import config from "../../utils/siteConfig";
 import Header from "./Header";
 import Footer from "./Footer";
-import { useLanguage } from "../../utils/LanguageContext";
+import { useLanguage } from "../../utils/languageContext";
 
 import "../../styles/app.css";
 
