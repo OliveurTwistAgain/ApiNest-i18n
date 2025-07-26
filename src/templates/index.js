@@ -32,14 +32,14 @@ const IndexTemplate = ({ data, location, pageContext }) => {
       <main className="post-feed">
         {/* Bloc vedette */}
         <section className="post-hero hero-grid">
-          <PostCard post={featuredPost} type="hero" />
+          <PostCard post={featuredPost} hero />
         </section>
 
         {/* Bloc moyens */}
         {mediumPosts.length > 0 && (
           <section className="post-medium medium-grid">
             {mediumPosts.map(post => (
-              <PostCard key={post.id} post={post} type="medium" />
+              <PostCard key={post.id} post={post} medium />
             ))}
           </section>
         )}
@@ -48,7 +48,7 @@ const IndexTemplate = ({ data, location, pageContext }) => {
         {smallPosts.length > 0 && (
           <section className="post-small small-grid">
             {smallPosts.map(post => (
-              <PostCard key={post.id} post={post} type="small" />
+              <PostCard key={post.id} post={post} small />
             ))}
           </section>
         )}
