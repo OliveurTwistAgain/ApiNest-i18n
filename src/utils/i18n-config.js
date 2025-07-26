@@ -1,4 +1,4 @@
-// src/utils/i18n-config.js : Configuration des traductions fixes pour le site web ApiNest
+// src/utils/i18n-config.js : Configuration des traductions fixes pour le site web ApiNest-i18n
 
 const i18n = {
   defaultLanguage: "fr",
@@ -20,6 +20,9 @@ const i18n = {
         legal: "Mentions légales",
       },
       sloganFixed: "Du nectar à l'authenticité — votre miel local.",
+      map: {
+        title: "Le rucher du Grand Clos — La douceur de la nature sarthoise",
+      },
     },
     en: {
       siteTitle: "Hooper Ghost Lab (en)",
@@ -36,6 +39,9 @@ const i18n = {
         legal: "Legal Notice",
       },
       sloganFixed: "From nectar to nature — your local honey.",
+      map: {
+        title: "The Grand Clos Apiary — The gentle nature of Sarthe",
+      },
     },
   },
 };

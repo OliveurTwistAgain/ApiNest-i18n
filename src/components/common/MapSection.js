@@ -2,8 +2,13 @@
 
 import React, { useEffect, useRef } from 'react';
 // NOTE : Ne PAS importer Leaflet en haut ici pour éviter les erreurs SSR :
+// Gatsby exécute du JavaScript côté serveur lors du build (Server-Side Rendering),
+// or Leaflet dépend de `window` et du DOM, donc il planterait en SSR.
+
 // import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+// import traduction from '../../utils/i18n-config';
+import i18n from '../../utils/i18n-config';
 
 // Définir une fonction pour créer l'icône, appelée uniquement côté client
 const createBlueIcon = () => {
@@ -21,14 +26,15 @@ const createBlueIcon = () => {
   });
 };
 
-const MapSection = () => {
+const MapSection = ({lang = "fr"}) => {
   const mapRef = useRef(null);
+  const mapTitle = i18n.translations[lang].map.title || "Map Section";
 
   useEffect(() => {
-    // Si on est côté serveur (build), ne rien faire
+    // Si on est côté serveur (build), ne rien faire, sécurité SSR
     if (typeof window === 'undefined') return;
 
-    // Si Leaflet est déjà chargé (re-render), ne rien faire
+    // Si Leaflet est déjà chargé (re-render), ne rien faire, évite de recréer la carte
     if (mapRef.current && mapRef.current._leaflet_id) return;
 
     // Import dynamique de Leaflet côté client seulement
@@ -49,10 +55,22 @@ const MapSection = () => {
 
     // Ajout du marqueur (Le Mans)
     L.marker([48.01408, 0.244029], { icon: blueIcon }).addTo(map);
+
+    // Nettoyage de la carte lors du démontage du composant
+    // Cette fonction est appelée automatiquement par React
+    // quand le composant est démonté (ex : navigation vers une autre page)
+
+    return () => {
+      map.remove(); // Supprimer la carte Leaflet pour éviter les fuites de mémoire
+    };
   }, []);
 
   return (
     <section className="osm-map">
+      {/* Titre de la section */}
+      {/* Utilisation de la traduction pour le titre de la carte */}
+      <h3 className="map-title">{mapTitle}</h3>
+
       {/* Conteneur pour la carte Leaflet */}
       <div id="osm-map" className="map-container" />
     </section>

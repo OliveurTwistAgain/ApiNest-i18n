@@ -5,6 +5,7 @@ import { graphql } from "gatsby"
 import Layout from "../components/common/Layout"
 import PostCard from "../components/common/PostCard"
 import SEO from "../components/common/SEO"
+import MapSection from "../components/common/MapSection"
 
 const IndexTemplate = ({ data, location, pageContext }) => {
   const posts = data.allGhostPost.edges
@@ -52,6 +53,8 @@ const IndexTemplate = ({ data, location, pageContext }) => {
           </section>
         )}
       </main>
+      {/* Section de la carte */}
+      <MapSection lang={pageContext.lang} />
     </Layout>
   )
 }
