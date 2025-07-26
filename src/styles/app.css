@@ -1261,7 +1261,6 @@ h6 {
     .similar-posts-grid>* {
         flex: 0 1 280px;
         /* largeur minimum fixe pour chaque post */
-        /* text-align: center; <-- déjà global */
     }
 }
 
@@ -1275,7 +1274,6 @@ h6 {
     .similar-posts-grid>* {
         width: 100%;
         margin-bottom: 2.5rem;
-        /* text-align: center; <-- déjà global */
     }
 }
 
