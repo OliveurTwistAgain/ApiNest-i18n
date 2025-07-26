@@ -1235,26 +1235,49 @@ h6 {
     border-radius: 2px;
 }
 
-/* Grille responsive identique aux Archives */
+/* Texte centré sur tous les posts, pour tous les écrans */
+.similar-posts-grid>* {
+    text-align: center;
+}
+
+/* Grille responsive sur grand écran : 3 colonnes égales */
 .similar-posts-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2.5rem;
 }
 
+/* Sur écran intermédiaire (max 980px) : passage en flex */
+/* Pour que la ligne incomplète (ex: 1 post seul) soit centrée */
 @media (max-width: 980px) {
     .similar-posts-grid {
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        /* centre la ligne incomplète */
+        gap: 2.5rem;
+    }
+
+    .similar-posts-grid>* {
+        flex: 0 1 280px;
+        /* largeur minimum fixe pour chaque post */
+        /* text-align: center; <-- déjà global */
     }
 }
 
+/* Sur petit écran (max 680px) : 1 post par ligne */
+/* Pour une lecture optimale sur mobile */
 @media (max-width: 680px) {
     .similar-posts-grid {
-        grid-template-columns: 1fr;
+        display: block;
+    }
+
+    .similar-posts-grid>* {
+        width: 100%;
+        margin-bottom: 2.5rem;
+        /* text-align: center; <-- déjà global */
     }
 }
-
-
 
 /* Archives, Tag, Author, Date
 /* ---------------------------------------------------------- */

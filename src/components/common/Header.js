@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { Link, navigate } from "gatsby";
-import { StaticImage } from "gatsby-plugin-image";
 import WeatherWidget from "./WeatherWidget";
 import i18n from "../../utils/i18n-config";
 import { coverList } from "../../utils/coverList"; // Import de la liste de covers
@@ -79,10 +78,8 @@ const Header = ({ currentLanguage, setLanguage, site, isHome }) => {
       <div className="site-mast site-mast-horizontal">
         <div className="site-branding">
           <Link to={currentLanguage === "en" ? "/en" : "/"} className="site-logo-link">
-            {site.logo ? (
-              <img className="site-logo" src={site.logo} alt="Logo" />
-            ) : (
-              <StaticImage src="../images/logo-placeholder.png" alt="Logo" height={60} />
+            {site.logo && (
+              <img src={site.logo} alt="Logo" height="60" />
             )}
           </Link>
           <Link to={currentLanguage === "en" ? "/en" : "/"} className="site-title-link">
