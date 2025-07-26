@@ -5,11 +5,26 @@ import PropTypes from "prop-types";
 import { Link } from "gatsby";
 
 /**
+ * Tronquer un texte à un nombre de mots maximum
+ * Évite les coupures au milieu d’un mot ou d’un emoji
+ */
+function truncateWords(text, wordLimit) {
+    if (!text || typeof text !== "string") return "";
+    const words = text.trim().split(/\s+/);
+    return words.length > wordLimit
+        ? words.slice(0, wordLimit).join(" ") + "…"
+        : text;
+}
+
+/**
  * Composant PostCard
  * S’adapte au type de carte : hero, medium, small
  */
 const PostCard = ({ post, hero, medium, small }) => {
     const url = `/${post.slug}/`;
+
+    // Extrait tronqué à 30 mots max
+    const excerpt = truncateWords(post.excerpt, 30);
 
     // Classes dynamiques selon le type
     const cardClass = [
@@ -35,7 +50,7 @@ const PostCard = ({ post, hero, medium, small }) => {
             </header>
 
             <section className="post-card-excerpt">
-                {post.excerpt}
+                {excerpt}
             </section>
         </Link>
     );
