@@ -1074,6 +1074,7 @@ h6 {
     margin-left: auto;
     margin-right: auto;
     padding: 0 1.5rem;
+    /* Padding horizontal interne */
 }
 
 /* Niveau 2 : Deux posts moyens */
@@ -1125,10 +1126,20 @@ h6 {
     text-decoration: none;
     width: 100%;
     display: block;
+    background: white;
+    border-radius: 8px;
+    transition: background 0.3s ease, box-shadow 0.3s ease, border-bottom 0.3s ease;
+    padding: 1.5rem;
+    /* padding intérieur uniforme */
 }
 
 .post-card:hover {
+    background: #f8f8f8;
+    /* Bleu-gris très très pâle */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     text-decoration: none;
+    /* liseret bleu en bas lors du hover */
+    border-bottom: 0.5px solid var(--color-primary);
 }
 
 /* Titre */
@@ -1207,20 +1218,6 @@ h6 {
 
 .post-card-small .post-card-image {
     height: 180px;
-}
-
-/* Styles spécifiques par type (homepage uniquement) */
-.post-card {
-    background: white;
-    border-radius: 8px;
-    transition: background 0.3s ease;
-    padding: 15px;
-}
-
-.post-card:hover {
-    background: #f8f8f8;
-    /* Bleu-gris très très pâle */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* Espacement entre les blocs (homepage) */
@@ -1316,7 +1313,6 @@ h6 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2.5rem;
-    /* Centrer dans la limite max */
     max-width: 100%;
     margin: 0 auto;
 }
@@ -1452,59 +1448,64 @@ h6 {
     color: var(--color-secondary-text);
 }
 
-.archive-header img,
-.author-profile img {
-    max-width: 120px;
-    height: auto;
-    border-radius: 50%;
+.archive-description p,
+.author-bio p,
+.tag-description p {
     margin-bottom: 1.5rem;
 }
 
-@media (max-width: 680px) {
-
-    .archive-header,
-    .tag-title,
-    .author-name {
-        font-size: 3rem;
-    }
-
-    .archive-description,
-    .author-bio,
-    .tag-description {
-        font-size: 1.4rem;
-    }
-}
-
-/* Pagination
+/* Pagination 
 /* ---------------------------------------------------------- */
 
+/* Container pagination */
 .pagination {
-    position: relative;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 4vw 0 0;
+    justify-content: center;
+    margin: 3rem 0 5rem 0;
+    font-weight: 500;
 }
 
-.pagination a {
+/* Liens pagination */
+.pagination a,
+.pagination span {
     display: inline-block;
     padding: 10px 15px;
-    border: var(--color-border) 1px solid;
-    color: var(--color-secondary);
+    margin: 0 8px;
+    border-radius: 5px;
+    background-color: var(--color-bg-light);
+    color: var(--color-text);
     text-decoration: none;
-    font-size: 1.4rem;
-    line-height: 1em;
-    border-radius: var(--radius);
+    transition: background-color 0.3s ease;
 }
 
-.pagination-location {
-    position: absolute;
-    left: 50%;
-    width: 100px;
-    margin-left: -50px;
-    text-align: center;
+.pagination a:hover {
+    background-color: var(--color-primary-light);
+    color: white;
+}
+
+/* Bouton actif */
+.pagination .active {
+    background-color: var(--color-primary);
+    color: white;
+    border: 1px solid var(--color-primary);
+}
+
+/* Boutons disabled (non cliquables) */
+.pagination .disabled {
     color: var(--color-secondary);
-    font-size: 1.3rem;
+    pointer-events: none;
+    cursor: default;
+}
+
+/* Pagination responsive */
+@media (max-width: 480px) {
+
+    .pagination a,
+    .pagination span {
+        padding: 8px 12px;
+        margin: 0 4px;
+        font-size: 1.4rem;
+    }
 }
 
 /* Map OSM
@@ -1535,7 +1536,6 @@ h6 {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     box-sizing: border-box;
 }
-
 
 /* Footer
 /* ---------------------------------------------------------- */
