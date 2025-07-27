@@ -1210,19 +1210,17 @@ h6 {
 }
 
 /* Styles spécifiques par type (homepage uniquement) */
-.post-card-hero {
+.post-card {
+    background: white;
+    border-radius: 8px;
+    transition: background 0.3s ease;
     padding: 15px;
-    box-shadow: var(--shadow-medium);
 }
 
-.post-card-medium {
-    padding: 15px;
-    box-shadow: var(--shadow-small);
-}
-
-.post-card-small {
-    padding: 15px;
-    box-shadow: none;
+.post-card:hover {
+    background: #f8f8f8;
+    /* Bleu-gris très très pâle */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* Espacement entre les blocs (homepage) */
@@ -1512,12 +1510,11 @@ h6 {
 /* Map OSM
 /* ---------------------------------------------------------- */
 
-/* Conteneur principal de la section carte + titre */
-.osm-map {
-    display: block;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    text-align: center;
+/* Wrapping div autour de la carte OSM */
+.map-section {
+    max-width: 1070px;
+    margin: 0 auto 2rem auto;
+    padding: 0 3rem;
 }
 
 /* Titre de la carte */
@@ -1526,18 +1523,19 @@ h6 {
     margin-bottom: 2rem;
     color: var(--color-primary);
     font-weight: 700;
+    text-align: center;
 }
 
 /* Carte Leaflet */
 .map-container {
     height: 300px;
-    width: 80%;
-    max-width: 900px;
-    margin: 0 auto;
-    border-radius: 12px;
+    width: 100%;
+    border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    box-sizing: border-box;
 }
+
 
 /* Footer
 /* ---------------------------------------------------------- */

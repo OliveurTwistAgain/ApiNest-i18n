@@ -66,7 +66,7 @@ const MapSection = ({lang = "fr"}) => {
   }, []);
 
   return (
-    <section className="osm-map">
+    <section className="map-section">
       {/* Titre de la section */}
       {/* Utilisation de la traduction pour le titre de la carte */}
       <h3 className="map-title">{mapTitle}</h3>
