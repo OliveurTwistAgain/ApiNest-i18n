@@ -8,12 +8,6 @@ export const coverList = [
     "cover006.jpg",
     "cover007.jpg",
     "cover008.jpg",
-    "cover009.jpg",
-    "cover010.jpg",
-    "cover011.jpg",
-    "cover012.jpg",
-    "cover013.jpg",
-    "cover014.jpg",
-    "cover015.jpg"
+    "cover009.jpg"
 ];
 
