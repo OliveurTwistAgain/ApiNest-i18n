@@ -5,9 +5,6 @@ export const localCoverList = [
     "cover003.jpg",
     "cover004.jpg",
     "cover005.jpg",
-    "cover006.jpg",
-    "cover007.jpg",
-    "cover008.jpg",
-    "cover009.jpg"
+    "cover006.jpg"
 ];
 
