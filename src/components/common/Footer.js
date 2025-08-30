@@ -94,7 +94,7 @@ const Footer = ({ navigation }) => {
                 {/* Zone droite : Crédit */}
                 <div className="site-foot-nav-right">
                     <span className="site-foot-nav-item">
-                        Bee ApiNest – LM.72
+                        Le rucher du grand clos - 72 - Bee ApiNest
                     </span>
                 </div>
             </div>
