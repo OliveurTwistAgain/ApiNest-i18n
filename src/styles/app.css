@@ -1540,6 +1540,9 @@ h6 {
 /* Footer
 /* ---------------------------------------------------------- */
 
+/* Footer
+/* ---------------------------------------------------------- */
+
 .site-foot {
     padding: 20px 0 40px 0;
     color: rgba(255, 255, 255, 0.7);
@@ -1548,14 +1551,17 @@ h6 {
     background: var(--color-base);
 }
 
+/* Conteneur principal */
 .site-foot-nav {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     flex-wrap: wrap;
-    /* gap: 1rem; */
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    /* Espacement vertical sur petit écran */
 }
 
+/* Liens */
 .site-foot-nav a {
     color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
@@ -1565,75 +1571,58 @@ h6 {
     color: var(--color-primary);
 }
 
+/* Colonnes : gauche, centre, droite */
 .site-foot-nav-left,
 .site-foot-nav-center,
 .site-foot-nav-right {
     display: flex;
+    flex: 1 1 100%;
+    flex-direction: column;
     align-items: center;
-    flex: 1 1 0;
-    justify-content: center;
+    gap: 0.75rem;
+    /* Espacement vertical entre les items */
 }
 
-.site-foot-nav-left {
-    justify-content: flex-start;
-}
-
-.site-foot-nav-right {
-    justify-content: flex-end;
-}
-
+/* Items individuels */
 .site-foot-nav-item {
     display: inline-block;
-    margin: 0 0.75rem;
     white-space: nowrap;
 }
 
-.site-foot-nav-center .site-foot-nav-item {
-    margin: 0 1rem;
-    display: inline-flex;
-    /* lignes horizontales */
-    gap: 1.5rem;
-    white-space: nowrap;
-    /* éviter le retour à la ligne */
-}
-
-/* Responsive footer en mobile : empilement des liens et centrage */
-@media (max-width: 980px) {
-    .site-foot-nav {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .site-foot-nav a {
-        display: block;
-        margin: 5px 0;
-    }
-
-    .site-foot-nav-center {
-        flex-direction: column;
-    }
-}
-
-.site-foot-nav-center {
-    display: flex;
-    align-items: center;
-}
-
+/* Bloc d’items dans le centre (ex: GitHub, Archives) */
 .site-foot-nav-line {
-    margin: 4px 0;
+    margin: 0;
+    padding: 0;
 }
 
+/* Responsive : affichage horizontal sur grand écran */
 @media (min-width: 981px) {
-    .site-foot-nav-center {
-        flex: 0 auto;
-        /* ne pas s'étirer */
-        justify-content: center;
-        /* bien centrer les liens */
+    .site-foot-nav {
+        flex-wrap: nowrap;
+        align-items: center;
         gap: 2rem;
-        /* espacement plus grand */
+    }
+
+    .site-foot-nav-left,
+    .site-foot-nav-center,
+    .site-foot-nav-right {
+        flex: 1 1 0;
         flex-direction: row;
         align-items: center;
+        gap: 1.5rem;
+        /* Espacement horizontal entre les liens */
+    }
+
+    .site-foot-nav-left {
+        justify-content: flex-start;
+    }
+
+    .site-foot-nav-center {
+        justify-content: center;
+    }
+
+    .site-foot-nav-right {
+        justify-content: flex-end;
     }
 }
 

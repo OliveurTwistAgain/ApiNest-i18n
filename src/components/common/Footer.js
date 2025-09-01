@@ -4,12 +4,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link, useStaticQuery, graphql } from "gatsby";
 import { useLanguage } from "../../utils/languageContext";
+import i18n from "../../utils/i18n-config";
+
 
 // Composant Footer
 const Footer = ({ navigation }) => {
     const { language } = useLanguage();
     const year = new Date().getFullYear();
     const currentLang = language || "fr";
+
+    // Accès aux traductions selon la langue courante
+    const translation = i18n.translations[currentLang] || i18n.translations.fr;
+    const siteTitle = translation.siteTitle;
+    const siteDescription = translation.siteDescription;
+    const footerCredit = translation.footer.credit;
+    const footerMoto = translation.footer.moto.replace("{year}", year);    
 
     const data = useStaticQuery(graphql`
         query SiteTitleQuery {
@@ -23,7 +32,9 @@ const Footer = ({ navigation }) => {
         }
     `);
     // Récupération du titre du site depuis Ghost
-    const siteTitle = data.allGhostSettings.edges[0].node.title;
+    // const siteTitle = data.allGhostSettings.edges[0].node.title;
+
+
     // Filtrage des liens de navigation selon la langue    
     const filteredNavigation = navigation.filter(item => {
         try {
@@ -46,12 +57,11 @@ const Footer = ({ navigation }) => {
         <footer className="site-foot">
             <div className="site-foot-nav container">
                 
-                {/* Zone gauche : titre du site + année */}
+                {/* Zone gauche : titre du site + description + moto */}
                 <div className="site-foot-nav-left">
-                <Link to={currentLang === "en" ? "/en/" : "/"} className="site-foot-nav-item">
-                        {siteTitle}
+                    <Link to={currentLang === "en" ? "/en/" : "/"} className="site-foot-nav-item">
+                        {siteTitle} — {siteDescription}
                     </Link>
-                    &copy; {year}
                 </div>
 
                 {/* Zone centrale : liens + archives */}
@@ -91,12 +101,17 @@ const Footer = ({ navigation }) => {
                     </div>
                 </div>
 
-                {/* Zone droite : Crédit */}
+                {/* Zone droite : Crédit, Moto */}
                 <div className="site-foot-nav-right">
                     <span className="site-foot-nav-item">
-                        Le rucher du grand clos - 72 - Bee ApiNest
+                        {footerCredit}
                     </span>
+                    <span
+                        className="site-foot-nav-item"
+                        dangerouslySetInnerHTML={{ __html: footerMoto }}
+                    />
                 </div>
+                
             </div>
         </footer>
     );

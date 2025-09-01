@@ -18,6 +18,8 @@ const i18n = {
       },
       footer: {
         legal: "Mentions légales",
+        credit: "Le rucher du Grand Clos (72) ",
+        moto: "Bee ApiNest &copy; - {year}"
       },
       sloganFixed: "Du nectar à l'authenticité — votre miel local.",
       map: {
@@ -37,6 +39,8 @@ const i18n = {
       },
       footer: {
         legal: "Legal Notice",
+        credit: "The Grand Clos Apiary (72) ",
+        moto: "Bee ApiNest &copy; - {year}",
       },
       sloganFixed: "From nectar to nature — your local honey.",
       map: {
