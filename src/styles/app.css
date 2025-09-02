@@ -730,11 +730,11 @@ h6 {
 /* Header
 /* ---------------------------------------------------------- */
 
-/* fond, structure et superposition */
+/* Fond, structure et superposition */
 .site-head {
     position: relative;
-    z-index: 10;
-    min-height: 250px;
+    z-index: 1300;
+    min-height: 50vh;
     padding: 2rem 3vw;
     background-color: var(--color-base);
     background-attachment: fixed;
@@ -744,8 +744,14 @@ h6 {
     text-align: center;
     color: var(--color-darkgrey);
     transition: background-image 0.8s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.5rem;
 }
 
+/* Overlay sombre */
 .site-head::after {
     content: "";
     position: absolute;
@@ -759,138 +765,100 @@ h6 {
     z-index: 1;
 }
 
-/* Masthead : logo, titre, slogan */
-
-/* Container masthead : ligne logo + titre, puis slogan dessous */
-.site-mast {
+/* Branding (desktop & mobile) */
+.site-branding {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    z-index: 1600;
+    position: relative;
 }
 
-@media (min-width: 981px) {
-    .site-mast {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .site-branding {
-        justify-content: flex-start;
-    }
-
-    .site-weather {
-        justify-content: flex-end;
-        padding-right: 3vw;
-    }
-}
-
-/* Groupe logo + titre (même ligne) */
-.site-branding {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-@media (max-width: 680px) {
-    .site-branding {
-        justify-content: center;
-        flex-wrap: wrap;
-        text-align: center;
-    }
-}
-
-/* Logo */
-.site-logo-link {
-    display: inline-block;
-}
-
-.site-logo {
+.site-logo-link img {
     max-height: 60px;
     width: auto;
-    vertical-align: middle;
 }
 
-/* Titre */
 .site-title-link {
     font-size: 2.4rem;
     font-weight: 700;
-    line-height: 1.1;
     color: var(--color-bg);
     text-decoration: none;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    margin-bottom: 3rem;
 }
 
-/* Slogan */
 .site-slogan {
-    margin-top: 3rem;
     font-size: 1.6rem;
     font-weight: 500;
     color: var(--color-primary);
     text-align: center;
-    white-space: nowrap;
+    margin-bottom: 5rem;
 }
 
-/* Navigation principale (desktop) */
+/* Navigation desktop */
 .site-nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    margin-top: 4rem;
-    font-size: 1.4rem;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    font-size: 1.6rem;
     font-weight: 500;
 }
 
-/* Liens de navigation + bouton langue homogènes */
-.site-nav-item,
-.site-nav-button.lang {
+.site-nav-item {
     display: inline-block;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    padding: 0.4rem 1rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
     color: var(--color-bg);
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
-    transition: all 0.25s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.25);
     text-decoration: none;
-    border: none;
-    cursor: pointer;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    transition: all 0.3s ease;
 }
 
-/* Hover homogène */
-.site-nav-item:hover,
-.site-nav-button.lang:hover {
+.site-nav-item:hover {
     color: var(--color-primary);
-    background: rgba(255, 255, 255, 0.15);
-    border-color: transparent;
+    transform: translateY(-3px);
     text-decoration: none;
-}
-
-/* Lien actif (page en cours) */
-.site-nav-item.active {
-    border: 1px solid var(--color-primary);
-    border-radius: 5px;
-    background: rgba(0, 0, 0, 0.3);
-    position: relative;
 }
 
 .site-nav-item.active::after {
     content: "";
-    position: absolute;
-    inset: -4px;
-    border-radius: 10px;
-    border: 2px solid rgba(0, 123, 255, 0.2);
-    pointer-events: none;
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: var(--color-primary);
+    border-radius: 2px;
+    margin: 0.3rem auto 0;
 }
 
-/* Bloc langues : marge après le dernier lien */
+/* Desktop right section: language */
 .site-nav-right {
     display: flex;
     align-items: center;
-    gap: 2rem;
-    margin-left: 3rem;
+    gap: 1rem;
+}
+
+.site-nav-right .lang {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1.2rem;
+    text-transform: uppercase;
+    color: var(--color-bg);
+    font-weight: 500;
+    font-size: 1.6rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    transition: color 0.3s ease;
+}
+
+.site-nav-right .lang:hover {
+    color: var(--color-primary);
 }
 
 /* Météo */
@@ -900,7 +868,7 @@ h6 {
     width: 100%;
     padding-right: 2rem;
     margin-top: 4rem;
-    color: var(--color-bg)
+    color: var(--color-bg);
 }
 
 .weather-widget {
@@ -916,9 +884,13 @@ h6 {
     opacity: 0;
     animation: fadeInWeather 0.6s ease-in-out forwards;
     animation-delay: 0.2s;
+
     display: flex;
     align-items: center;
-    gap: 1rem;
+
+    /* Ajout clé : espace interne entre les infos */
+    gap: 0.75rem;
+    /* ⇦ ajuste ici pour plus ou moins d'air */
 }
 
 @keyframes fadeInWeather {
@@ -941,64 +913,136 @@ h6 {
         max-width: 90%;
         color: var(--color-bg);
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+
+        /* conserve aussi l'espacement sur mobile */
+        gap: 0.5rem;
     }
 }
 
-/* Menu hamburger */
+/* Hamburger menu */
 .menu-toggle {
-    display: none;
     position: fixed;
     top: 1rem;
     right: 1rem;
-    z-index: 1000;
-    font-size: 2.8rem;
+    z-index: 2000;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
     background: transparent;
     border: none;
-    color: var(--color-bg);
     cursor: pointer;
 }
 
-/* Menu mobile masqué par défaut */
+.menu-toggle span {
+    width: 28px;
+    height: 3px;
+    background: var(--color-primary);
+    border-radius: 1px;
+    transition: transform 0.35s ease, opacity 0.25s ease;
+}
+
+.menu-toggle.open span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+
+.menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.open span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Mobile nav overlay */
 .mobile-nav {
-    display: none;
-    flex-direction: column;
     position: fixed;
-    top: 4rem;
-    right: 1rem;
+    inset: 0;
+    z-index: 1500;
     background: rgba(0, 0, 0, 0.95);
-    border-radius: 0.5rem;
-    width: 280px;
-    z-index: 999;
-    padding: 1.2rem 0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    align-items: stretch;
-}
-
-/* Visible uniquement quand toggle activé */
-.mobile-nav.open {
+    backdrop-filter: blur(6px);
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 25rem 2rem 2rem;
+    clip-path: circle(0% at 100% 0);
+    pointer-events: none;
+    overflow-y: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: clip-path 0.6s cubic-bezier(.22, .61, .36, 1),
+        opacity 0.5s ease,
+        transform 0.5s ease;
 }
 
-/* Liens navigation + langues (mobile) */
+/* Mobile nav open */
+.mobile-nav.open {
+    clip-path: circle(150% at 100% 0);
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Branding fixe en haut du menu mobile */
+.mobile-nav .site-branding,
+.mobile-nav .site-slogan {
+    position: relative;
+    /* plus sticky */
+    top: auto;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Mobile links */
+.mobile-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    /* espacement entre liens ajustable */
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.mobile-list li {
+    opacity: 0;
+    transform: translateY(15px);
+}
+
+.mobile-nav.open .mobile-list li {
+    animation: fadeUp 0.5s ease forwards;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile links style */
 .mobile-nav a,
 .mobile-nav button.lang {
-    display: block;
-    width: 100%;
-    text-align: center;
-    padding: 1rem 1.5rem;
-    font-size: 1.6rem;
-    text-decoration: none;
-    background: transparent;
-    border: none;
+    font-size: 2rem;
+    font-weight: 700;
     color: var(--color-bg);
-    transition: background 0.2s ease, color 0.2s ease;
-    border-radius: 0;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    transition: color 0.3s ease;
 }
 
-/* Hover mobile élégant */
 .mobile-nav a:hover,
 .mobile-nav button.lang:hover {
-    background: rgba(255, 255, 255, 0.08);
     color: var(--color-primary);
 }
 
@@ -1008,8 +1052,12 @@ h6 {
         display: none;
     }
 
+    .cover-selector {
+        display: none;
+    }
+
     .menu-toggle {
-        display: block;
+        display: flex;
     }
 }
 
@@ -1017,30 +1065,16 @@ h6 {
     .mobile-nav {
         display: none !important;
     }
+
+    .menu-toggle {
+        display: none !important;
+    }
 }
 
-/* Lien actif dans le menu hamburger (mobile) */
-.mobile-nav a.active,
-.mobile-nav button.lang.active {
-    display: inline-block;
-    margin: 0 auto;
-    padding: 0.8rem 1.5rem;
-    border: 1px solid var(--color-primary);
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.1);
-    position: relative;
-    max-width: 80%;
-    text-align: center;
-}
-
-.mobile-nav a.active::after,
-.mobile-nav button.lang.active::after {
-    content: "";
-    position: absolute;
-    inset: -4px;
-    border-radius: 10px;
-    border: 2px solid rgba(0, 123, 255, 0.2);
-    pointer-events: none;
+/* Empêcher le scroll quand le menu mobile est ouvert */
+body.no-scroll {
+    overflow: hidden;
+    height: 100vh;
 }
 
 /* Main
@@ -1862,9 +1896,10 @@ select.cover-selector {
     font-size: 0.9rem;
 }
 
+/* Cover selector desktop (hors flux) */
 .cover-selector {
     position: absolute;
-    bottom: 1rem;
+    top: 1rem;
     right: 1rem;
     font-size: 0.85rem;
     padding: 4px 8px;
@@ -1873,6 +1908,6 @@ select.cover-selector {
     color: #333;
     border: 1px solid #ccc;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
-    z-index: 10;
+    z-index: 1700;
     max-width: 300px;
 }
