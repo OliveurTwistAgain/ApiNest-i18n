@@ -786,6 +786,8 @@ h6 {
     color: var(--color-bg);
     text-decoration: none;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    padding: 0.35rem 1rem;
+    border-radius: 5px;
     margin-bottom: 3rem;
 }
 
@@ -795,6 +797,12 @@ h6 {
     color: var(--color-primary);
     text-align: center;
     margin-bottom: 5rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: 0.35rem 1rem;
+    border-radius: 5px;
+    display: inline-block;
+    max-width: fit-content;
 }
 
 /* Navigation desktop */
@@ -890,7 +898,6 @@ h6 {
 
     /* Ajout clé : espace interne entre les infos */
     gap: 0.75rem;
-    /* ⇦ ajuste ici pour plus ou moins d'air */
 }
 
 @keyframes fadeInWeather {
@@ -1570,9 +1577,6 @@ body.no-scroll {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     box-sizing: border-box;
 }
-
-/* Footer
-/* ---------------------------------------------------------- */
 
 /* Footer
 /* ---------------------------------------------------------- */
