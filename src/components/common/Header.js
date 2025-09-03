@@ -33,11 +33,10 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
   const handleLanguageChange = (lang) => {
     setLanguage(lang);
     setMenuOpen(false);
-    document.body.classList.remove("no-scroll"); // déblocage du body
+    document.body.classList.remove("no-scroll");
     navigate(lang === "en" ? "/en" : "/");
   };
 
-  // Gestion des covers (local ou prod)
   useEffect(() => {
     const availableCovers = coverListToUse.length > 0 ? coverListToUse : coverList;
     const savedCover = sessionStorage.getItem(STORAGE_KEY);
@@ -52,7 +51,6 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
     }
   }, []);
 
-  // Blocage / déblocage du scroll du body en fonction de menuOpen
   useEffect(() => {
     if (menuOpen) {
       document.body.classList.add("no-scroll");
@@ -68,16 +66,26 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
     ? `url(${site.cover_image})`
     : "none";
 
+  // Préparer tous les items mobiles avec type et ordre automatique
+  const mobileItems = [
+    ...filteredNavItems.map((item) => ({ type: "link", item })),
+    ...(currentLanguage !== "fr" ? [{ type: "lang", code: "fr" }] : []),
+    ...(currentLanguage !== "en" ? [{ type: "lang", code: "en" }] : []),
+    { type: "weather" },
+  ];
+
   return (
     <header className="site-head" style={{ backgroundImage }}>
-      {/* Branding commun pour desktop et mobile */}
+      {/* Branding */}
       <div className="site-branding">
-        <Link to={currentLanguage === "en" ? "/en" : "/"} className="site-logo-link">
-          {site.logo && <img src={site.logo} alt="Logo" height="60" />}
-        </Link>
-        <Link to={currentLanguage === "en" ? "/en" : "/"} className="site-title-link">
-          {siteTitle}
-        </Link>
+        <div className="site-branding-row">
+          <Link to={currentLanguage === "en" ? "/en" : "/"} className="site-logo-link">
+            {site.logo && <img src={site.logo} alt="Logo" height="60" />}
+          </Link>
+          <Link to={currentLanguage === "en" ? "/en" : "/"} className="site-title-link">
+            {siteTitle}
+          </Link>
+        </div>
         <p className="site-slogan">{sloganFixed}</p>
       </div>
 
@@ -106,7 +114,7 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
         </div>
       </nav>
 
-      {/* Cover selector (desktop hors flux) */}
+      {/* Cover selector (desktop) */}
       {isUsingLocalCovers && (
         <div className="cover-selector">
           <label htmlFor="cover-select">Cover:</label>
@@ -126,7 +134,7 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
         </div>
       )}
 
-      {/* Weather */}
+      {/* Weather widget (desktop) */}
       <div className="site-weather"><WeatherWidget /></div>
 
       {/* Hamburger */}
@@ -140,34 +148,40 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
         <span></span>
       </button>
 
-      {/* Mobile nav overlay (branding unique en haut, pas dupliqué) */}
+      {/* Mobile nav overlay */}
       <nav className={`mobile-nav ${menuOpen ? "open" : ""}`}>
         <ul className="mobile-list">
-          {filteredNavItems.map((item, index) => (
-            <li key={index} style={{ "--i": index }}>
-              <Link
-                to={item.url}
-                onClick={() => setMenuOpen(false)}
-                className={`mobile-nav-item${
-                  typeof window !== "undefined" && window.location.pathname === item.url
-                    ? " active"
-                    : ""
-                }`}
-              >
-                {item.label.toUpperCase()}
-              </Link>
+          {mobileItems.map((entry, index) => (
+            <li key={index} style={{ "--i": index + 1 }}>
+              {entry.type === "link" && (
+                <Link
+                  to={entry.item.url}
+                  onClick={() => setMenuOpen(false)}
+                  className={`mobile-nav-item${
+                    typeof window !== "undefined" && window.location.pathname === entry.item.url
+                      ? " active"
+                      : ""
+                  }`}
+                >
+                  {entry.item.label.toUpperCase()}
+                </Link>
+              )}
+              {entry.type === "lang" && (
+                <button
+                  onClick={() => handleLanguageChange(entry.code)}
+                  className="mobile-nav-item lang"
+                >
+                  {entry.code.toUpperCase()}
+                </button>
+              )}
+              {entry.type === "weather" && (
+                <div className="site-weather">
+                  <WeatherWidget />
+                </div>
+              )}
             </li>
           ))}
-          <li style={{ "--i": filteredNavItems.length }}>
-            {currentLanguage !== "fr" && (
-              <button onClick={() => handleLanguageChange("fr")} className="mobile-nav-item lang">FR</button>
-            )}
-            {currentLanguage !== "en" && (
-              <button onClick={() => handleLanguageChange("en")} className="mobile-nav-item lang">EN</button>
-            )}
-          </li>
         </ul>
-        <div className="site-weather"><WeatherWidget /></div>
       </nav>
     </header>
   );
