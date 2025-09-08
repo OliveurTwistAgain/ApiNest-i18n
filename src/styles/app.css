@@ -793,10 +793,15 @@ h6 {
     font-size: 2.4rem;
     font-weight: 700;
     color: var(--color-bg);
-    text-decoration: none;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
     padding: 0.35rem 1rem;
     border-radius: 5px;
+}
+
+.site-title-link:hover,
+.site-logo-link:hover {
+    text-decoration: none;
+    color: var(--color-primary);
 }
 
 .site-slogan {
@@ -839,7 +844,6 @@ h6 {
 
 .site-nav-item:hover {
     color: var(--color-primary);
-    transform: translateY(-3px);
     text-decoration: none;
 }
 
@@ -888,6 +892,7 @@ h6 {
 
 .site-nav-right .lang:hover {
     color: var(--color-primary);
+    text-decoration: none;
 }
 
 /* Weather widget desktop */
@@ -925,11 +930,11 @@ h6 {
 /* Hamburger menu */
 .menu-toggle {
     position: fixed;
-    top: 1rem;
+    top: 2rem;
     right: 1rem;
     z-index: 2000;
-    width: 48px;
-    height: 48px;
+    width: 3rem;
+    height: 3rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -940,16 +945,116 @@ h6 {
     cursor: pointer;
 }
 
-.menu-toggle span {
-    width: 28px;
-    height: 2px;
-    background: var(--color-primary);
-    border-radius: 1px;
-    transition: transform 0.35s ease, opacity 0.25s ease;
+.menu-toggle::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 65px;
+    height: 55px;
+    background:
+        radial-gradient(circle at 70% 30%, #FFE066 8%, transparent 25%),
+        radial-gradient(circle at 50% 70%, #FFD700 10%, transparent 30%),
+        radial-gradient(circle at 30% 60%, #FFC200 9%, transparent 25%),
+        radial-gradient(circle at 60% 50%, #FFA500 12%, transparent 35%),
+        radial-gradient(circle at 40% 40%, #FFF176 5%, transparent 15%);
+    border-radius: 55% 45% 60% 50% / 60% 50% 50% 40%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    z-index: -1;
+    opacity: 0.45;
+    animation: blobDrip 4s ease-in-out infinite alternate,
+        blobGlow 2.5s ease-in-out infinite alternate;
 }
 
+/* Animation dégoulinante et organique */
+@keyframes blobDrip {
+    0% {
+        transform: translate(-50%, -50%) rotate(-15deg) scale(1);
+        border-radius: 55% 45% 60% 50% / 60% 50% 50% 40%;
+        opacity: 0.65;
+    }
+
+    20% {
+        transform: translate(-52%, -48%) rotate(-10deg) scale(1.05);
+        border-radius: 50% 60% 55% 45% / 55% 60% 45% 50%;
+        opacity: 0.7;
+    }
+
+    40% {
+        transform: translate(-48%, -52%) rotate(-5deg) scale(1.1);
+        border-radius: 60% 50% 55% 50% / 50% 55% 60% 45%;
+        opacity: 0.68;
+    }
+
+    60% {
+        transform: translate(-50%, -50%) rotate(0deg) scale(1.08);
+        border-radius: 52% 48% 60% 50% / 58% 50% 52% 50%;
+        opacity: 0.7;
+    }
+
+    80% {
+        transform: translate(-51%, -49%) rotate(-5deg) scale(1.09);
+        border-radius: 55% 52% 58% 50% / 55% 52% 60% 50%;
+        opacity: 0.69;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(-15deg) scale(1);
+        border-radius: 55% 45% 60% 50% / 60% 50% 50% 40%;
+        opacity: 0.7;
+    }
+}
+
+/* Léger glow et scintillement */
+@keyframes blobGlow {
+    0% {
+        filter: brightness(1) contrast(1);
+    }
+
+    50% {
+        filter: brightness(1.15) contrast(1.1);
+    }
+
+    100% {
+        filter: brightness(1) contrast(1);
+    }
+}
+
+/* Les trois traits */
+.menu-toggle span {
+    width: 28px;
+    height: 3px;
+    background: var(--color-bg);
+    border-radius: 2px;
+    transition: transform 0.35s ease, opacity 0.25s ease;
+    position: absolute;
+    /* changer de relative à absolute pour un positionnement exact */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Premier trait */
+.menu-toggle span:nth-child(1) {
+    transform: translate(-50%, -9px);
+    /* position initiale haut */
+}
+
+/* Deuxième trait */
+.menu-toggle span:nth-child(2) {
+    transform: translate(-50%, 0);
+    /* centre */
+}
+
+/* Troisième trait */
+.menu-toggle span:nth-child(3) {
+    transform: translate(-50%, 9px);
+    /* position initiale bas */
+}
+
+/* Ouverture menu → croix */
 .menu-toggle.open span:nth-child(1) {
-    transform: translateY(10px) rotate(45deg);
+    transform: translate(-50%, 0) rotate(45deg);
 }
 
 .menu-toggle.open span:nth-child(2) {
@@ -957,38 +1062,10 @@ h6 {
 }
 
 .menu-toggle.open span:nth-child(3) {
-    transform: translateY(-10px) rotate(-45deg);
+    transform: translate(-50%, 0) rotate(-45deg);
 }
 
 /* Mobile nav overlay */
-/* .mobile-nav {
-    position: fixed;
-    inset: 0;
-    z-index: 1500;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(6px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 25rem 2rem 2rem;
-    clip-path: circle(0% at 100% 0);
-    pointer-events: none;
-    overflow-y: hidden;
-    opacity: 0;
-    transform: translateY(100px);
-    transition: clip-path 0.35s cubic-bezier(.25, .8, .5, 1),
-        opacity 0.35s ease-out,
-        transform 0.35s ease-out;
-}
-
-.mobile-nav.open {
-    clip-path: circle(150% at 100% 0);
-    pointer-events: auto;
-    opacity: 1;
-    transform: translateY(0);
-} */
-
 .mobile-nav {
     position: fixed;
     inset: 0;
@@ -999,7 +1076,7 @@ h6 {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: 25rem 2rem 2rem;
+    padding-top: 30vh;
 
     /* Effet overlay animé */
     clip-path: circle(0% at 95% 5%);
@@ -1041,7 +1118,7 @@ h6 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 3rem;
 }
 
 /* Cascade automatique des liens + météo */
@@ -1054,11 +1131,11 @@ h6 {
 /* Cascade uniquement quand menu ouvert */
 .mobile-nav.open .mobile-list li,
 .mobile-nav.open .mobile-list li.site-weather-wrapper {
-    animation: fadeUp 0.6s ease forwards;
+    animation: fadeUp 0.1s ease forwards;
 }
 
 .mobile-nav.open .mobile-list li {
-    animation-delay: calc(var(--i) * 0.15s);
+    animation-delay: calc(var(--i) * 0.05s);
 }
 
 .mobile-nav.open .mobile-list li.site-weather-wrapper {
@@ -1076,16 +1153,16 @@ h6 {
 /* Mobile links style */
 .mobile-nav a,
 .mobile-nav button.lang {
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 1.8rem;
+    font-weight: 800;
     color: var(--color-bg);
     text-decoration: none;
-    background: rgba(0, 0, 0, 0.25);
-    border-radius: 6px;
+    /* Enlever le fond du bouton langue */
+    background: transparent;
     border: none;
-    padding: 0.6rem 1.2rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    padding: 0;
     transition: color 0.3s ease;
+    text-transform: uppercase;
 }
 
 .mobile-nav a:hover,
@@ -1940,28 +2017,57 @@ body.no-scroll {
 /* Cover Selector (localhost)
 /* ---------------------------------------------------------- */
 
-/* Cover selector for local testing covers in static/local-covers */
-select.cover-selector {
-    color: black;
-    background-color: white;
-    padding: 4px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 0.9rem;
-}
-
-/* Cover selector desktop (hors flux) */
+/* Cover selector bottom-left header */
 .cover-selector {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 0.85rem;
-    padding: 4px 8px;
-    border-radius: 4px;
-    background: #ffffffdd;
-    color: #333;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
-    z-index: 1700;
-    max-width: 300px;
+    bottom: 2rem;
+    left: 2rem;
+    z-index: 3100;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    font-size: 1.2rem;
+    color: var(--color-bg);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* Label du selecteur */
+.cover-selector label {
+    font-weight: 500;
+    color: var(--color-bg);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+/* Style du select */
+.cover-selector select {
+    background-color: rgba(0, 0, 0, 0.3);
+    /* fond semi-transparent sombre */
+    color: var(--color-bg);
+    /* texte clair */
+    border: 1px solid var(--color-bg);
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.25s ease;
+    /* appearance: none; */
+    /* retire styles natifs navigateur */
+    /* -webkit-appearance: none;
+    -moz-appearance: none; */
+}
+
+/* Hover/focus agréable */
+.cover-selector select:hover,
+.cover-selector select:focus {
+    background-color: rgba(0, 0, 0, 0.45);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+/* Option du select */
+.cover-selector select option {
+    background-color: rgba(0, 0, 0, 0.85);
+    color: var(--color-bg);
 }

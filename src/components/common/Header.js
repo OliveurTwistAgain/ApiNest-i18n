@@ -51,13 +51,19 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
     }
   }, []);
 
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.classList.add("no-scroll");
-    } else {
-      document.body.classList.remove("no-scroll");
-    }
-  }, [menuOpen]);
+useEffect(() => {
+  if (menuOpen) {
+    document.body.classList.add("no-scroll");
+  } else {
+    document.body.classList.remove("no-scroll");
+  }
+
+  if (menuOpen) {
+    const firstFocusable = document.querySelector(".mobile-list a, .mobile-list button.lang");
+    firstFocusable?.focus();
+  }
+}, [menuOpen]);
+
 
   const coverPath = `${coverPathPrefix}${localCover}`;
   const backgroundImage = localCover
@@ -142,6 +148,8 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
         className={`menu-toggle ${menuOpen ? "open" : ""}`}
         onClick={() => setMenuOpen(!menuOpen)}
         aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+        aria-expanded={menuOpen}
+        aria-controls="mobile-menu"
       >
         <span></span>
         <span></span>
@@ -149,7 +157,12 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
       </button>
 
       {/* Mobile nav overlay */}
-      <nav className={`mobile-nav ${menuOpen ? "open" : ""}`}>
+      <nav
+        id="mobile-menu"
+        className={`mobile-nav ${menuOpen ? "open" : ""}`}
+        role="navigation"
+        aria-hidden={!menuOpen}
+      >
         <ul className="mobile-list">
           {mobileItems.map((entry, index) => (
             <li key={index} style={{ "--i": index + 1 }}>
@@ -163,7 +176,7 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
                       : ""
                   }`}
                 >
-                  {entry.item.label.toUpperCase()}
+                  {entry.item.label}
                 </Link>
               )}
               {entry.type === "lang" && (
@@ -171,7 +184,7 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
                   onClick={() => handleLanguageChange(entry.code)}
                   className="mobile-nav-item lang"
                 >
-                  {entry.code.toUpperCase()}
+                  {entry.code}
                 </button>
               )}
               {entry.type === "weather" && (
