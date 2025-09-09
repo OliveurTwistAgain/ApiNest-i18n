@@ -8,9 +8,18 @@ import { Helmet } from "react-helmet";
 import { Layout } from "../components/common";
 import { MetaData } from "../components/common/meta";
 
+const encode = (data) => {
+    return Object.keys(data)
+        .map(
+            (key) =>
+                encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
+        )
+        .join("&");
+};
+
 const Page = ({ data, location, pageContext }) => {
     const [submitted, setSubmitted] = React.useState(false);
-    const [submitting, setSubmitting] = React.useState(false); // pour gérer l'état
+    const [submitting, setSubmitting] = React.useState(false);
 
     if (!data || !data.ghostPage) {
         console.error("Page data is not valid");
@@ -25,7 +34,7 @@ const Page = ({ data, location, pageContext }) => {
     }
 
     const page = data.ghostPage;
-    const lang = pageContext?.lang || "fr"; // fallback
+    const lang = pageContext?.lang || "fr";
     const slug = page.slug;
 
     const handleSubmit = async (e) => {
@@ -39,9 +48,10 @@ const Page = ({ data, location, pageContext }) => {
             await fetch("/", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData).toString(),
+                body: encode(Object.fromEntries(formData)),
             });
             setSubmitted(true);
+            form.reset();
         } catch (err) {
             console.error("Form submission error:", err);
             alert(lang === "fr" ? "Erreur lors de l'envoi" : "Error submitting the form");
@@ -97,9 +107,7 @@ const Page = ({ data, location, pageContext }) => {
                                         />
                                         <p hidden>
                                             <label>
-                                                {lang === "fr"
-                                                    ? "Ne pas remplir :"
-                                                    : "Don’t fill this out:"}{" "}
+                                                {lang === "fr" ? "Ne pas remplir :" : "Don’t fill this out:"}{" "}
                                                 <input name="bot-field" />
                                             </label>
                                         </p>
