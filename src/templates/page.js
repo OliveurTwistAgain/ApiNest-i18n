@@ -65,7 +65,10 @@ const Page = ({ data, location, pageContext }) => {
                                         method="POST"
                                         data-netlify="true"
                                         data-netlify-honeypot="bot-field"
-                                        onSubmit={() => setSubmitted(true)}
+                                          onSubmit={(e) => {
+                                            // Laisser le submit se faire normalement
+                                            setTimeout(() => setSubmitted(true), 100);
+                                        }}
                                         className="space-y-4 mt-8"
                                     >
                                         <input
