@@ -10,6 +10,7 @@ import { MetaData } from "../components/common/meta";
 
 const Page = ({ data, location, pageContext }) => {
     const [submitted, setSubmitted] = React.useState(false);
+    const [submitting, setSubmitting] = React.useState(false); // pour gérer l'état
 
     if (!data || !data.ghostPage) {
         console.error("Page data is not valid");
@@ -26,6 +27,28 @@ const Page = ({ data, location, pageContext }) => {
     const page = data.ghostPage;
     const lang = pageContext?.lang || "fr"; // fallback
     const slug = page.slug;
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setSubmitting(true);
+
+        const form = e.target;
+        const formData = new FormData(form);
+
+        try {
+            await fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString(),
+            });
+            setSubmitted(true);
+        } catch (err) {
+            console.error("Form submission error:", err);
+            alert(lang === "fr" ? "Erreur lors de l'envoi" : "Error submitting the form");
+        } finally {
+            setSubmitting(false);
+        }
+    };
 
     return (
         <>
@@ -50,7 +73,6 @@ const Page = ({ data, location, pageContext }) => {
                             dangerouslySetInnerHTML={{ __html: page.html }}
                         />
 
-                        {/* Formulaire Netlify + message de confirmation inline */}
                         {(slug === "contact" || slug === "en-contact") && (
                             <>
                                 {submitted ? (
@@ -65,10 +87,7 @@ const Page = ({ data, location, pageContext }) => {
                                         method="POST"
                                         data-netlify="true"
                                         data-netlify-honeypot="bot-field"
-                                          onSubmit={(e) => {
-                                            // Laisser le submit se faire normalement
-                                            setTimeout(() => setSubmitted(true), 100);
-                                        }}
+                                        onSubmit={handleSubmit}
                                         className="space-y-4 mt-8"
                                     >
                                         <input
@@ -120,9 +139,12 @@ const Page = ({ data, location, pageContext }) => {
 
                                         <button
                                             type="submit"
+                                            disabled={submitting}
                                             className="px-4 py-2 rounded bg-blue-600 text-white"
                                         >
-                                            {lang === "fr" ? "Envoyer" : "Send"}
+                                            {submitting
+                                                ? lang === "fr" ? "Envoi..." : "Sending..."
+                                                : lang === "fr" ? "Envoyer" : "Send"}
                                         </button>
                                     </form>
                                 )}
