@@ -9,6 +9,8 @@ import { Layout } from "../components/common";
 import { MetaData } from "../components/common/meta";
 
 const Page = ({ data, location, pageContext }) => {
+    const [submitted, setSubmitted] = React.useState(false);
+
     if (!data || !data.ghostPage) {
         console.error("Page data is not valid");
         return (
@@ -22,7 +24,8 @@ const Page = ({ data, location, pageContext }) => {
     }
 
     const page = data.ghostPage;
-    const lang = pageContext?.lang || "fr"; // fallback si jamais
+    const lang = pageContext?.lang || "fr"; // fallback
+    const slug = page.slug;
 
     return (
         <>
@@ -36,12 +39,92 @@ const Page = ({ data, location, pageContext }) => {
                     <article className="content">
                         <h1 className="content-title">{page.title}</h1>
                         {page.feature_image && (
-                            <img className="page-feature-image" src={page.feature_image} alt={page.title} />
+                            <img
+                                className="page-feature-image"
+                                src={page.feature_image}
+                                alt={page.title}
+                            />
                         )}
                         <section
                             className="content-body load-external-scripts"
                             dangerouslySetInnerHTML={{ __html: page.html }}
                         />
+
+                        {/* Formulaire Netlify + message de confirmation inline */}
+                        {(slug === "contact" || slug === "en-contact") && (
+                            <>
+                                {submitted ? (
+                                    <p className="text-green-600 font-semibold mt-4">
+                                        ✅ {lang === "fr"
+                                            ? "Merci, votre message a bien été envoyé !"
+                                            : "Thank you, your message has been sent!"}
+                                    </p>
+                                ) : (
+                                    <form
+                                        name={slug === "contact" ? "contact-fr" : "contact-en"}
+                                        method="POST"
+                                        data-netlify="true"
+                                        data-netlify-honeypot="bot-field"
+                                        onSubmit={() => setSubmitted(true)}
+                                        className="space-y-4 mt-8"
+                                    >
+                                        <input
+                                            type="hidden"
+                                            name="form-name"
+                                            value={slug === "contact" ? "contact-fr" : "contact-en"}
+                                        />
+                                        <p hidden>
+                                            <label>
+                                                {lang === "fr"
+                                                    ? "Ne pas remplir :"
+                                                    : "Don’t fill this out:"}{" "}
+                                                <input name="bot-field" />
+                                            </label>
+                                        </p>
+
+                                        <div>
+                                            <label className="block">
+                                                {lang === "fr" ? "Nom" : "Name"}
+                                            </label>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                required
+                                                className="w-full border p-2 rounded"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label className="block">Email</label>
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                required
+                                                className="w-full border p-2 rounded"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label className="block">
+                                                {lang === "fr" ? "Message" : "Message"}
+                                            </label>
+                                            <textarea
+                                                name="message"
+                                                required
+                                                className="w-full border p-2 rounded h-32"
+                                            />
+                                        </div>
+
+                                        <button
+                                            type="submit"
+                                            className="px-4 py-2 rounded bg-blue-600 text-white"
+                                        >
+                                            {lang === "fr" ? "Envoyer" : "Send"}
+                                        </button>
+                                    </form>
+                                )}
+                            </>
+                        )}
                     </article>
                 </div>
             </Layout>
@@ -55,7 +138,8 @@ Page.propTypes = {
             codeinjection_styles: PropTypes.string,
             title: PropTypes.string.isRequired,
             html: PropTypes.string.isRequired,
-            feature_image: PropTypes.string, // attention ici : c'est une string URL
+            feature_image: PropTypes.string,
+            slug: PropTypes.string.isRequired,
         }).isRequired,
     }).isRequired,
     location: PropTypes.object.isRequired,
@@ -70,6 +154,7 @@ export const pageQuery = graphql`
     query GhostPageBySlug($slug: String!) {
         ghostPage(slug: { eq: $slug }) {
             ...GhostPageFields
+            slug
         }
     }
 `;
