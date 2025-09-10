@@ -1,9 +1,13 @@
 # Netlify redirects file, edit with your domain
+
 # https://www.netlify.com/docs/redirects/
 
-https://gatsby-starter-ghost.netlify.com/*      https://gatsby.ghost.org/:splat    301!
-http://gatsby-starter-ghost.netlify.com/*       https://gatsby.ghost.org/:splat    301!
+https://gatsby-starter-ghost.netlify.com/_ https://gatsby.ghost.org/:splat 301!
+http://gatsby-starter-ghost.netlify.com/_ https://gatsby.ghost.org/:splat 301!
 
 # Redirections pour liens internes Ghost → Netlify dev
+
 https://skinny-dingo.pikapod.net/contact/ /contact/ 301
 https://skinny-dingo.pikapod.net/en-contact/ /en-contact/ 301
+/contact/?ref=skinny-dingo.pikapod.net /contact/ 301
+/en-contact/?ref=skinny-dingo.pikapod.net /en-contact/ 301
