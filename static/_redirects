@@ -3,3 +3,7 @@
 
 https://gatsby-starter-ghost.netlify.com/*      https://gatsby.ghost.org/:splat    301!
 http://gatsby-starter-ghost.netlify.com/*       https://gatsby.ghost.org/:splat    301!
+
+# Redirections pour liens internes Ghost → Netlify dev
+https://skinny-dingo.pikapod.net/contact/ /contact/ 301
+https://skinny-dingo.pikapod.net/en-contact/ /en-contact/ 301
