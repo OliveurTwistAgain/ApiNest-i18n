@@ -6,7 +6,7 @@ const i18n = {
   defaultPath: "/", // Racine pour langue par défaut
   translations: {
     fr: {
-      siteTitle: "Hooper Ghost Lab",
+      siteTitle: "Honey Ghost Lab",
       siteDescription: "Le labo du testeur de miel. 🍯",
       navigation: {
         home: "Accueil",
@@ -27,7 +27,7 @@ const i18n = {
       },
     },
     en: {
-      siteTitle: "Hooper Ghost Lab (en)",
+      siteTitle: "Honey Ghost Lab (en)",
       siteDescription: "The Honey Tester Lab. 🍯",
       navigation: {
         home: "Home",
