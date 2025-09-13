@@ -69,7 +69,7 @@ const Page = ({ data, location, pageContext }) => {
             </Helmet>
             <Layout lang={lang}>
                 <div className="container">
-                    <article className="content">
+                    <article className="content page">
                         <h1 className="content-title">{page.title}</h1>
                         {page.feature_image && (
                             <img

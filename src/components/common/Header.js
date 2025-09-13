@@ -37,7 +37,6 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
     navigate(lang === "en" ? "/en" : "/");
   };
 
-  // Cover aléatoire ou sauvegardée
   useEffect(() => {
     const availableCovers = coverListToUse.length > 0 ? coverListToUse : coverList;
     const savedCover = sessionStorage.getItem(STORAGE_KEY);
@@ -52,19 +51,18 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
     }
   }, []);
 
-  // Gestion du menu mobile (scroll + focus + Escape)
   useEffect(() => {
     if (menuOpen) {
       document.body.classList.add("no-scroll");
-
-      const firstFocusable = document.querySelector(".mobile-list a, .mobile-list button.lang");
+      const firstFocusable = document.querySelector(
+        ".mobile-list a, .mobile-list button.lang"
+      );
       firstFocusable?.focus();
     } else {
       document.body.classList.remove("no-scroll");
     }
   }, [menuOpen]);
 
-  // Fermeture avec Escape
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === "Escape" && menuOpen) setMenuOpen(false);
@@ -82,8 +80,7 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
 
   const mobileItems = [
     ...filteredNavItems.map((item) => ({ type: "link", item })),
-    ...(currentLanguage !== "fr" ? [{ type: "lang", code: "fr" }] : []),
-    ...(currentLanguage !== "en" ? [{ type: "lang", code: "en" }] : []),
+    { type: "lang-switch" },
     { type: "weather" },
   ];
 
@@ -117,20 +114,38 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
             {item.label}
           </Link>
         ))}
-        <div className="site-nav-right">
-          {currentLanguage !== "fr" && (
-            <button onClick={() => handleLanguageChange("fr")} className="lang">FR</button>
-          )}
-          {currentLanguage !== "en" && (
-            <button onClick={() => handleLanguageChange("en")} className="lang">EN</button>
-          )}
-        </div>
       </nav>
 
-      {/* Cover selector (desktop only) */}
+      {/* Weather séparé */}
+      <div className="site-weather-wrapper">
+        <div className="site-weather">
+          <WeatherWidget />
+        </div>
+      </div>
+
+      {/* Langues top-right */}
+      <div className="lang-top-right">
+        <button
+          onClick={() => handleLanguageChange("fr")}
+          className={`lang${currentLanguage === "fr" ? " active" : ""}`}
+          disabled={currentLanguage === "fr"}
+        >
+          FR
+        </button>
+        <span className="lang-separator">|</span>
+        <button
+          onClick={() => handleLanguageChange("en")}
+          className={`lang${currentLanguage === "en" ? " active" : ""}`}
+          disabled={currentLanguage === "en"}
+        >
+          EN
+        </button>
+      </div>
+
+      {/* Cover selector (localhost only) */}
       {isUsingLocalCovers && (
         <div className="cover-selector">
-          <label htmlFor="cover-select">Cover:</label>
+          <label htmlFor="cover-select">Pour test (localhost only) : </label>
           <select
             id="cover-select"
             value={localCover}
@@ -141,14 +156,13 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
             }}
           >
             {localCoverList.map((cover) => (
-              <option key={cover} value={cover}>{cover}</option>
+              <option key={cover} value={cover}>
+                {cover}
+              </option>
             ))}
           </select>
         </div>
       )}
-
-      {/* Weather widget (desktop) */}
-      <div className="site-weather"><WeatherWidget /></div>
 
       {/* Hamburger */}
       <button
@@ -186,14 +200,27 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
                   {entry.item.label}
                 </Link>
               )}
-              {entry.type === "lang" && (
-                <button
-                  onClick={() => handleLanguageChange(entry.code)}
-                  className="mobile-nav-item lang"
-                >
-                  {entry.code}
-                </button>
+
+              {entry.type === "lang-switch" && (
+                <div className="mobile-lang-switch">
+                  <button
+                    onClick={() => handleLanguageChange("fr")}
+                    className={`mobile-nav-item lang${currentLanguage === "fr" ? " active" : ""}`}
+                    disabled={currentLanguage === "fr"}
+                  >
+                    FR
+                  </button>
+                  <span className="lang-separator">|</span>
+                  <button
+                    onClick={() => handleLanguageChange("en")}
+                    className={`mobile-nav-item lang${currentLanguage === "en" ? " active" : ""}`}
+                    disabled={currentLanguage === "en"}
+                  >
+                    EN
+                  </button>
+                </div>
               )}
+
               {entry.type === "weather" && (
                 <div className="site-weather">
                   <WeatherWidget />
