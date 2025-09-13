@@ -36,6 +36,27 @@
     --color-secondary: #5B7A81;
     --color-border: #c7d5d8;
     --color-bg: white;
+    --color-bg-light: #f6f8f9;
+    --color-primary-light: #72d6ff;
+    --color-primary-dark: #3596cb;
+    --color-text: #3c484e;
+    --color-secondary-text: #526E74;
+    --color-secondary-dark: #40555A;
+    --focus-ring: rgba(62, 176, 239, 0.22);
+
+    /* Hover / Active colours */
+    --color-primary-hover: #2a8ac4;
+    /* Pour boutons, liens principaux au hover */
+    --color-primary-active: #2477a8;
+    /* Pour l’état actif/clické */
+    --color-bg-hover: #f0f4f7;
+    /* Pour background hover léger, ex. cards */
+    --color-bg-active: #e2e8ed;
+    /* Pour background actif, ex. cards */
+    --color-text-hover: #26a8ed;
+    /* Pour texte au survol, ex. liens */
+    --color-secondary-hover: #6a8b91;
+    /* Pour hover sur éléments secondaires */
 
     /* Fonts */
     --font-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -52,7 +73,6 @@
     --radius: 0.6rem;
 
 }
-
 
 /* Reset
 /* ---------------------------------------------------------- */
@@ -349,13 +369,12 @@ html {
     overflow-y: scroll;
     font-size: 62.5%;
     background: var(--color-base);
-
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 body {
     overflow-x: hidden;
-    color: #3c484e;
+    color: var(--color-text);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-size: 1.5rem;
     line-height: 1.6em;
@@ -363,7 +382,7 @@ body {
     font-style: normal;
     letter-spacing: 0;
     text-rendering: optimizeLegibility;
-    background: #fff;
+    background: var(--color-bg);
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -506,62 +525,110 @@ h5,
 h6 {
     margin-top: 0;
     color: var(--color-base);
-    line-height: 1.15;
+    line-height: 1.2;
     font-weight: 700;
     text-rendering: optimizeLegibility;
 }
 
 h1 {
     margin: 0 0 0.5em 0;
-    font-size: 4rem;
-    font-weight: 700;
+    font-size: 3.6rem;
+    /* desktop */
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
     h1 {
-        font-size: 2rem;
+        font-size: 2.8rem;
+        /* tablette */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2.2rem;
+        /* mobile */
     }
 }
 
 h2 {
     margin: 1.5em 0 0.5em 0;
-    font-size: 2rem;
+    font-size: 2.8rem;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
     h2 {
-        font-size: 1.8rem;
+        font-size: 2.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 2rem;
     }
 }
 
 h3 {
     margin: 1.5em 0 0.5em 0;
-    font-size: 1.8rem;
-    font-weight: 500;
+    font-size: 2.4rem;
+    font-weight: 600;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
     h3 {
-        font-size: 1.7rem;
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h3 {
+        font-size: 1.8rem;
     }
 }
 
 h4 {
     margin: 1.5em 0 0.5em 0;
-    font-size: 1.6rem;
-    font-weight: 500;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+@media (max-width: 480px) {
+    h4 {
+        font-size: 1.7rem;
+    }
 }
 
 h5 {
     margin: 1.5em 0 0.5em 0;
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     font-weight: 500;
+}
+
+@media (max-width: 480px) {
+    h5 {
+        font-size: 1.5rem;
+    }
 }
 
 h6 {
     margin: 1.5em 0 0.5em 0;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: 500;
+}
+
+@media (max-width: 480px) {
+    h6 {
+        font-size: 1.4rem;
+    }
+}
+
+/* Respecter l’accessibilité : réduire animations si demandé */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* Layout
@@ -591,12 +658,28 @@ h6 {
     display: flex;
     flex-direction: column;
     font-family: var(--font-serif);
+    margin: 0 auto;
+    font-size: 2rem;
+}
+
+@media (max-width: 768px) {
+    .content-body {
+        font-size: 1.8rem;
+        /* tablette */
+    }
+}
+
+@media (max-width: 480px) {
+    .content-body {
+        font-size: 1.6rem;
+        /* mobile */
+    }
 }
 
 .post-full-content {
     max-width: 720px;
     margin: 0 auto;
-    background: #fff;
+    background: var(--color-bg);
 }
 
 .post-feature-image img {
@@ -634,7 +717,7 @@ h6 {
     font-weight: 700;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
     .content-body h1 {
         font-size: 2.8rem;
     }
@@ -645,7 +728,7 @@ h6 {
     font-size: 5rem;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
     .content-title {
         margin: 0.8em 0;
         font-size: 3.4rem;
@@ -662,7 +745,7 @@ h6 {
     font-weight: 700;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
     .content-body h2 {
         font-size: 2.6rem;
     }
@@ -674,7 +757,7 @@ h6 {
     font-weight: 700;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
     .content-body h3 {
         font-size: 2.2rem;
     }
@@ -686,7 +769,7 @@ h6 {
     font-weight: 700;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
     .content-body h4 {
         font-size: 2.2rem;
     }
@@ -724,8 +807,26 @@ h6 {
     white-space: pre-wrap;
     padding: 20px;
     background: var(--color-base);
-    color: #fff;
+    color: var(--color-bg);
     border-radius: 12px;
+}
+
+/* Accessibilité focus */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+.site-nav-item:focus-visible,
+.site-nav-right .lang:focus-visible,
+.menu-toggle:focus-visible,
+.kg-btn:focus-visible,
+.mobile-nav a:focus-visible,
+.mobile-nav button.lang:focus-visible,
+.scroll-to-top:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px var(--focus-ring);
+    border-radius: 6px;
 }
 
 /* Header
@@ -735,7 +836,7 @@ h6 {
 .site-head {
     position: relative;
     z-index: 1300;
-    min-height: 40vh;
+    min-height: 25vh;
     padding: 2rem 3vw;
     background-color: var(--color-base);
     background-attachment: fixed;
@@ -750,6 +851,22 @@ h6 {
     align-items: center;
     justify-content: flex-start;
     gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .site-head {
+        min-height: 20vh;
+        /* tablette */
+        padding: 1.5rem 3vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-head {
+        min-height: auto;
+        /* mobile : hauteur selon contenu */
+        padding: 1rem 2vw;
+    }
 }
 
 /* Overlay sombre */
@@ -775,6 +892,7 @@ h6 {
     z-index: 1600;
     position: relative;
     top: 4rem;
+    margin-bottom: 3.5rem;
 }
 
 .site-branding-row {
@@ -788,21 +906,38 @@ h6 {
 .site-logo-link img {
     max-height: 60px;
     width: auto;
+    transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .site-title-link {
-    font-size: 2.4rem;
+    font-size: 3rem;
     font-weight: 700;
     color: var(--color-bg);
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
     padding: 0.35rem 1rem;
     border-radius: 5px;
+    transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .site-title-link:hover,
 .site-logo-link:hover {
     text-decoration: none;
-    color: var(--color-primary);
+    color: var(--color-primary-hover);
+}
+
+@media (max-width:768px) {
+    .site-title-link {
+        font-size: 2.6rem;
+        /* tablette */
+    }
+}
+
+@media (max-width:480px) {
+    .site-title-link {
+        font-size: 2.2rem;
+        /* mobile */
+        padding: .25rem .8rem;
+    }
 }
 
 .site-slogan {
@@ -810,7 +945,7 @@ h6 {
     font-weight: 500;
     color: var(--color-primary);
     text-align: center;
-    margin-bottom: 5rem;
+    margin-bottom: 2.5rem;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
     background-color: rgba(0, 0, 0, 0.25);
     padding: 0.35rem 1rem;
@@ -840,11 +975,11 @@ h6 {
     background-color: rgba(0, 0, 0, 0.25);
     text-decoration: none;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
-    transition: all 0.3s ease;
+    transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .site-nav-item:hover {
-    color: var(--color-primary);
+    color: var(--color-primary-hover);
     text-decoration: none;
 }
 
@@ -858,6 +993,13 @@ h6 {
     margin: 0.3rem auto 0;
 }
 
+@media (max-width:480px) {
+    .site-nav-item {
+        padding: .35rem .8rem;
+        font-size: 1.4rem;
+    }
+}
+
 /* Par défaut : pas d’effet sur mobile/tablette */
 .site-nav .site-nav-item:nth-of-type(4) {
     margin-right: 0;
@@ -866,7 +1008,7 @@ h6 {
 /* Desktop uniquement, espace plus grand avant langue */
 @media (min-width: 981px) {
     .site-nav .site-nav-item:nth-of-type(4) {
-        margin-right: 5rem;
+        margin-right: 3rem;
     }
 }
 
@@ -888,11 +1030,11 @@ h6 {
     font-weight: 500;
     font-size: 1.6rem;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .site-nav-right .lang:hover {
-    color: var(--color-primary);
+    color: var(--color-primary-hover);
     text-decoration: none;
 }
 
@@ -901,8 +1043,8 @@ h6 {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: 2rem;
     color: var(--color-bg);
+    text-align: center;
 }
 
 .weather-widget {
@@ -913,8 +1055,9 @@ h6 {
     border-radius: 5px;
     font-size: 1.4rem;
     font-weight: 500;
-    white-space: nowrap;
-    max-width: fit-content;
+    white-space: no-wrap;
+    /* word-break: break-word; */
+    max-width: 100%;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -946,79 +1089,19 @@ h6 {
     cursor: pointer;
 }
 
+/* Halo flou derrière le hamburger pour lisibilité */
 .menu-toggle::before {
     content: "";
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 65px;
-    height: 55px;
-    background:
-        radial-gradient(circle at 70% 30%, #FFE066 8%, transparent 25%),
-        radial-gradient(circle at 50% 70%, #FFD700 10%, transparent 30%),
-        radial-gradient(circle at 30% 60%, #FFC200 9%, transparent 25%),
-        radial-gradient(circle at 60% 50%, #FFA500 12%, transparent 35%),
-        radial-gradient(circle at 40% 40%, #FFF176 5%, transparent 15%);
-    border-radius: 55% 45% 60% 50% / 60% 50% 50% 40%;
-    transform: translate(-50%, -50%) rotate(-15deg);
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
     z-index: -1;
-    opacity: 0.45;
-    animation: blobDrip 4s ease-in-out infinite alternate,
-        blobGlow 2.5s ease-in-out infinite alternate;
-}
-
-/* Animation dégoulinante et organique */
-@keyframes blobDrip {
-    0% {
-        transform: translate(-50%, -50%) rotate(-15deg) scale(1);
-        border-radius: 55% 45% 60% 50% / 60% 50% 50% 40%;
-        opacity: 0.65;
-    }
-
-    20% {
-        transform: translate(-52%, -48%) rotate(-10deg) scale(1.05);
-        border-radius: 50% 60% 55% 45% / 55% 60% 45% 50%;
-        opacity: 0.7;
-    }
-
-    40% {
-        transform: translate(-48%, -52%) rotate(-5deg) scale(1.1);
-        border-radius: 60% 50% 55% 50% / 50% 55% 60% 45%;
-        opacity: 0.68;
-    }
-
-    60% {
-        transform: translate(-50%, -50%) rotate(0deg) scale(1.08);
-        border-radius: 52% 48% 60% 50% / 58% 50% 52% 50%;
-        opacity: 0.7;
-    }
-
-    80% {
-        transform: translate(-51%, -49%) rotate(-5deg) scale(1.09);
-        border-radius: 55% 52% 58% 50% / 55% 52% 60% 50%;
-        opacity: 0.69;
-    }
-
-    100% {
-        transform: translate(-50%, -50%) rotate(-15deg) scale(1);
-        border-radius: 55% 45% 60% 50% / 60% 50% 50% 40%;
-        opacity: 0.7;
-    }
-}
-
-/* Léger glow et scintillement */
-@keyframes blobGlow {
-    0% {
-        filter: brightness(1) contrast(1);
-    }
-
-    50% {
-        filter: brightness(1.15) contrast(1.1);
-    }
-
-    100% {
-        filter: brightness(1) contrast(1);
-    }
+    filter: blur(8px);
 }
 
 /* Les trois traits */
@@ -1026,35 +1109,30 @@ h6 {
     width: 28px;
     height: 3px;
     background: var(--color-bg);
+    /* blanc par défaut, tu peux adapter */
     border-radius: 2px;
     transition: transform 0.35s ease, opacity 0.25s ease;
     position: absolute;
-    /* changer de relative à absolute pour un positionnement exact */
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
 }
 
-/* Premier trait */
-.menu-toggle span:nth-child(1) {
+/* 3 traits */
+/* .menu-toggle span:nth-child(1) {
     transform: translate(-50%, -9px);
-    /* position initiale haut */
 }
 
-/* Deuxième trait */
 .menu-toggle span:nth-child(2) {
     transform: translate(-50%, 0);
-    /* centre */
 }
 
-/* Troisième trait */
 .menu-toggle span:nth-child(3) {
     transform: translate(-50%, 9px);
-    /* position initiale bas */
-}
+} */
 
 /* Ouverture menu → croix */
-.menu-toggle.open span:nth-child(1) {
+/* .menu-toggle.open span:nth-child(1) {
     transform: translate(-50%, 0) rotate(45deg);
 }
 
@@ -1064,6 +1142,33 @@ h6 {
 
 .menu-toggle.open span:nth-child(3) {
     transform: translate(-50%, 0) rotate(-45deg);
+} */
+
+
+/* Position initiale des traits */
+.menu-toggle span:nth-child(1) {
+    transform: translate(-50%, -9px);
+}
+
+.menu-toggle span:nth-child(2) {
+    transform: translate(-50%, 0);
+}
+
+.menu-toggle span:nth-child(3) {
+    transform: translate(-50%, 9px);
+}
+
+/* Animation hamburger → X */
+.menu-toggle.open span:nth-child(1) {
+    transform: translate(-50%, 0px) rotate(45deg) scaleX(1.1);
+}
+
+.menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.open span:nth-child(3) {
+    transform: translate(-50%, 0px) rotate(-45deg) scaleX(1.1);
 }
 
 /* Mobile nav overlay */
@@ -1078,23 +1183,20 @@ h6 {
     align-items: center;
     justify-content: flex-start;
     padding-top: 30vh;
-
     /* Effet overlay animé */
-    clip-path: circle(0% at 95% 5%);
-    /* part du bouton hamburger */
     pointer-events: none;
     overflow-y: hidden;
     opacity: 0;
     transform: scale(0.98);
     /* petit zoom arrière */
-    transition: clip-path 0.75s cubic-bezier(.25, .8, .5, 1),
+    top: -100vh;
+    transition: opacity 0.35s ease, transform 0.35s ease,
         opacity 0.35s ease-out,
         transform 0.45s ease-out;
 }
 
 .mobile-nav.open {
-    clip-path: circle(150% at 95% 5%);
-    /* explosion circulaire */
+    top: 0;
     pointer-events: auto;
     opacity: 1;
     transform: scale(1);
@@ -1119,7 +1221,7 @@ h6 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3rem;
+    gap: 1rem;
 }
 
 /* Cascade automatique des liens + météo */
@@ -1132,7 +1234,7 @@ h6 {
 /* Cascade uniquement quand menu ouvert */
 .mobile-nav.open .mobile-list li,
 .mobile-nav.open .mobile-list li.site-weather-wrapper {
-    animation: fadeUp 0.1s ease forwards;
+    animation: fadeUp 0.05s ease forwards;
 }
 
 .mobile-nav.open .mobile-list li {
@@ -1168,7 +1270,7 @@ h6 {
 
 .mobile-nav a:hover,
 .mobile-nav button.lang:hover {
-    color: var(--color-primary);
+    color: var(--color-primary-hover);
 }
 
 /* Mobile weather widget */
@@ -1209,7 +1311,8 @@ h6 {
 /* Empêcher le scroll quand le menu mobile est ouvert */
 body.no-scroll {
     overflow: hidden;
-    height: 100vh;
+    position: fixed;
+    width: 100%;
 }
 
 /* Main
@@ -1282,8 +1385,8 @@ body.no-scroll {
     }
 }
 
-/* Small : 1 colonne sous 681px */
-@media (max-width: 680px) {
+/* Small : 1 colonne sous 481px */
+@media (max-width: 480px) {
     .small-grid {
         grid-template-columns: 1fr;
     }
@@ -1295,20 +1398,26 @@ body.no-scroll {
     text-decoration: none;
     width: 100%;
     display: block;
-    background: white;
+    background: var(--color-bg);
     border-radius: 8px;
-    transition: background 0.3s ease, box-shadow 0.3s ease, border-bottom 0.3s ease;
     padding: 1.5rem;
     /* padding intérieur uniforme */
+    transition: background 0.3s ease, box-shadow 0.3s ease, border-bottom 0.3s ease;
 }
 
 .post-card:hover {
-    background: #f8f8f8;
+    background: var(--color-bg-hover);
     /* Bleu-gris très très pâle */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     text-decoration: none;
-    /* liseret bleu en bas lors du hover */
+    /* liseret bleu en bas */
     border-bottom: 0.5px solid var(--color-primary);
+}
+
+@media (max-width: 480px) {
+    .post-card {
+        padding: 1.2rem;
+    }
 }
 
 /* Titre */
@@ -1337,7 +1446,7 @@ body.no-scroll {
 }
 
 /* Responsive : ajuste les tailles sur petits écrans */
-@media (max-width: 680px) {
+@media (max-width: 480px) {
     .post-card-hero .post-card-title {
         font-size: 2.2rem;
     }
@@ -1454,9 +1563,9 @@ body.no-scroll {
     }
 }
 
-/* Sur petit écran (max 680px) : 1 post par ligne */
+/* Sur petit écran (max 480px) : 1 post par ligne */
 /* Pour une lecture optimale sur mobile */
-@media (max-width: 680px) {
+@media (max-width: 480px) {
     .similar-posts-grid {
         display: block;
     }
@@ -1495,7 +1604,7 @@ body.no-scroll {
     }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 480px) {
     .post-feed.archive .post-grid {
         grid-template-columns: 1fr;
     }
@@ -1519,10 +1628,9 @@ body.no-scroll {
 }
 
 /* Garder les styles existants pour tag-header et author-header */
-/* (à fusionner si besoin avec cette nouvelle structure) */
 .tag-header,
 .author-header {
-    max-width: 690px;
+    max-width: 720px;
     margin: 0 auto 4vw auto;
     padding: 0 1.5rem;
 }
@@ -1540,7 +1648,7 @@ body.no-scroll {
     line-height: 1.3em;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
 
     .tag-header,
     .author-header {
@@ -1583,7 +1691,7 @@ body.no-scroll {
     padding-left: 0;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
     .author-header-image {
         height: 80px;
         width: 80px;
@@ -1644,18 +1752,18 @@ body.no-scroll {
     background-color: var(--color-bg-light);
     color: var(--color-text);
     text-decoration: none;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .pagination a:hover {
-    background-color: var(--color-primary-light);
-    color: white;
+    background-color: var(--color-primary-hover);
+    color: var(--color-bg);
 }
 
 /* Bouton actif */
 .pagination .active {
     background-color: var(--color-primary);
-    color: white;
+    color: var(--color-bg);
     border: 1px solid var(--color-primary);
 }
 
@@ -1729,12 +1837,13 @@ body.no-scroll {
 
 /* Liens */
 .site-foot-nav a {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--color-bg);
     text-decoration: none;
+    transition: background-color 0.3 ease, transform 0.3 ease, color 0.3s ease;
 }
 
 .site-foot-nav a:hover {
-    color: var(--color-primary);
+    color: var(--color-primary-hover);
 }
 
 /* Colonnes : gauche, centre, droite */
@@ -1795,10 +1904,6 @@ body.no-scroll {
 /* Contact Form
 /* ---------------------------------------------------------- */
 
-/* ---------------------------------------------------------- */
-/* Contact Form & Success Message (Esthétique + responsive) */
-/* ---------------------------------------------------------- */
-
 form[name^="contact-"] {
     max-width: 600px;
     margin: var(--margin) auto;
@@ -1824,8 +1929,7 @@ form[name^="contact-"] textarea {
     line-height: 1.6;
     box-sizing: border-box;
     margin-bottom: 1.5rem;
-    /* plus d’espace entre les champs */
-    transition: box-shadow 0.2s, border-color 0.2s;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 form[name^="contact-"] input:focus,
@@ -1837,7 +1941,6 @@ form[name^="contact-"] textarea:focus {
 
 form[name^="contact-"] textarea {
     min-height: 200px;
-    /* un peu plus grand pour confort */
 }
 
 form[name^="contact-"] button {
@@ -1847,29 +1950,27 @@ form[name^="contact-"] button {
     border-radius: var(--radius);
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    font-weight: var(--font-bold);
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
     font-size: 20px;
 }
 
 form[name^="contact-"] button:hover {
-    background-color: #2a8ac4;
+    background-color: var(--color-primary-hover);
     transform: translateY(-1px);
-    /* léger effet “survol” */
 }
 
-form[name^="contact-"] .text-green-600 {
-    color: #16a34a;
+/* Message de succès */
+.message-success {
+    color: #10b981;
     font-weight: var(--font-bold);
     margin-top: 1.5rem;
     text-align: center;
     font-size: 20px;
     line-height: 1.6;
+    animation: fadeIn 0.5s ease forwards;
 }
 
-/* ---------------------------------------------------------- */
 /* Responsive adjustments (mobile) */
-/* ---------------------------------------------------------- */
 @media (max-width: 768px) {
     form[name^="contact-"] {
         font-size: 18px;
@@ -1888,8 +1989,18 @@ form[name^="contact-"] .text-green-600 {
         width: 100%;
     }
 
-    form[name^="contact-"] .text-green-600 {
+    form[name^="contact-"] .message-success {
         font-size: 18px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }
 
@@ -1901,7 +2012,7 @@ form[name^="contact-"] .text-green-600 {
     bottom: 2rem;
     right: 2rem;
     background: var(--color-primary);
-    color: #fff;
+    color: var(--color-bg);
     border: none;
     border-radius: 50%;
     width: 3.5rem;
@@ -1910,7 +2021,7 @@ form[name^="contact-"] .text-green-600 {
     justify-content: center;
     align-items: center;
     font-size: 2rem;
-    z-index: 99;
+    z-index: 350;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
@@ -1933,11 +2044,12 @@ form[name^="contact-"] .text-green-600 {
     font-family: var(--font-sans-serif);
     text-decoration: none;
     border-radius: 3px;
+    transition: color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
     box-shadow: 0 2px 5px -1px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.09);
 }
 
 .kg-bookmark-container:hover {
-    color: var(--color-base);
+    color: var(--color-primary-hover);
     text-decoration: none;
     box-shadow: 0 2px 5px -1px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.09);
 }
@@ -1952,7 +2064,7 @@ form[name^="contact-"] .text-green-600 {
 }
 
 .kg-bookmark-title {
-    color: color(var(--color-secondary) l(-30%));
+    color: var(--color-secondary-dark);
     font-size: 1.6rem;
     line-height: 1.5em;
     font-weight: 600;
@@ -1960,7 +2072,8 @@ form[name^="contact-"] .text-green-600 {
 }
 
 .kg-bookmark-container:hover .kg-bookmark-title {
-    color: var(--color-primary);
+    color: var(--color-primary-hover);
+    transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .kg-bookmark-description {
@@ -1968,7 +2081,7 @@ form[name^="contact-"] .text-green-600 {
     overflow-y: hidden;
     margin-top: 12px;
     max-height: 48px;
-    color: color(var(--color-secondary) l(-10%));
+    color: var(--color-secondary-dark) !important;
     font-size: 1.5rem;
     line-height: 1.5em;
     font-weight: 400;
@@ -1999,7 +2112,7 @@ form[name^="contact-"] .text-green-600 {
     flex-wrap: wrap;
     align-items: center;
     margin-top: 14px;
-    color: color(var(--color-secondary) l(-10%));
+    color: var(--color-secondary-text) !important;
     font-size: 1.5rem;
     font-weight: 400;
 }
@@ -2039,7 +2152,6 @@ form[name^="contact-"] .text-green-600 {
     height: auto;
     margin: 0 auto;
     border-radius: 4px;
-    /* optionnel */
 }
 
 /* Koenig Button Card
@@ -2059,23 +2171,31 @@ form[name^="contact-"] .text-green-600 {
     font-size: 1.6rem;
     font-weight: 600;
     text-decoration: none;
-    color: #fff;
+    color: var(--color-bg);
     background-color: var(--color-primary);
     border-radius: 6px;
-    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .kg-btn:hover,
 .kg-btn:focus {
-    background-color: color-mix(in srgb, var(--color-primary) 85%, #000);
+    background-color: var(--color-primary-dark) !important;
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
 .kg-btn:active {
     transform: translateY(0);
+    background-color: var(--color-primary-active);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width:480px) {
+    .kg-btn {
+        padding: .8rem 1.5rem;
+        font-size: 1.4rem;
+    }
 }
 
 /* Gallery Styles
@@ -2163,7 +2283,7 @@ form[name^="contact-"] .text-green-600 {
 /* Hover/focus agréable */
 .cover-selector select:hover,
 .cover-selector select:focus {
-    background-color: rgba(0, 0, 0, 0.45);
+    background-color: var(--color-bg-hover);
     border-color: var(--color-primary);
     color: var(--color-primary);
 }

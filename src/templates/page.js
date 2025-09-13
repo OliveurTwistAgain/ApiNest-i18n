@@ -86,8 +86,8 @@ const Page = ({ data, location, pageContext }) => {
                         {(slug === "contact" || slug === "en-contact") && (
                             <>
                                 {submitted ? (
-                                    <p className="text-green-600 font-semibold mt-4">
-                                        ✅ {lang === "fr"
+                                    <p className="message-success">
+                                         {lang === "fr"
                                             ? "Merci, votre message a bien été envoyé !"
                                             : "Thank you, your message has been sent!"}
                                     </p>

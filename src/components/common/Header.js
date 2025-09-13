@@ -37,6 +37,7 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
     navigate(lang === "en" ? "/en" : "/");
   };
 
+  // Cover aléatoire ou sauvegardée
   useEffect(() => {
     const availableCovers = coverListToUse.length > 0 ? coverListToUse : coverList;
     const savedCover = sessionStorage.getItem(STORAGE_KEY);
@@ -51,19 +52,26 @@ const Header = ({ currentLanguage, setLanguage, site }) => {
     }
   }, []);
 
-useEffect(() => {
-  if (menuOpen) {
-    document.body.classList.add("no-scroll");
-  } else {
-    document.body.classList.remove("no-scroll");
-  }
+  // Gestion du menu mobile (scroll + focus + Escape)
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.classList.add("no-scroll");
 
-  if (menuOpen) {
-    const firstFocusable = document.querySelector(".mobile-list a, .mobile-list button.lang");
-    firstFocusable?.focus();
-  }
-}, [menuOpen]);
+      const firstFocusable = document.querySelector(".mobile-list a, .mobile-list button.lang");
+      firstFocusable?.focus();
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  }, [menuOpen]);
 
+  // Fermeture avec Escape
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape" && menuOpen) setMenuOpen(false);
+    };
+    document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
+  }, [menuOpen]);
 
   const coverPath = `${coverPathPrefix}${localCover}`;
   const backgroundImage = localCover
@@ -72,7 +80,6 @@ useEffect(() => {
     ? `url(${site.cover_image})`
     : "none";
 
-  // Préparer tous les items mobiles avec type et ordre automatique
   const mobileItems = [
     ...filteredNavItems.map((item) => ({ type: "link", item })),
     ...(currentLanguage !== "fr" ? [{ type: "lang", code: "fr" }] : []),
@@ -120,7 +127,7 @@ useEffect(() => {
         </div>
       </nav>
 
-      {/* Cover selector (desktop) */}
+      {/* Cover selector (desktop only) */}
       {isUsingLocalCovers && (
         <div className="cover-selector">
           <label htmlFor="cover-select">Cover:</label>
