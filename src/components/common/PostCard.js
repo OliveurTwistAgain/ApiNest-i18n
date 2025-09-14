@@ -34,6 +34,33 @@ const PostCard = ({ post, hero, medium, small }) => {
         small && "post-card-small",
     ].filter(Boolean).join(" ");
 
+    // Hero avec mise en page spéciale
+    if (hero) {
+        return (
+            <Link to={url} className={cardClass}>
+                {post.feature_image && (
+                    <div
+                        className="post-card-image"
+                        style={{ backgroundImage: `url(${post.feature_image})` }}
+                        role="img"
+                        aria-label={post.title}
+                    />
+                )}
+
+                <div className="post-card-content">
+                    <header className="post-card-header">
+                        <h2 className="post-card-title">{post.title}</h2>
+                    </header>
+
+                    <section className="post-card-excerpt">
+                        {excerpt}
+                    </section>
+                </div>
+            </Link>
+        );
+    }
+
+    // Medium et Small restent simples
     return (
         <Link to={url} className={cardClass}>
             {post.feature_image && (
@@ -70,7 +97,6 @@ PostCard.propTypes = {
         }),
     }).isRequired,
 
-    // Props logiques (hero, medium, small)
     hero: PropTypes.bool,
     medium: PropTypes.bool,
     small: PropTypes.bool,

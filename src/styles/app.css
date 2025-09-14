@@ -683,23 +683,23 @@ h6 {
     background: var(--color-bg);
 }
 
-.post-feature-image img {
-    margin: 0 0 3vw;
+/* Harmonisation images vedettes Posts & Pages */
+.post-feature-image img,
+.page-feature-image {
+    display: block;
+    max-width: 720px;
     width: 100%;
-    height: 500px;
-    object-fit: cover;
+    height: auto;
+    margin: 0 auto 3rem auto;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Centrer les images vedettes des posts et pages */
+.post-feature-image,
 .page-feature-image {
-    width: 100%;
-    max-width: 800px;
-    object-fit: cover;
-    margin-bottom: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    display: block;
+    max-width: 720px;
+    margin: 0 auto 3rem auto;
 }
 
 /* Pages - harmonisation largeur contenu */
@@ -724,6 +724,19 @@ h6 {
     font-size: 3.4rem;
     font-weight: 700;
     line-height: 1.25;
+}
+
+/* Centrer uniquement le titre principal des pages */
+/* .page .content-title {
+    text-align: center;
+} */
+
+/* Titres des posts/pages alignés à gauche dans le conteneur */
+.post-full-content .content-title,
+.page .content-title {
+    max-width: 720px;
+    margin: 0 auto 1em;
+    text-align: left;
 }
 
 @media (max-width: 480px) {
@@ -1359,101 +1372,112 @@ body.no-scroll {
 }
 
 /* Post Feed, Articles, Cards etc.
-/* ---------------------------------------------------------- */
+----------------------------------------------------------*/
 
-/* === Homepage : logique hero, medium, small === */
-
-/* Niveau 1 : Post vedette (hero) - pleine largeur */
-.hero-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    margin-bottom: 2rem;
-    gap: 2rem;
-    max-width: 1070px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 1.5rem;
-    /* Padding horizontal interne */
-}
-
-/* Niveau 2 : Deux posts moyens */
-.medium-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    margin-bottom: 2rem;
-    max-width: 1070px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 1.5rem;
-}
-
-/* Niveau 3 : Plusieurs posts petits (jusqu'à 9 max en 3 colonnes) */
+/* === Container global pour tous les posts (Hero, Medium, Small) === */
+.hero-grid,
+.medium-grid,
 .small-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 2rem;
     max-width: 1070px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
     padding: 0 1.5rem;
+    box-sizing: border-box;
+    display: grid;
+    gap: 2rem;
 }
 
-/* Responsive homepage */
-/* Medium : 1 colonne sous 981px */
-@media (max-width: 980px) {
-    .medium-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .small-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Small : 1 colonne sous 481px */
-@media (max-width: 480px) {
-    .small-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* === Styles communs aux cartes (homepage + archives) === */
-.post-card {
+/* === Styles communs aux cartes === */
+.post-card,
+.post-card-hero,
+.post-card-medium,
+.post-card-small {
+    display: block;
     color: inherit;
     text-decoration: none;
-    width: 100%;
-    display: block;
     background: var(--color-bg);
     border-radius: 8px;
     padding: 1.5rem;
-    /* padding intérieur uniforme */
+    box-sizing: border-box;
+    width: 100%;
     transition: background 0.3s ease, box-shadow 0.3s ease, border-bottom 0.3s ease;
 }
 
-.post-card:hover {
+.post-card:hover,
+.post-card-hero:hover,
+.post-card-medium:hover,
+.post-card-small:hover {
     background: var(--color-bg-hover);
-    /* Bleu-gris très très pâle */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    text-decoration: none;
-    /* liseret bleu en bas */
     border-bottom: 0.5px solid var(--color-primary);
 }
 
-@media (max-width: 480px) {
-    .post-card {
-        padding: 1.2rem;
-    }
+/* === Niveau 1 : Post vedette (Hero) === */
+.post-card-hero {
+    display: grid;
+    grid-template-columns: 75% 25%;
+    gap: 2rem;
+    align-items: start;
+    width: 100%;
 }
 
-/* Titre */
+/* Hero */
+.post-card-hero .post-card-image {
+    width: 100%;
+    min-height: 320px;
+    margin: 0;
+    border-radius: 12px;
+    object-fit: cover;
+    align-self: stretch;
+}
+
+.post-card-hero .post-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.75rem;
+}
+
+/* === Niveau 2 : Deux posts Medium === */
+.medium-grid {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* Medium */
+.post-card-medium .post-card-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+/* === Niveau 3 : Plusieurs posts Small (3 colonnes) === */
+.small-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* Small */
+.post-card-small .post-card-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Images génériques */
+.post-card-image {
+    margin: 0 0 10px 0;
+    width: 100%;
+    height: 200px;
+    background: var(--color-secondary) no-repeat center center;
+    background-size: cover;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Titres */
 .post-card-title {
     margin: 0 0 10px 0;
     padding: 0;
 }
 
-/* Taille des titres par type de carte (homepage uniquement) */
 .post-card-hero .post-card-title {
     font-size: 2.8rem;
     line-height: 1.3;
@@ -1472,22 +1496,7 @@ body.no-scroll {
     font-weight: 700;
 }
 
-/* Responsive : ajuste les tailles sur petits écrans */
-@media (max-width: 480px) {
-    .post-card-hero .post-card-title {
-        font-size: 2.2rem;
-    }
-
-    .post-card-medium .post-card-title {
-        font-size: 1.9rem;
-    }
-
-    .post-card-small .post-card-title {
-        font-size: 1.6rem;
-    }
-}
-
-/* Extrait */
+/* Extraits */
 .post-card-excerpt {
     font-size: 1.6rem;
     line-height: 1.55em;
@@ -1501,36 +1510,79 @@ body.no-scroll {
     color: var(--color-secondary);
 }
 
-/* Image générique */
-.post-card-image {
-    margin: 0 0 10px 0;
-    width: 100%;
-    height: 200px;
-    background: var(--color-secondary) no-repeat center center;
-    background-size: cover;
-    border-radius: 8px;
-    object-fit: cover;
-}
-
-/* Images selon type (homepage uniquement) */
-.post-card-hero .post-card-image {
-    height: 280px;
-}
-
-.post-card-medium .post-card-image {
-    height: 220px;
-}
-
-.post-card-small .post-card-image {
-    height: 180px;
-}
-
-/* Espacement entre les blocs (homepage) */
+/* Espacement entre les blocs */
 .post-hero,
 .post-medium,
 .post-small {
     margin-bottom: 1rem;
 }
+
+/* === Breakpoints responsive === */
+@media (max-width: 980px) {
+    .post-card-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .post-card-hero .post-card-image {
+        border-radius: 12px 12px 0 0;
+        min-height: 200px;
+    }
+
+    .post-card-medium .post-card-image {
+        height: 180px;
+    }
+
+    .post-card-small .post-card-image {
+        height: 150px;
+    }
+
+    .post-card-hero .post-card-content {
+        margin-top: 0;
+    }
+
+    .medium-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .small-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .small-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .post-card,
+    .post-card-hero,
+    .post-card-medium,
+    .post-card-small {
+        padding: 1.2rem;
+    }
+
+    .post-card-hero .post-card-title {
+        font-size: 2.2rem;
+    }
+
+    .post-card-medium .post-card-title {
+        font-size: 1.9rem;
+    }
+
+    .post-card-small .post-card-title {
+        font-size: 1.6rem;
+    }
+}
+
+.post-card,
+.post-card * {
+    text-decoration: none !important;
+}
+
+/* .post-card-title,
+.post-card-excerpt {
+    text-decoration: none !important;
+} */
 
 /* Similar Posts */
 /* ---------------------------------------------------------- */
