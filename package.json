@@ -44,7 +44,7 @@
     "cheerio": "1.0.0-rc.11",
     "gatsby": "4.25.7",
     "gatsby-awesome-pagination": "0.3.8",
-    "gatsby-plugin-advanced-sitemap": "2.1.0",
+    "gatsby-plugin-advanced-sitemap": "^2.1.0",
     "gatsby-plugin-catch-links": "4.15.0",
     "gatsby-plugin-feed": "4.15.1",
     "gatsby-plugin-image": "2.15.1",
