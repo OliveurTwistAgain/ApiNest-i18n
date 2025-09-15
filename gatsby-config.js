@@ -12,6 +12,7 @@ const {
   GHOST_CONTENT_API_KEY,
   SITE_URL,
   SITE_URL_LOCAL,
+  IS_LOCALHOST,
 } = process.env;
 
 if (!GHOST_API_URL || !GHOST_CONTENT_API_KEY) {
@@ -28,10 +29,7 @@ module.exports = {
   siteMetadata: {
     title: config.siteTitleMeta,
     description: config.siteDescriptionMeta,
-    siteUrl:
-      process.env.NODE_ENV === "development"
-        ? SITE_URL_LOCAL
-        : SITE_URL || config.siteUrl,
+    siteUrl: process.env.NODE_ENV === "development" ? SITE_URL_LOCAL : SITE_URL || config.siteUrl,
     language: i18n.defaultLang,
   },
   trailingSlash: "always",
@@ -81,14 +79,13 @@ module.exports = {
       },
     },
 
-    // Advanced Sitemap (tout contenu dans un seul sitemap)
+    // Advanced Sitemap
     {
       resolve: `gatsby-plugin-advanced-sitemap`,
       options: {
         addUncaughtPages: true,
         createLinkInHead: true,
-        output: "/sitemap-all.xml", // ← Sitemap unique
-        sitemapIndexTitle: "Sitemap (pages + posts + tags + authors)",
+        output: "/sitemap.xml", // fichier principal
         exclude: [
           "/dev-404-page",
           "/404",
@@ -97,8 +94,8 @@ module.exports = {
         ],
         resolveSiteUrl: () =>
           process.env.NODE_ENV === "development"
-            ? SITE_URL_LOCAL
-            : SITE_URL || config.siteUrl,
+            ? process.env.SITE_URL_LOCAL
+            : process.env.SITE_URL || config.siteUrl,
         resolvePages: ({ allGhostPost, allGhostPage, allGhostTag, allGhostAuthor }) => {
           const mapNode = (node) => {
             const url = node?.url || node?.fields?.slug;
@@ -111,6 +108,9 @@ module.exports = {
             ...allGhostTag.edges.map(({ node }) => mapNode(node)).filter(Boolean),
             ...allGhostAuthor.edges.map(({ node }) => mapNode(node)).filter(Boolean),
           ];
+        },
+        siteMetadata: {
+          title: "Sitemap (pages + posts + tags + authors)",
         },
       },
     },
