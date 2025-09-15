@@ -1,3 +1,5 @@
+// gatsby-config.js
+
 require("dotenv").config({ path: `.env` });
 
 const path = require("path");
@@ -10,7 +12,6 @@ const {
   GHOST_CONTENT_API_KEY,
   SITE_URL,
   SITE_URL_LOCAL,
-  IS_LOCALHOST,
 } = process.env;
 
 if (!GHOST_API_URL || !GHOST_CONTENT_API_KEY) {
@@ -27,7 +28,10 @@ module.exports = {
   siteMetadata: {
     title: config.siteTitleMeta,
     description: config.siteDescriptionMeta,
-    siteUrl: process.env.NODE_ENV === "development" ? SITE_URL_LOCAL : SITE_URL || config.siteUrl,
+    siteUrl:
+      process.env.NODE_ENV === "development"
+        ? SITE_URL_LOCAL
+        : SITE_URL || config.siteUrl,
     language: i18n.defaultLang,
   },
   trailingSlash: "always",
@@ -77,20 +81,24 @@ module.exports = {
       },
     },
 
-    // Advanced Sitemap simplifié
+    // Advanced Sitemap (tout contenu dans un seul sitemap)
     {
       resolve: `gatsby-plugin-advanced-sitemap`,
       options: {
-        addUncaughtPages: true,      // Prend toutes les pages générées
+        addUncaughtPages: true,
         createLinkInHead: true,
-        output: "/sitemap.xml",       // Un seul sitemap
-        exclude: [                    // Pages à exclure
+        output: "/sitemap-all.xml", // ← Sitemap unique
+        sitemapIndexTitle: "Sitemap (pages + posts + tags + authors)",
+        exclude: [
           "/dev-404-page",
           "/404",
           "/404.html",
           "/offline-plugin-app-shell-fallback",
         ],
-        resolveSiteUrl: () => process.env.NODE_ENV === "development" ? process.env.SITE_URL_LOCAL : process.env.SITE_URL || config.siteUrl,
+        resolveSiteUrl: () =>
+          process.env.NODE_ENV === "development"
+            ? SITE_URL_LOCAL
+            : SITE_URL || config.siteUrl,
         resolvePages: ({ allGhostPost, allGhostPage, allGhostTag, allGhostAuthor }) => {
           const mapNode = (node) => {
             const url = node?.url || node?.fields?.slug;
