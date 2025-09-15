@@ -7,7 +7,7 @@ const i18n = {
   translations: {
     fr: {
       siteTitle: "Honey Ghost Lab",
-      siteDescription: "Le labo du testeur de miel. 🍯",
+      siteDescription: "Le labo du testeur de miel",
       navigation: {
         home: "Accueil",
         about: "À propos",
