@@ -28,7 +28,7 @@ const i18n = {
     },
     en: {
       siteTitle: "Honey Ghost Lab (en)",
-      siteDescription: "The Honey Tester Lab. 🍯",
+      siteDescription: "The Honey Tester Lab",
       navigation: {
         home: "Home",
         about: "About",

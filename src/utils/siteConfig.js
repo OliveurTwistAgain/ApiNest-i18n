@@ -1,21 +1,28 @@
-// src/utils/siteConfig.js : Configuration du site
+// src/utils/siteConfig.js : Configuration du site adaptée ApiNest
 
 module.exports = {
+    // Domaine principal
     siteUrl:
         process.env.NODE_ENV === `production`
-            ? process.env.SITE_URL || `https://dev-apinest-72.netlify.app/` // Site domain. No trailing slash! (e.g. https://www.example.com)
-            : process.env.SITE_URL_LOCAL || `http://localhost:8000`, // Local dev domain. No trailing slash! (e.g. http://localhost:8000)
+            ? process.env.SITE_URL || `https://apinest-72.netlify.app/` // Domaine de production
+            : process.env.SITE_URL_LOCAL || `http://localhost:8000`,   // Domaine local
 
-    postsPerPage: 12, // Number of posts shown on paginated pages (changes this requires sometimes to delete the cache)
+    // Pagination
+    postsPerPage: 12, // Articles par page
 
-    siteTitleMeta: `Ghost Gatsby Lab`, // This allows an alternative site title for meta data for pages.
-    siteDescriptionMeta: `Un site fr/en genéré avec Ghost and Gatsby`, // This allows an alternative site description for meta data for pages.
+    // Titres et description pour SEO
+    siteTitleMeta: `ApiNest - Le rucher du Grand Clos`, // Titre principal pour les balises meta
+    siteDescriptionMeta: `Découvrez nos miels artisanaux et suivez le quotidien de notre rucher en Sarthe.`, // Description SEO
 
-    shareImageWidth: 1000, // Change to the width of your default share image
-    shareImageHeight: 523, // Change to the height of your default share image
+    // Taille des images partagées sur réseaux sociaux
+    shareImageWidth: 1000,  // Largeur idéale pour réseaux sociaux
+    shareImageHeight: 523,  // Ratio paysage standard
 
-    shortTitle: `Ghost`, // Used for App manifest e.g. Mobile Home Screen
-    siteIcon: `favicon.png`, // Logo in /static dir used for SEO, RSS, and App manifest
-    backgroundColor: `#e9e9e9`, // Used for Offline Manifest
-    themeColor: `#15171A`, // Used for Offline Manifest
+    // Manifest & favicon
+    shortTitle: `ApiNest`,         // Nom court pour le manifest
+    siteIcon: `favicon.png`,       // Logo pour SEO, RSS, manifest
+
+    // Couleurs liées au thème (cohérence avec app.css)
+    backgroundColor: `#f6f8f9`,    // Couleur de fond globale
+    themeColor: `#3eb0ef`,         // Couleur principale (CTA, liens)
 };

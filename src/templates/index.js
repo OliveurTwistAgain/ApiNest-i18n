@@ -28,7 +28,15 @@ const IndexTemplate = ({ data, location, pageContext }) => {
 
   return (
     <Layout location={location} showFooter={true} language={pageContext.lang}>
-      <SEO title="" />
+      <SEO 
+        title={pageContext.lang === "en" 
+          ? "Beekeeper in Sarthe | Artisan Honey & Hive Products" 
+          : "Apiculteur en Sarthe | Miel artisanal & produits de la ruche"} 
+        description={pageContext.lang === "en"
+          ? "Taste authentic artisan honey from one beekeeper in Sarthe, France. Local production, respect for bees, and genuine flavors of the region."
+          : "Découvrez le miel artisanal d'un apiculteur en Sarthe. Production locale, respect des abeilles et saveurs authentiques du terroir."}
+        lang={pageContext.lang}
+      />
       <main className="post-feed">
         {/* Bloc vedette */}
         <section className="post-hero hero-grid">
