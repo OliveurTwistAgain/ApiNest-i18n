@@ -2461,7 +2461,7 @@ form[name^="contact-"] button:hover {
 .cover-selector select:focus {
     background-color: var(--color-bg-hover);
     border-color: var(--color-primary);
-    color: var(--color-primary);
+    color: var(--color-secondary-hover);
 }
 
 /* Option du select */
